@@ -1,3 +1,7 @@
+require('dotenv').config({
+  path: `.env`,
+})
+
 module.exports = {
   siteMetadata: {
     title: `Prist | Gatsby & Prismic Starter`,
@@ -26,8 +30,9 @@ module.exports = {
     {
         resolve: 'gatsby-source-prismic-graphql',
         options: {
-            repositoryName: 'prist', // (REQUIRED, replace with your own)
-            linkResolver: () => post => `/${post.uid}`,
+          repositoryName: process.env.PRISMIC_REPOSITORY_NAME,
+          accessToken: process.env.PRISMIC_ACCESS_TOKEN,
+          linkResolver: () => post => `/${post.uid}`,
         }
     },
     {
@@ -41,6 +46,16 @@ module.exports = {
         display: `minimal-ui`,
         icon: `src/images/oscar-icon.png`, // This path is relative to the root of the site.
       },
+    },
+    {
+      resolve: `gatsby-plugin-google-fonts`,
+      options: {
+        fonts: [
+          `gelasio\:300,400,500,700`,
+          `roboto`
+        ],
+        display: 'swap'
+      }
     },
     // https://www.gatsbyjs.org/packages/gatsby-plugin-google-analytics/
     {

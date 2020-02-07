@@ -12,18 +12,18 @@ import Layout from "components/Layout";
 import ProjectCard from "components/ProjectCard";
 
 const Hero = styled("div")`
-    padding-top: 2.5em;
-    padding-bottom: 3em;
-    margin-bottom: 6em;
-    max-width: 830px;
+    margin: 7.5rem auto;
+    max-width: 1140px;
+    display: flex;
+    position: relative;
+    flex-flow: row nowrap;
+    justify-content: space-between;
 
     @media(max-width:${dimensions.maxwidthMobile}px) {
        margin-bottom: 3em;
     }
 
     h1 {
-        margin-bottom: 1em;
-
         a {
             text-decoration: none;
             transition: all 100ms ease-in-out;
@@ -49,7 +49,52 @@ const Hero = styled("div")`
     }
 `
 
+const HeroImageContainer = styled("div")`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  flex-grow: 2;
+  flex-basis: 1;
+  img {
+      width: 100%;
+      border-width: 8px 10px;
+      border-color: #000;
+      border-style: solid;
+  }
+`
+
+const HeroDetailContainer = styled("div")`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  flex-grow: 3;
+  flex-basis: 1;
+  padding-left: 60px;
+  flex-direction: column;
+  h1 {
+    font-family: Gelasio;
+    font-weight: 200;
+    font-size: 2.4rem;
+    line-height: 1.2;
+
+    &::after {
+      content: "";
+      display: block;
+      width: 30px;
+      height: 2px;
+      background-color: ${colors.green600};
+      margin-left: auto;
+      margin-right: auto;
+      margin-bottom: 0;
+      margin-top: 23px;
+    }
+  }
+`
+
 const Section = styled("div")`
+    border-top: 1px solid rgba(46,46,46,0.1);
     margin-bottom: 10em;
     display: flex;
     flex-direction: column;
@@ -93,7 +138,7 @@ const WorkAction = styled(Link)`
     }
 `
 
-const RenderBody = ({ home, projects, meta }) => (
+const RenderBody = ({ home, projects, meta, reviews }) => (
     <>
         <Helmet
             title={meta.title}
@@ -134,16 +179,27 @@ const RenderBody = ({ home, projects, meta }) => (
             ].concat(meta)}
         />
         <Hero>
-            <>
-                {RichText.render(home.hero_title)}
-            </>
-            <a href={home.hero_button_link.url}
-               target="_blank" rel="noopener noreferrer">
-                <Button>
-                    {RichText.render(home.hero_button_text)}
-                </Button>
-            </a>
+            <HeroImageContainer>
+                <img src={home.hero_background.url}></img>
+            </HeroImageContainer>
+            <HeroDetailContainer>
+                <>
+                    {RichText.render(home.hero_title)}
+                    {RichText.render(home.hero_subtitle)}
+                </>
+                <a href={home.hero_button_link.url}
+                target="_blank" rel="noopener noreferrer">
+                    <Button>
+                        {RichText.render(home.hero_button_text)}
+                    </Button>
+                </a>
+            </HeroDetailContainer>
         </Hero>
+        <Section>
+            {reviews.map((review, i) => (
+                <p>{review.node.review_copy}</p>
+            ))}
+        </Section>
         <Section>
             {projects.map((project, i) => (
                 <ProjectCard
@@ -174,12 +230,13 @@ export default ({ data }) => {
     const doc = data.prismic.allHomepages.edges.slice(0, 1).pop();
     const projects = data.prismic.allProjects.edges;
     const meta = data.site.siteMetadata;
+    const reviews = data.prismic.allReviews.edges;
 
-    if (!doc || !projects) return null;
+    if (!doc || !projects || !reviews) return null;
 
     return (
         <Layout>
-            <RenderBody home={doc.node} projects={projects} meta={meta}/>
+            <RenderBody home={doc.node} projects={projects} meta={meta} reviews={reviews} />
         </Layout>
     )
 }
@@ -188,6 +245,7 @@ RenderBody.propTypes = {
     home: PropTypes.object.isRequired,
     projects: PropTypes.array.isRequired,
     meta: PropTypes.object.isRequired,
+    reviews: PropTypes.array.isRequired
 };
 
 export const query = graphql`
@@ -197,7 +255,9 @@ export const query = graphql`
                 edges {
                     node {
                         hero_title
+                        hero_subtitle
                         hero_button_text
+                        hero_background
                         hero_button_link {
                             ... on PRISMIC__ExternalLink {
                                 _linkType
@@ -210,6 +270,14 @@ export const query = graphql`
                         about_links {
                             about_link
                         }
+                    }
+                }
+            }
+            allReviews {
+                edges {
+                    node {
+                        review_copy
+                        reviewer_name
                     }
                 }
             }

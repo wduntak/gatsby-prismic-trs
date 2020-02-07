@@ -4,8 +4,8 @@ import colors from "styles/colors";
 import dimensions from "styles/dimensions";
 
 const ButtonContainer = styled("button")`
-    padding: 1em 2em;
-    background: ${colors.blue400};
+    padding: 0.5em 2em;
+    background: ${colors.green600};
     font-weight: 600;
     color: white;
     outline: none;
