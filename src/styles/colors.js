@@ -10,6 +10,8 @@ const colors = {
     blue200: "#e3efff",
     blue100: "#f1f8ff",
 
+    green800: "#30561f",
+    green700: "#4e8833",
     green600: "#61A840",
     green500: "#6CBB47",
     green200: "#E2F1DA",

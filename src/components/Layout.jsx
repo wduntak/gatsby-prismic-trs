@@ -11,19 +11,9 @@ import Header from "components/Header";
 import 'styles/fonts.scss';
 
 const LayoutContainer = styled.div`
-    padding-top: 81px;
-    // @media(max-width: ${dimensions.maxwidthTablet}px) {
-    //     padding-left: ${dimensions.paddingHorizontalTablet}em;
-    //     padding-right: ${dimensions.paddingHorizontalTablet}em;
-    // }
-
-    // @media(max-width: ${dimensions.maxwidthMobile}px) {
-    //     padding-left: ${dimensions.paddingHorizontalMobile}em;
-    //     padding-right: ${dimensions.paddingHorizontalMobile}em;
-    // }
-    // .Layout__content {
-    //     padding-bottom: 5em;
-    // }
+    main.Layout__content {
+        margin-top: 110px;
+    }
 `;
 
 const Layout = ({ children }) => (

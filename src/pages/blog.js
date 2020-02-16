@@ -81,6 +81,7 @@ const Blog = ({ posts, meta }) => (
                         date={post.node.post_date}
                         description={post.node.post_preview_description}
                         uid={post.node._meta.uid}
+                        thumbnail={post.node.post_hero_image}
                     />
                 ))}
             </BlogGrid>
@@ -115,6 +116,7 @@ export const query = graphql`
                         post_category
                         post_preview_description
                         post_author
+                        post_hero_image
                         _meta {
                             uid
                         }

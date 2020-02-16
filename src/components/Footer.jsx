@@ -2,57 +2,53 @@ import React from "react";
 import { Link } from "gatsby";
 import styled from "@emotion/styled";
 import colors from "styles/colors";
-import spooch from "images/oscar-icon.png"
+import Logo from "components/_ui/Logo";
 
-const FooterContainer = styled("div")`
-    padding-top: 3.75em;
-    padding-bottom: 3em;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-
-    svg {
-        max-width: 50px;
-    }
+const FooterContainer = styled("footer")`
+    margin-top: 125px;
+    padding: 75px 30px 45px 30px;
+    flex: 0 0 auto;
+    position: relative;
+    background-color: #e8ece9;
 `
 
-const FooterAuthor = styled("a")`
-    font-size: 0.75em;
-    color: ${colors.grey700};
+const FooterColumns = styled("div")`
+    justify-content: flex-end;
+    flex-flow: row wrap;
+    text-align: left;
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-decoration: none;
-    margin-top: 1.5em;
-
-     &:hover {
-         color: ${colors.blue900};
-
-        .FooterSpooch {
-            animation-name: rotate;
-            animation-duration: 1.5s;
-            animation-iteration-count: infinite;
-            animation-timing-function: linear;
-        }
-    }
-
-    @keyframes rotate {
-        from {transform: rotate(0deg);}
-        to {transform: rotate(360deg);}
-    }
+    max-width: 1200px;
+    width: 100%;
+    margin: 0 auto;
 `
 
-const FooterSpooch = styled("img")`
-    max-width: 33px;
-    margin-top: 0.25em;
+const FooterColumn = styled("div")`
+    margin-left: 0;
+    margin-top: 0;
+    padding-top: 0;
+    flex-grow: 1;
 `
 
 const Footer = () => (
     <FooterContainer>
-        <FooterAuthor href="https://marguerite.io">
-            © 2019 — Designed & developed by Marguerite Roth
-            <FooterSpooch className="FooterSpooch" src={spooch} />
-        </FooterAuthor>
+        <FooterColumns>
+            <FooterColumn>
+                <Link to="/">
+                    <Logo />
+                </Link>
+            </FooterColumn>
+            <FooterColumn></FooterColumn>
+            <FooterColumn></FooterColumn>
+            <FooterColumn>
+                <h3>Follow</h3>
+                <ul>
+                    <li><Link to="/">Twitter</Link></li>
+                    <li><Link to="/">Facebook</Link></li>
+                    <li><Link to="/">Instagram</Link></li>
+                    <li><Link to="/">Youtube</Link></li>
+                </ul>
+            </FooterColumn>
+        </FooterColumns>
     </FooterContainer>
 )
 

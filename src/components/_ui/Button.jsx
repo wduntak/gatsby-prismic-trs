@@ -5,7 +5,7 @@ import dimensions from "styles/dimensions";
 
 const ButtonContainer = styled("button")`
     padding: 0.5em 2em;
-    background: ${colors.green600};
+    background: #000;
     font-weight: 600;
     color: white;
     outline: none;
@@ -31,7 +31,7 @@ const ButtonContainer = styled("button")`
         top: 0;
         width: 100%;
         height: 100%;
-        background: linear-gradient(135deg, ${colors.pink400} 0%, ${colors.purple400} 100%);
+        background: ${colors.green700};
         z-index: -1;
     }
 

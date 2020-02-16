@@ -16,10 +16,12 @@ const globalStyles = css`
         width: 100%;
         margin: 0 auto;
         font-size: 16px;
-        line-height: 1.5;
+        line-height: 1.4;
         color: ${colors.grey900};
         -webkit-font-smoothing: antialiased;
-
+        p {
+            line-height: 1.6;
+        }
         @media(max-width: ${dimensions.maxwidthMobile}px) {
             font-size: 14px;
         }
@@ -27,11 +29,6 @@ const globalStyles = css`
 
         * {
             box-sizing: border-box;
-
-            &::selection {
-                background: ${colors.orange500};
-                color: white;
-            }
         }
     }
 

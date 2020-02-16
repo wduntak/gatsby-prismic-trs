@@ -11,7 +11,7 @@ const HeaderContainer = styled("header")`
     left: 0;
     right: 0;
     top: 0;
-    z-index: 8;
+    z-index: 100;
     transition: opacity 0.25s,transform 0.25s;
     will-change: opacity,transform;
     background-color: rgba(255,255,255,0.97);
@@ -26,13 +26,11 @@ const HeaderContent = styled("div")`
     padding-top: 0.02px;
     margin-right: auto;
     margin-left: auto;
-    @media(max-width: 1279px) and (min-width: 1024px) {
-        width: calc(100vw - 94px);
-    }
-    @media screen and (min-width: 1140px) {
+    width: 100%;
+    @media screen and (min-width: ${dimensions.maxwidthDesktop}px) {
         height: 90px;
         transition: height: 0.15s ease;
-        width: 1330px;
+        max-width: 1140px;
         padding-right: 0;
         padding-left: 0;
     }
@@ -155,21 +153,7 @@ const Header = () => (
                         <Link
                             activeClassName="Link--is-active"
                             to="/about">
-                            About us
-                        </Link>
-                    </li>
-                    <li>
-                        <Link
-                            activeClassName="Link--is-active"
-                            to="/work">
-                            Work
-                        </Link>
-                    </li>
-                    <li>
-                        <Link
-                            activeClassName="Link--is-active"
-                            to="/about">
-                            Team
+                            About
                         </Link>
                     </li>
                     <li>
@@ -179,6 +163,13 @@ const Header = () => (
                             Blog
                         </Link>
 
+                    </li>
+                    <li>
+                        <Link
+                            activeClassName="Link--is-active"
+                            to="/donate">
+                            Donate
+                        </Link>
                     </li>
                 </ul>
             </HeaderLinks>
