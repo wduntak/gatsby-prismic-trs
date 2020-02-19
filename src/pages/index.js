@@ -13,7 +13,8 @@ import ReviewSlider from "components/ReviewSlider";
 
 
 const Hero = styled("div")`
-    margin: 7.5rem auto;
+    margin: 0 auto;
+    padding: 6.5rem 2rem;
     max-width: 1140px;
     display: flex;
     position: relative;
@@ -21,7 +22,7 @@ const Hero = styled("div")`
     justify-content: space-between;
 
     @media(max-width:${dimensions.maxwidthTablet}px) {
-        margin: 20px auto 40px auto;
+        padding: 2.5rem 2rem;
         flex-flow: column nowrap;
     }
 `
@@ -39,9 +40,7 @@ const HeroImageContainer = styled("div")`
   }
   img {
       width: 100%;
-      border-width: 8px 10px;
-      border-color: #000;
-      border-style: solid;
+      box-shadow: 4px 4px 8px #f3f3f3;
       @media(max-width:${dimensions.maxwidthTablet}px) {
         flex-flow: column nowrap;
       }
@@ -106,12 +105,20 @@ const Section = styled("section")`
         max-height: 700px;
         margin-bottom: 0;
         border: none;
+        @media(max-width: ${dimensions.maxwidthTablet}px) {
+            flex-flow: column nowrap;
+            max-height: 100%;
+        }
     }
 `
 const HighlightImageContainer = styled("div")`
     flex-grow: 1;
     position: relative;
     width: 50%;
+    @media(max-width: ${dimensions.maxwidthTablet}px) {
+        width: 100%;
+        order: 1;
+    }
     img {
         width: 100%;
         height: 100%;
@@ -131,13 +138,23 @@ const HighlightTextContainer = styled("div")`
     display: flex;
     align-items: center;
     font-family: 'Gelasio', serif;
+    @media(max-width: ${dimensions.maxwidthTablet}px) {
+        width: 100%;
+        order: 2;
+        padding: 30px;
+    }
 `
 
 const HighlightTextWrapper = styled("div")`
     padding: 0 4rem;
-    max-width: 500px;
+    max-width: 100%;
     &.text-left {
         margin: 0 0 0 auto;
+    }
+    @media(max-width: ${dimensions.maxwidthTablet}px) {
+        h3, p {
+            text-align: center;
+        }
     }
 `
 
@@ -169,6 +186,7 @@ const BlogPostsWrapper = styled("section")`
     max-width: 1140px;
     width: 100%;
     margin: 60px auto 0 auto;
+    padding: 0 20px;
 
     @media (min-width: ${dimensions.maxwidthDesktop}px) {
         column-count: 3;
@@ -286,7 +304,8 @@ const RenderBody = ({ home, posts, meta, reviews }) => (
                         title={post.node.post_title}
                         description={post.node.post_preview_description}
                         thumbnail={post.node.post_hero_image}
-                        uid={post.node._meta.uid}                    
+                        uid={post.node._meta.uid}        
+                        date={post.node.post_date}          
                     />
                 ))}
             </BlogPostsWrapper>
@@ -303,7 +322,6 @@ export default ({ data }) => {
     const posts = data.prismic.allPosts.edges;
     const meta = data.site.siteMetadata;
     const reviews = data.prismic.allReviews.edges;
-    console.log('Home: ', doc.node);
     if (!doc || !reviews|| !posts) return null;
 
     return (

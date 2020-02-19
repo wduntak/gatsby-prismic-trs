@@ -2,10 +2,24 @@ import React from "react";
 import PropTypes from "prop-types";
 import Helmet from "react-helmet";
 import { graphql } from "gatsby";
-// import styled from "@emotion/styled";
+import styled from "@emotion/styled";
+import dimensions from "styles/dimensions";
 import ImageGallery from "react-image-gallery";
 import "react-image-gallery/styles/css/image-gallery.css";
 import Layout from "components/Layout";
+
+const ImageGalleryContainer = styled('div')`
+    display: block;
+    max-width: 1140px;
+    margin: 0 auto;
+
+    @media(min-width: ${dimensions.maxwidthDesktop}px) {
+        padding-top: 40px;
+    }
+    .image-gallery-image {
+        background-color: #000;
+    }
+`
 
 const Gallery = ({ images, meta }) => (
     <>
@@ -48,7 +62,9 @@ const Gallery = ({ images, meta }) => (
             ].concat(meta)}
         />
         <Layout>
-            <ImageGallery items={images} />
+            <ImageGalleryContainer>
+                <ImageGallery items={images} showFullscreenButton={false} showPlayButton={false} showIndex={true} />
+            </ImageGalleryContainer>
         </Layout>
     </>
 );
@@ -61,14 +77,16 @@ export default ({ data }) => {
     const images = gallerys[0].node.body[0].fields.map((image, i) => {
         return {
             original: image.gallery_image.url,
-            thumbnail: image.gallery_image.Thumbnail.url
+            thumbnail: image.gallery_image.Thumbnail.url,
+            description: image.caption[0].text,
+            originalAlt: image.alt_text[0].text
         };
     });
 
     console.log('images', images);
 
     return (
-        <Gallery images={images} meta={meta}/>
+        <Gallery images={images} meta={meta} />
     )
 }
 
@@ -86,9 +104,11 @@ export const query = graphql`
                             ... on PRISMIC_GalleryBodyImage_gallery {
                                 fields {
                                     gallery_imageSharp {
-                                    id
+                                        id
                                     }
                                     gallery_image
+                                    alt_text
+                                    caption
                                 }
                             }
                         }

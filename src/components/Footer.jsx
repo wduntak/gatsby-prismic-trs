@@ -27,6 +27,20 @@ const FooterColumn = styled("div")`
     margin-top: 0;
     padding-top: 0;
     flex-grow: 1;
+    h3 {
+        font-size: 16px;
+    }
+    ul {
+        list-style: none;
+        padding: 0;
+        li {
+            margin-top: 20px;
+            a {
+                color: #757575;
+                text-decoration: none;
+            }
+        }
+    }
 `
 
 const Footer = () => (
@@ -38,7 +52,15 @@ const Footer = () => (
                 </Link>
             </FooterColumn>
             <FooterColumn></FooterColumn>
-            <FooterColumn></FooterColumn>
+            <FooterColumn>
+                <h3>Browse</h3>
+                <ul>
+                    <li><Link to="/">Home</Link></li>
+                    <li><Link to="/">About</Link></li>
+                    <li><Link to="/">Gallery</Link></li>
+                    <li><Link to="/">Blog</Link></li>
+                </ul>
+            </FooterColumn>
             <FooterColumn>
                 <h3>Follow</h3>
                 <ul>

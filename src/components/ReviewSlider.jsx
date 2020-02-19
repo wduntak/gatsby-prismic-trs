@@ -117,6 +117,7 @@ const ReviewSliderContent= styled("div")`
 
 const ReviewSliderQuote = styled('p')`
   font-family: 'Gelasio', serif;
+  font-size: 18px;
   color: #000;
   margin: 0 0 1rem 0;
   max-width: 600px;

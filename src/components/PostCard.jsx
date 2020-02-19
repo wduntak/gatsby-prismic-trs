@@ -74,7 +74,7 @@ const PostCardAction = styled("div")`
     } */
 `
 
-const PostCard = ({ author, category, date, title, description, uid, thumbnail}) => (
+const PostCard = ({ category, date, title, description, uid, thumbnail}) => (
     <PostCardContainer className="BlogPostCard">
         <PostImage src={thumbnail.thumbnail.url} />
         <PostTitle><h3>{title[0].text}</h3></PostTitle>
@@ -87,18 +87,18 @@ const PostCard = ({ author, category, date, title, description, uid, thumbnail})
         <PostCardAction className="PostCardAction">
             <Link to={`blog/${uid}`}>Read More</Link>
         </PostCardAction>
-        <PostMetas>
+        {/* <PostMetas>
             <PostAuthor>
                 {author}
             </PostAuthor>
-        </PostMetas>
+        </PostMetas> */}
     </PostCardContainer>
 )
 
 export default PostCard;
 
 PostCard.propTypes = {
-    author: PropTypes.string.isRequired,
+    // author: PropTypes.string.isRequired,
     category: PropTypes.array.isRequired,
     date: PropTypes.string.isRequired,
     title: PropTypes.array.isRequired,

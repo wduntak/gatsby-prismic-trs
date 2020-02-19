@@ -9,6 +9,7 @@ import PostCard from "components/PostCard";
 
 const BlogTitle = styled("h1")`
     margin-bottom: 1em;
+    text-align: center;
 `
 
 const BlogGrid = styled("div")`
@@ -25,6 +26,12 @@ const BlogGrid = styled("div")`
         grid-template-columns: 1fr;
         grid-gap: 2.5em;
     }
+`
+
+const BlogWrapper = styled("div")`
+    padding: 20px 30px 0 30px;
+    max-width: 1140px;
+    margin: 0 auto;
 `
 
 const Blog = ({ posts, meta }) => (
@@ -68,23 +75,25 @@ const Blog = ({ posts, meta }) => (
             ].concat(meta)}
         />
         <Layout>
-            <BlogTitle>
-                Blog
-            </BlogTitle>
-            <BlogGrid>
-                {posts.map((post, i) => (
-                    <PostCard
-                        key={i}
-                        author={post.node.post_author}
-                        category={post.node.post_category}
-                        title={post.node.post_title}
-                        date={post.node.post_date}
-                        description={post.node.post_preview_description}
-                        uid={post.node._meta.uid}
-                        thumbnail={post.node.post_hero_image}
-                    />
-                ))}
-            </BlogGrid>
+            <BlogWrapper>
+                <BlogTitle>
+                    Blog
+                </BlogTitle>
+                <BlogGrid>
+                    {posts.map((post, i) => (
+                        <PostCard
+                            key={i}
+                            author={post.node.post_author}
+                            category={post.node.post_category}
+                            title={post.node.post_title}
+                            date={post.node.post_date}
+                            description={post.node.post_preview_description}
+                            uid={post.node._meta.uid}
+                            thumbnail={post.node.post_hero_image}
+                        />
+                    ))}
+                </BlogGrid>
+            </BlogWrapper>
         </Layout>
     </>
 );

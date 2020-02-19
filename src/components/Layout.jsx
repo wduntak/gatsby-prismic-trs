@@ -13,6 +13,9 @@ import 'styles/fonts.scss';
 const LayoutContainer = styled.div`
     main.Layout__content {
         margin-top: 110px;
+        @media(max-width: ${dimensions.maxwidthTablet}px) {
+            margin-top: 80px;    
+        }
     }
 `;
 

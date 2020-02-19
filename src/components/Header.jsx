@@ -29,131 +29,131 @@ const HeaderContent = styled("div")`
     width: 100%;
     @media screen and (min-width: ${dimensions.maxwidthDesktop}px) {
         height: 90px;
-        transition: height: 0.15s ease;
+        transition: height 0.15s ease;
         max-width: 1140px;
         padding-right: 0;
         padding-left: 0;
     }
-    .logo {
-        position: absolute;
-        left: 0;
-        top: 50%;
-        width: 116px;
-        height: 26px;
-        margin-top: -20px;
-        color: #ff9326;
-        @media(min-width: 880px) {
-            width: 150px;
-            height: 33px;
-            margin-top: -17px;
-        }
-        svg {
-            width: 100%;
-            height: 100%;
-            position: absolute;
-            left: 0;
-            top: 50%;
-            width: 180px;
-            height: 70px;
-            margin-top: -24px;
-            color: #ff9326;
-        }
+    .hidden {
+        display: none;
     }
 `
 
 const HeaderLinks = styled("nav")`
-    display: block;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+    .logo {
+        width: 150px;
+        height: 100%;
+        svg {
+            width: 100%;
+            height: 100%;
+        }
+    }
     ul {
         display: flex;
         flex-flow: row nowrap;
         margin-top: 20px;
         justify-content: flex-end;
         padding-left: 0;
-        @media(min-width: 880px) {
-            margin-top: 20px;
-        }
-        @media(min-width: 1140px) {
-            margin-top: 32px;
-        }
-    }
     
-    li {
-        font-family: Gelasio;
-        font-size: 1.2rem;
-        font-weight: 500;
-        display: none;
-        flex: 0 0 auto;
-        margin-right: 5px;
-        margin-left: 5px;
-        list-style-type: none;
-        &:first-child {
-            margin-left: 0;
-        }
-        @media(min-width: 880px) {
-            display: block;
-            margin-right: 20px;
-            margin-left: 20px;
+        li {
+            font-family: Gelasio;
+            font-size: 1.2rem;
+            font-weight: 500;
+            display: none;
+            flex: 0 0 auto;
+            margin-right: 5px;
+            margin-left: 5px;
+            list-style-type: none;
+            a {
+                color: #2e2e2e;
+                background-image: linear-gradient(to bottom,#e5e5e5,#e5e5e5);
+                background-repeat: repeat-x;
+                background-size: 1px 1px;
+                background-position: 0 1.2em;
+                padding-bottom: 10px;
+                margin-bottom: -10px;
+                text-decoration: none;
+        
+                &:after {
+                    position: absolute;
+                    content: "";
+                    bottom: 0;
+                    width: 18px;
+                    height: 3px;
+                    background: transparent;
+                    bottom: -3px;
+                    right: 50%;
+                    margin-right: -9px;
+                    transition: 100ms ease-in-out background;
+                }
+        
+                &:hover {
+                    background-image: linear-gradient(to bottom,#bdbdbd,#bdbdbd);
+                    background-repeat: repeat-x;
+                    background-size: 1px 1px;
+                    background-position: 0 1.2em;
+                    padding-bottom: 10px;
+                    margin-bottom: -10px;
+                    text-decoration: none;
+                }
+            }
+            &:first-child {
+                margin-left: 0;
+            }
+            @media(min-width: 880px) {
+                display: block;
+                margin-right: 20px;
+                margin-left: 20px;
+            }
         }
     }
-
-
-    a {
-        color: #2e2e2e;
-        background-image: linear-gradient(to bottom,#e5e5e5,#e5e5e5);
-        background-repeat: repeat-x;
-        background-size: 1px 1px;
-        background-position: 0 1.2em;
-        padding-bottom: 10px;
-        margin-bottom: -10px;
-        text-decoration: none;
-
-        &:after {
-            position: absolute;
-            content: "";
-            bottom: 0;
-            width: 18px;
-            height: 3px;
-            background: transparent;
-            bottom: -3px;
-            right: 50%;
-            margin-right: -9px;
-            transition: 100ms ease-in-out background;
+    svg.icon--menu {
+        width: 100px;
+        height: 25px;
+        display: none;
+        @media(max-width: ${dimensions.maxwidthTablet}px) {
+            display: block;
         }
-
-        &:hover {
-            background-image: linear-gradient(to bottom,#bdbdbd,#bdbdbd);
-            background-repeat: repeat-x;
-            background-size: 1px 1px;
-            background-position: 0 1.2em;
-            padding-bottom: 10px;
-            margin-bottom: -10px;
-            text-decoration: none;
-        }
-
-        // &.Link--is-active {
-        //     &:after {
-        //         background: ${colors.blue500};
-        //         transition: 100ms ease-in-out background;
-        //     }
-        // }
     }
 `
 
 const Header = () => (
     <HeaderContainer>
         <HeaderContent>
-            <Link 
-                to="/"
-                className="logo">
-                <Logo/>
-            </Link>
+            <svg className="hidden">
+                <symbol id="icon-menu" viewBox="0 0 24 24">
+                    <title>menu</title>
+                    <path d="M23.8,6H0.1V3h23.7V6z M23.8,10.5H0.1v3h23.7V10.5z M14.2,18h-14v3h14V18z"/>
+                </symbol>
+                <symbol id="icon-cross" viewBox="0 0 24 24">
+                    <title>cross</title>
+                    <path d="M14.1,12l7.3,7.3l-2.1,2.1L12,14.1l-7.3,7.3l-2.1-2.1L9.9,12L2.6,4.7l2.1-2.1L12,9.9l7.3-7.3l2.1,2.1L14.1,12z"/>
+                </symbol>
+            </svg>
             <HeaderLinks>
+                <Link 
+                    to="/"
+                    className="logo">
+                    <Logo/>
+                </Link>
                 <ul>
                     <li>
                         <Link
                             activeClassName="Link--is-active"
                             to="/about">
                             About
+                        </Link>
+                    </li>
+                    <li>
+                        <Link
+                            activeClassName="Link--is-active"
+                            to="/team">
+                            Team
                         </Link>
                     </li>
                     <li>
@@ -167,11 +167,19 @@ const Header = () => (
                     <li>
                         <Link
                             activeClassName="Link--is-active"
+                            to="/gallery">
+                            Gallery
+                        </Link>
+                    </li>
+                    <li>
+                        <Link
+                            activeClassName="Link--is-active"
                             to="/donate">
                             Donate
                         </Link>
                     </li>
                 </ul>
+                <svg className="icon icon--menu"><use xlinkHref="#icon-menu"></use></svg>
             </HeaderLinks>
         </HeaderContent>
     </HeaderContainer>
