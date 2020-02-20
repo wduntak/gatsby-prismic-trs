@@ -16,8 +16,15 @@ const ImageGalleryContainer = styled('div')`
     @media(min-width: ${dimensions.maxwidthDesktop}px) {
         padding-top: 40px;
     }
-    .image-gallery-image {
+    .image-gallery-content .image-gallery-slide .image-gallery-image {
+        height: 600px;
+        max-height: 600px;
+        width: 100%;
         background-color: #000;
+    }
+    .image-gallery-left-nav .image-gallery-svg, .image-gallery-right-nav .image-gallery-svg {
+        height: 60px;
+        width: 60px;
     }
 `
 
