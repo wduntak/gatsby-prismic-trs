@@ -4,6 +4,7 @@ import { Link } from "gatsby";
 import { RichText } from "prismic-reactjs";
 import styled from "@emotion/styled";
 import colors from "styles/colors";
+import dimensions from "styles/dimensions";
 import PropTypes from "prop-types";
 
 const PostCardContainer = styled("article")`
@@ -19,6 +20,9 @@ const PostCardContainer = styled("article")`
 const PostImage = styled("img")`
     max-width: 350px;
     width: 100%;
+    @media(max-width: ${dimensions.maxwidthMobile}px) {
+        max-width: 100%;
+    }
 `
 
 const PostCategory = styled("h6")`
@@ -77,7 +81,7 @@ const PostCardAction = styled("div")`
 const PostCard = ({ category, date, title, description, uid, thumbnail}) => (
     <PostCardContainer className="BlogPostCard">
         <PostImage src={thumbnail.thumbnail.url} />
-        <PostTitle><h3>{title[0].text}</h3></PostTitle>
+        <PostTitle to={`blog/${uid}`}><h3>{title[0].text}</h3></PostTitle>
         <PostDate>
             <Moment format="MMMM D, YYYY">{date}</Moment>
         </PostDate>

@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "gatsby";
 import styled from "@emotion/styled";
 import colors from "styles/colors";
+import dimensions from "styles/dimensions";
 import Logo from "components/_ui/Logo";
 
 const FooterContainer = styled("footer")`
@@ -10,6 +11,9 @@ const FooterContainer = styled("footer")`
     flex: 0 0 auto;
     position: relative;
     background-color: #e8ece9;
+    @media(max-width: ${dimensions.maxwidthMobile}px) {
+        padding: 30px;
+    }
 `
 
 const FooterColumns = styled("div")`
@@ -20,6 +24,9 @@ const FooterColumns = styled("div")`
     max-width: 1200px;
     width: 100%;
     margin: 0 auto;
+    @media(max-width: ${dimensions.maxwidthMobile}px) {
+        flex-flow: column nowrap;
+    }
 `
 
 const FooterColumn = styled("div")`
@@ -27,6 +34,21 @@ const FooterColumn = styled("div")`
     margin-top: 0;
     padding-top: 0;
     flex-grow: 1;
+    @media(max-width: ${dimensions.maxwidthMobile}px) {
+        &:nth-child(1) {
+            order: 3;
+            svg {
+                max-width: 200px;
+                margin: 0 auto;
+                display: block;
+            }
+        }    
+        &:nth-child(3), &:nth-child(4) {
+            order: 1;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+    }
     h3 {
         font-size: 16px;
     }

@@ -83,8 +83,6 @@ export default ({ data }) => {
         };
     });
 
-    console.log('images', images);
-
     return (
         <Gallery images={images} meta={meta} />
     )

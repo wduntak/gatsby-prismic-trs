@@ -8,6 +8,7 @@ import Layout from "components/Layout";
 import PostCard from "components/PostCard";
 
 const BlogTitle = styled("h1")`
+    font-family: 'Gelasio', serif;
     margin-bottom: 1em;
     text-align: center;
 `

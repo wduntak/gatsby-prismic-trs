@@ -147,7 +147,8 @@ const HighlightTextContainer = styled("div")`
 
 const HighlightTextWrapper = styled("div")`
     padding: 0 4rem;
-    max-width: 100%;
+    width: 100%;
+    max-width: 650px;
     &.text-left {
         margin: 0 0 0 auto;
     }

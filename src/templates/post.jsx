@@ -134,9 +134,9 @@ const Post = ({ post, meta }) => {
                 ].concat(meta)}
             />
             <Layout>
-                <PostCategory>
+                {/* <PostCategory>
                     {RichText.render(post.post_category)}
-                </PostCategory>
+                </PostCategory> */}
                 <PostTitle>
                     {RichText.render(post.post_title)}
                 </PostTitle>
