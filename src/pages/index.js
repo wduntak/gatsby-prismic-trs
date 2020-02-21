@@ -8,6 +8,7 @@ import colors from "styles/colors";
 import dimensions from "styles/dimensions";
 import Button from "components/_ui/Button";
 import Layout from "components/Layout";
+import Checkout from "components/Checkout";
 import PostCard from "components/PostCard";
 import ReviewSlider from "components/ReviewSlider";
 
@@ -264,12 +265,13 @@ const RenderBody = ({ home, posts, meta, reviews }) => (
                     {RichText.render(home.hero_title)}
                     {RichText.render(home.hero_subtitle)}
                 </>
-                <a href={home.hero_button_link.url}
+                <Checkout />
+                {/* <a href={home.hero_button_link.url}
                 target="_blank" rel="noopener noreferrer">
                     <Button>
                         {RichText.render(home.hero_button_text)}
                     </Button>
-                </a>
+                </a> */}
             </HeroDetailContainer>
         </Hero>
         <Section className="highlight-section">

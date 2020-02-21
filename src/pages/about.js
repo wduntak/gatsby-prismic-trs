@@ -61,6 +61,7 @@ const AboutBodySection = styled('div')`
     h1 {
         text-align: center;
         font-size: 2.4rem;
+        margin-top: 100px;
         &::after {
             content: "";
             display: block;
@@ -159,7 +160,7 @@ const About = ({ abouts, images, meta }) => (
                 </AboutBodySection>
                 <AboutImages>
                     <AboutImagesTitle>
-                        <h2>Stay Connected With Us</h2>
+                        <h2>Stay connected with us</h2>
                     </AboutImagesTitle>
                     <AboutImagesWrapper>
                         {images.map((image, i) => (
