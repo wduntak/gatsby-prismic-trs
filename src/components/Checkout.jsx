@@ -19,8 +19,8 @@ const Checkout = class extends React.Component {
     event.preventDefault()
     const { error } = await this.stripe.redirectToCheckout({
       items: [{ sku: "sku_GVN1CThT3LfCM6", quantity: 1 }],
-      successUrl: `http://localhost:8000/success/`,
-      cancelUrl: `http://localhost:8000/`,
+      successUrl: `https://peaceful-lamport-38d18b.netlify.com/success/`,
+      cancelUrl: `https://peaceful-lamport-38d18b.netlify.com/`,
     })
     if (error) {
       console.warn("Error:", error)
