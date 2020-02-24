@@ -7,7 +7,7 @@ import globalStyles from 'styles/global';
 import typeStyles from 'styles/typography';
 import dimensions from "styles/dimensions";
 import Footer from "components/Footer";
-import Header from "components/Header";
+import Navbar from "components/Navbar";
 import 'styles/fonts.scss';
 
 const LayoutContainer = styled.div`
@@ -33,7 +33,7 @@ const Layout = ({ children }) => (
         render={data => (
             <LayoutContainer className="div">
                 <Global styles={[globalStyles, typeStyles]} />
-                <Header />
+                <Navbar />
                 <div className="Layout">
                     <main className="Layout__content">
                         {children}
