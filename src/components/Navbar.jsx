@@ -198,15 +198,15 @@ const Navbar = class extends React.Component {
         super(props);
         this.state = {
             navbarActiveClass: "",
-            showMobileNavigation: "hidden",
+            active: false,
         }
     }
 
     toggleMenu() {
         this.setState({ 
-            showMobileNavigation: !this.state.showMobileNavigation,
+            active: !this.state.active,
         }, () => {
-            this.state.showMobileNavigation
+            this.state.active
                 ? this.setState({
                     navbarActiveClass: 'is-active'
                 })

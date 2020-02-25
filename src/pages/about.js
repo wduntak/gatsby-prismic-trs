@@ -85,9 +85,9 @@ const AboutImages = styled('div')`
 
 const AboutImagesTitle = styled('div')`
     font-family: 'Gelasio', serif;
-    h2 {
+    h3 {
         text-align: center;
-        font-size: 1.8rem;
+        font-size: 1.6rem;
         &::after {
             content: "";
             display: block;
@@ -103,8 +103,9 @@ const AboutImagesTitle = styled('div')`
 `
 const AboutImagesWrapper = styled('div')`
     display: flex;
-    flex-flow: row nowrap;
-    justify-content: space-between;
+    flex-flow: row wrap;
+    justify-content: space-evenly;
+    max-width: 1140px;
 
 `
 
@@ -160,7 +161,7 @@ const About = ({ abouts, images, meta }) => (
                 </AboutBodySection>
                 <AboutImages>
                     <AboutImagesTitle>
-                        <h2>Stay connected with us</h2>
+                        <h3>Follow us on Instagram</h3>
                     </AboutImagesTitle>
                     <AboutImagesWrapper>
                         {images.map((image, i) => (

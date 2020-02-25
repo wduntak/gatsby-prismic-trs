@@ -14,7 +14,10 @@ const LayoutContainer = styled.div`
     main.Layout__content {
         margin-top: 110px;
         @media(max-width: ${dimensions.maxwidthTablet}px) {
-            margin-top: 80px;    
+            margin-top: 100px;    
+        }
+        @media(max-width: ${dimensions.maxwidthMobile}px) {
+            margin-top: 90px;
         }
     }
 `;
