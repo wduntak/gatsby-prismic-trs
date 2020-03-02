@@ -1,7 +1,6 @@
 import React from "react";
 import { Link } from "gatsby";
 import styled from "@emotion/styled";
-import colors from "styles/colors";
 import dimensions from "styles/dimensions";
 import Logo from "components/_ui/Logo";
 
@@ -228,7 +227,10 @@ const Navbar = class extends React.Component {
                         </Link>
                         <div
                             className={`navbar-burger burger ${this.state.navbarActiveClass}`}
-                            onClick={() => this.toggleMenu()}>
+                            onClick={() => this.toggleMenu()}
+                            onKeyDown={() => this.toggleMenu()}
+                            role="button"
+                            tabIndex="0">
                             <span />
                             <span />
                             <span />

@@ -1,7 +1,6 @@
 import React from "react";
 import { Link } from "gatsby";
 import styled from "@emotion/styled";
-import colors from "styles/colors";
 import dimensions from "styles/dimensions";
 import Logo from "components/_ui/Logo";
 

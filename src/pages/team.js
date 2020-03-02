@@ -89,6 +89,8 @@ const TeamMemberCard = styled('div')`
         float: left;
         margin-right: 20px;
         margin-bottom: 10px;
+        max-width: 160px;
+        max-height: 160px;
     }
 
 `

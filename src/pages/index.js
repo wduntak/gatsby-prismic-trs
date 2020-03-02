@@ -7,11 +7,11 @@ import styled from "@emotion/styled";
 import colors from "styles/colors";
 import dimensions from "styles/dimensions";
 import Button from "components/_ui/Button";
+import Carousel from 'react-bootstrap/Carousel'
+import 'bootstrap/dist/css/bootstrap.min.css';
 import Layout from "components/Layout";
 import Checkout from "components/Checkout";
 import PostCard from "components/PostCard";
-import ReviewSlider from "components/ReviewSlider";
-
 
 const Hero = styled("div")`
     margin: 0 auto;
@@ -65,6 +65,7 @@ const HeroDetailContainer = styled("div")`
     font-weight: 200;
     font-size: 2.4rem;
     line-height: 1.2;
+    margin: 20px 0;
 
     &::after {
       content: "";
@@ -81,6 +82,29 @@ const HeroDetailContainer = styled("div")`
   p {
     font-family: "Gelasio", serif;
   }
+`
+const HeroLinkContainer = styled("div")`
+    @media(max-width: ${dimensions.maxwidthMobile}px) {
+        display: flex;
+        flex-flow: column nowrap;
+    }
+`
+
+const PreviewLink = styled("a")`
+    font-family: Gelasio;
+    font-size: 16px;
+    text-align: center;
+    color: #fff;
+    padding: 13px 20px;
+    background-color: #305d3b;
+    margin-left: 20px;
+    &:hover {
+        color: #fff;
+        background-color: ${colors.green800};
+    }
+    @media(max-width: ${dimensions.maxwidthMobile}px) {
+        margin-left: 0;
+    }
 `
 
 const Section = styled("section")`
@@ -110,6 +134,18 @@ const Section = styled("section")`
             flex-flow: column nowrap;
             max-height: 100%;
         }
+    }
+    &.testimonial-section {
+        padding-top: 6em;
+        .carousel {
+            height: 300px;
+            .carousel-indicators li {
+                background-color: ${colors.green800};
+            }
+        }
+    }
+    &.blog-section {
+        padding-top: 6em;
     }
 `
 const HighlightImageContainer = styled("div")`
@@ -158,6 +194,47 @@ const HighlightTextWrapper = styled("div")`
             text-align: center;
         }
     }
+`
+const TestimonialQuote = styled('p')`
+  font-family: 'Gelasio', serif;
+  font-size: 18px;
+  text-align: center;
+  color: #000;
+  margin: 0 auto;
+  max-width: 600px;
+  width: 100%;
+  @media(max-width: ${dimensions.maxwidthMobile}px) {
+      font-size: 14px;
+  }
+`
+
+const TestimonialAuthor = styled('p')`
+  color: #000;
+  margin-bottom: 3rem;
+  text-align: center;
+  margin: 20px auto;
+  max-width: 400px;
+  font-size: 12px;
+  width: 100%;
+`
+const TestimonialTitle = styled("h1")`
+    font-family: Gelasio;
+    font-weight: 200;
+    font-size: 2.4rem;
+    line-height: 1.2;
+    text-align: center;
+    margin-bottom: 1em;
+    &::after {
+        content: "";
+        display: block;
+        width: 30px;
+        height: 2px;
+        background-color: ${colors.green800};
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: 0;
+        margin-top: 23px;
+    }    
 `
 
 const BlogPostsTitle = styled("h1")`
@@ -216,7 +293,7 @@ const WorkAction = styled(Link)`
     }
 `
 
-const RenderBody = ({ home, posts, meta, reviews }) => (
+const RenderBody = ({ home, posts, meta, reviews, previewLink }) => (
     <>
         <Helmet
             title={meta.title}
@@ -265,13 +342,10 @@ const RenderBody = ({ home, posts, meta, reviews }) => (
                     {RichText.render(home.hero_title)}
                     {RichText.render(home.hero_subtitle)}
                 </>
-                <Checkout />
-                {/* <a href={home.hero_button_link.url}
-                target="_blank" rel="noopener noreferrer">
-                    <Button>
-                        {RichText.render(home.hero_button_text)}
-                    </Button>
-                </a> */}
+                <HeroLinkContainer>
+                    <Checkout />
+                    <PreviewLink href={previewLink} alt="Read book preview">Read Preview</PreviewLink>
+                </HeroLinkContainer>
             </HeroDetailContainer>
         </Hero>
         <Section className="highlight-section">
@@ -294,10 +368,20 @@ const RenderBody = ({ home, posts, meta, reviews }) => (
                 <img src={home.highlight_2[0].highlight_image_2.url} />
             </HighlightImageContainer>
         </Section>             
-        <Section className='testimonial-section'>
-            <ReviewSlider reviews={reviews}/>
+        <Section className="testimonial-section">
+            <TestimonialTitle>Testimonials</TestimonialTitle>
+            <Carousel controls={false}>
+                {reviews.map((review, i) => {
+                    return (
+                        <Carousel.Item key={i}>
+                            <TestimonialQuote>"{review.node.review_copy[0].text}"</TestimonialQuote>
+                            <TestimonialAuthor>- {review.node.reviewer_name[0].text}</TestimonialAuthor>
+                        </Carousel.Item>
+                    );                
+                })}
+            </Carousel>
         </Section>
-        <Section>
+        <Section className="blog-section">
             <BlogPostsTitle>Blog Posts</BlogPostsTitle>
             <BlogPostsWrapper>
                 {posts.slice(0).reverse().map((post, i) => (
@@ -325,11 +409,15 @@ export default ({ data }) => {
     const posts = data.prismic.allPosts.edges;
     const meta = data.site.siteMetadata;
     const reviews = data.prismic.allReviews.edges;
-    if (!doc || !reviews|| !posts) return null;
+    const previews = data.prismic.allPreviewbookpages.edges;
 
+    if (!doc || !reviews|| !posts || !previews) return null;
+
+    const previewLink = previews[0].node.previewbooklink.url;
+    
     return (
         <Layout>
-            <RenderBody home={doc.node} meta={meta} reviews={reviews} posts={posts}/>
+            <RenderBody home={doc.node} meta={meta} reviews={reviews} posts={posts} previewLink={previewLink}/>
         </Layout>
     )
 }
@@ -338,7 +426,8 @@ RenderBody.propTypes = {
     home: PropTypes.object.isRequired,
     posts: PropTypes.array.isRequired,
     meta: PropTypes.object.isRequired,
-    reviews: PropTypes.array.isRequired
+    reviews: PropTypes.array.isRequired,
+    previewLink: PropTypes.string.isRequired,
 };
 
 export const query = graphql`
@@ -392,6 +481,18 @@ export const query = graphql`
                         post_date
                         _meta {
                             uid
+                        }
+                    }
+                }
+            }
+            allPreviewbookpages {
+                edges {
+                    node {
+                        previewbooklink {
+                            ... on PRISMIC__FileLink {
+                            url
+                            _linkType
+                            }
                         }
                     }
                 }

@@ -3,7 +3,6 @@ import Moment from 'react-moment';
 import { Link } from "gatsby";
 import { RichText } from "prismic-reactjs";
 import styled from "@emotion/styled";
-import colors from "styles/colors";
 import dimensions from "styles/dimensions";
 import PropTypes from "prop-types";
 
@@ -25,9 +24,6 @@ const PostImage = styled("img")`
     }
 `
 
-const PostCategory = styled("h6")`
-`
-
 const PostTitle = styled(Link)`
     font-family: 'Gelasio', serif;
     color: #000;
@@ -38,13 +34,8 @@ const PostTitle = styled(Link)`
     h3 {
         font-size: 2rem;
         font-weight: 500;
+        margin: 15px 0;
     }
-`
-
-const PostMetas = styled("div")`
-`
-
-const PostAuthor = styled("div")`
 `
 
 const PostDate = styled("div")`
@@ -91,11 +82,6 @@ const PostCard = ({ category, date, title, description, uid, thumbnail}) => (
         <PostCardAction className="PostCardAction">
             <Link to={`blog/${uid}`}>Read More</Link>
         </PostCardAction>
-        {/* <PostMetas>
-            <PostAuthor>
-                {author}
-            </PostAuthor>
-        </PostMetas> */}
     </PostCardContainer>
 )
 
