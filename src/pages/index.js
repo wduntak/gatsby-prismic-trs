@@ -104,6 +104,7 @@ const PreviewLink = styled("a")`
     }
     @media(max-width: ${dimensions.maxwidthMobile}px) {
         margin-left: 0;
+        margin-top: 15px;
     }
 `
 
@@ -141,6 +142,9 @@ const Section = styled("section")`
             height: 300px;
             .carousel-indicators li {
                 background-color: ${colors.green800};
+            }
+            .carousel-inner {
+                padding: 0 20px;
             }
         }
     }
@@ -193,6 +197,9 @@ const HighlightTextWrapper = styled("div")`
         h3, p {
             text-align: center;
         }
+    }
+    @media(max-width: ${dimensions.maxwidthMobile}px) {
+        padding: 0 2rem;
     }
 `
 const TestimonialQuote = styled('p')`
