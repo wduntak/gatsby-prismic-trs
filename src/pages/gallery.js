@@ -108,9 +108,6 @@ export const query = graphql`
                         body {
                             ... on PRISMIC_GalleryBodyImage_gallery {
                                 fields {
-                                    gallery_imageSharp {
-                                        id
-                                    }
                                     gallery_image
                                     alt_text
                                     caption
