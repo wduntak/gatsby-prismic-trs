@@ -1,4 +1,7 @@
 const path = require('path');
+const fs = require("fs")
+
+const dir = "./.cache/caches/gatsby-source-prismic-graphql"
 
 const wrapper = promise =>
     promise.then(result => {
@@ -52,4 +55,10 @@ exports.createPages = async ({ graphql, actions }) => {
             },
         })
     })
+}
+
+exports.onPreBootstrap = () => {
+  if (!fs.existsSync(dir)) {
+    fs.mkdirSync(dir)
+  }
 }
