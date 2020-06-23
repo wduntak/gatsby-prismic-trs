@@ -139,9 +139,12 @@ const Section = styled("section")`
     &.testimonial-section {
         padding-top: 6em;
         .carousel {
-            height: 300px;
-            .carousel-indicators li {
-                background-color: ${colors.green800};
+            height: 250px;
+            .carousel-indicators {
+                bottom: -50px;
+                li {
+                    background-color: ${colors.green800};
+                }
             }
             .carousel-inner {
                 padding: 0 20px;

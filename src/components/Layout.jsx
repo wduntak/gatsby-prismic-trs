@@ -22,30 +22,41 @@ const LayoutContainer = styled.div`
     }
 `;
 
+// const Layout = ({ children }) => (
+//     <StaticQuery
+//         query={graphql`
+//             query SiteTitleQuery {
+//                 site {
+//                     siteMetadata {
+//                         title
+//                     }
+//                 }
+//             }
+//         `}
+//         render={data => (
+//             <LayoutContainer className="div">
+//                 <Global styles={[globalStyles, typeStyles]} />
+//                 <Navbar />
+//                 <div className="Layout">
+//                     <main className="Layout__content">
+//                         {children}
+//                     </main>
+//                     <Footer />
+//                 </div>
+//             </LayoutContainer>
+//         )}
+//     />
+// )
+
 const Layout = ({ children }) => (
-    <StaticQuery
-        query={graphql`
-            query SiteTitleQuery {
-                site {
-                    siteMetadata {
-                        title
-                    }
-                }
-            }
-        `}
-        render={data => (
-            <LayoutContainer className="div">
-                <Global styles={[globalStyles, typeStyles]} />
-                <Navbar />
-                <div className="Layout">
-                    <main className="Layout__content">
-                        {children}
-                    </main>
-                    <Footer />
-                </div>
-            </LayoutContainer>
-        )}
-    />
+  <LayoutContainer className="div">
+    <Global styles={[globalStyles, typeStyles]} />
+    <Navbar />
+    <div className="Layout">
+      <main className="Layout__content">{children}</main>
+      <Footer />
+    </div>
+  </LayoutContainer>
 )
 
 Layout.propTypes = {

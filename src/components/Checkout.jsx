@@ -21,6 +21,9 @@ const Checkout = class extends React.Component {
       items: [{ sku: "sku_GVN1CThT3LfCM6", quantity: 1 }],
       successUrl: `https://peaceful-lamport-38d18b.netlify.com/success/`,
       cancelUrl: `https://peaceful-lamport-38d18b.netlify.com/`,
+      shippingAddressCollection: {
+        allowedCountries: ['CA', 'US'],
+      }
     })
     if (error) {
       console.warn("Error:", error)
