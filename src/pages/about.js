@@ -109,7 +109,7 @@ const AboutImagesWrapper = styled('div')`
 
 `
 
-const About = ({ abouts, images, meta }) => (
+const About = ({ abouts, meta }) => (
     <>
         <Helmet
             title={`About | Tibetan Resettlement Stories`}
@@ -163,7 +163,7 @@ const About = ({ abouts, images, meta }) => (
                     <AboutImagesTitle>
                         <h3>Follow us on Instagram</h3>
                     </AboutImagesTitle>
-                    <AboutImagesWrapper>
+                    {/* <AboutImagesWrapper>
                         {images.map((image, i) => (
                             <a href={"https://www.instagram.com/voicesofbostontrs/"}>
                                 <Img 
@@ -172,7 +172,7 @@ const About = ({ abouts, images, meta }) => (
                                 />
                             </a>
                         ))}
-                    </AboutImagesWrapper>
+                    </AboutImagesWrapper> */}
                 </AboutImages>
             </AboutContainer>
         </Layout>
@@ -182,11 +182,11 @@ const About = ({ abouts, images, meta }) => (
 export default ({ data }) => {
     const abouts = data.prismic.allAbouts.edges[0].node;
     const meta = data.site.siteMetadata;
-    const instaImages = data.allInstaNode.edges;
+    // const instaImages = data.allInstaNode.edges;
     if (!abouts) return null;
 
     return (
-        <About abouts={abouts} meta={meta} images={instaImages} />
+        <About abouts={abouts} meta={meta} />
     )
 }
 
@@ -197,23 +197,23 @@ About.propTypes = {
 
 export const query = graphql`
          {
-           allInstaNode(limit: 4, sort: { fields: timestamp, order: DESC }) {
-             edges {
-               node {
-                 localFile {
-                   childImageSharp {
-                     fixed(width: 250, height: 250) {
-                       base64
-                       width
-                       height
-                       src
-                       srcSet
-                     }
-                   }
-                 }
-               }
-             }
-           }
+        #    allInstaNode(limit: 4, sort: { fields: timestamp, order: DESC }) {
+        #      edges {
+        #        node {
+        #          localFile {
+        #            childImageSharp {
+        #              fixed(width: 250, height: 250) {
+        #                base64
+        #                width
+        #                height
+        #                src
+        #                srcSet
+        #              }
+        #            }
+        #          }
+        #        }
+        #      }
+        #    }
            prismic {
              allAbouts {
                edges {

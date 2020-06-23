@@ -58,12 +58,13 @@ module.exports = {
         display: 'swap'
       }
     },
-    {
-      resolve: `gatsby-source-instagram`,
-      options: {
-        username: `voicesofbostontrs`
-      }
-    },
+    // {
+    //   resolve: `gatsby-source-instagram`,
+    //   options: {
+    //     type: `user-profile`,
+    //     username: `voicesofbostontrs`
+    //   }
+    // },
     // https://www.gatsbyjs.org/packages/gatsby-plugin-google-analytics/
     {
         resolve: `gatsby-plugin-google-analytics`,
