@@ -182,7 +182,6 @@ const About = ({ abouts, images, meta }) => (
 export default ({ data }) => {
     const abouts = data.prismic.allAbouts.edges[0].node;
     const meta = data.site.siteMetadata;
-    console.log(data);
     const instaImages = data.allInstaNode.edges;
     if (!abouts) return null;
 
@@ -192,43 +191,46 @@ export default ({ data }) => {
 }
 
 About.propTypes = {
-    abouts: PropTypes.array.isRequired,
+    abouts: PropTypes.object.isRequired,
     images: PropTypes.array.isRequired
 };
 
 export const query = graphql`
-    {
-        allInstaNode(limit: 4, sort: {fields: timestamp, order: DESC}) {
-            edges {
-                node{
-                    localFile {
-                        childImageSharp {
-                            fixed(width: 250, height: 250) {
-                                ...GatsbyImageSharpFixed
-                            }
-                        }
-                    }
-
-                }
-            }
-        }
-        prismic {
-            allAbouts {
-                edges {
-                    node {
-                        about_title
-                        about_title_background
-                        about_body
-                    }
-                }
-            }
-        }
-        site {
-            siteMetadata {
-                title
-                description
-                author
-            }
-        }
-    }
-`
+         {
+           allInstaNode(limit: 4, sort: { fields: timestamp, order: DESC }) {
+             edges {
+               node {
+                 localFile {
+                   childImageSharp {
+                     fixed(width: 250, height: 250) {
+                       base64
+                       width
+                       height
+                       src
+                       srcSet
+                     }
+                   }
+                 }
+               }
+             }
+           }
+           prismic {
+             allAbouts {
+               edges {
+                 node {
+                   about_title
+                   about_title_background
+                   about_body
+                 }
+               }
+             }
+           }
+           site {
+             siteMetadata {
+               title
+               description
+               author
+             }
+           }
+         }
+       `
