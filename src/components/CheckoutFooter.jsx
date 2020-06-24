@@ -2,7 +2,9 @@ import React from "react"
 import { Link } from "gatsby"
 import styled from "@emotion/styled"
 
-const BuyFooterContainer = styled("section")`
+import CheckoutButton from "./CheckoutButton"
+
+const CheckoutFooterContainer = styled("section")`
   color: #fff;
   background: linear-gradient(135deg, #316d63 0%, #319c2f 100%);
   display: block;
@@ -18,7 +20,7 @@ const BuyFooterContainer = styled("section")`
   }
 `
 
-const BuyFooterInfoWrapper = styled("div")`
+const CheckoutFooterInfoWrapper = styled("div")`
   padding-top: 3rem;
   padding-bottom: 3rem;
   max-width: 960px;
@@ -27,9 +29,10 @@ const BuyFooterInfoWrapper = styled("div")`
   text-align: center;
   h3 {
       display: block;
-      font-weight: bold;
+      font-weight: 400;
       font-size: 2.0rem;
       margin-bottom: 20px;
+      font-family: "Gelasio";
   }
   a {
     background: rgba(255, 255, 255, 0.3);
@@ -56,19 +59,19 @@ const BuyFooterInfoWrapper = styled("div")`
   }
 `
 
-const BuyNowFooter = () => (
-  <BuyFooterContainer>
+const CheckoutFooter = () => (
+  <CheckoutFooterContainer>
     <svg
       preserveAspectRatio="none"
       viewBox=" 0 0 100 100"
     >
       <polygon fill="#FFF" points="0 0 100 0 100 100"></polygon>
     </svg>
-    <BuyFooterInfoWrapper>
+    <CheckoutFooterInfoWrapper>
         <h3>Read about our stories now</h3>
-        <a>Purchase Now</a>
-    </BuyFooterInfoWrapper>
-  </BuyFooterContainer>
+        <CheckoutButton />
+    </CheckoutFooterInfoWrapper>
+  </CheckoutFooterContainer>
 )
 
-export default BuyNowFooter;
+export default CheckoutFooter;

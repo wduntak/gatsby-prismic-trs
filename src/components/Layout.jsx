@@ -12,7 +12,7 @@ import 'styles/fonts.scss';
 
 const LayoutContainer = styled.div`
     main.Layout__content {
-        margin-top: 110px;
+        margin-top: 100px;
         @media(max-width: ${dimensions.maxwidthTablet}px) {
             margin-top: 100px;    
         }

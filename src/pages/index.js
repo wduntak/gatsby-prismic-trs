@@ -10,22 +10,27 @@ import Button from "components/_ui/Button";
 import Carousel from 'react-bootstrap/Carousel'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Layout from "components/Layout";
-import Checkout from "components/Checkout";
+import CheckoutButton from "components/CheckoutButton";
 import PostCard from "components/PostCard";
 
-const Hero = styled("div")`
-    margin: 0 auto;
-    padding: 6.5rem 2rem;
-    max-width: 1140px;
+const HeroSection = styled("section")`
+  padding: 4rem 0;
+  color: #fff;
+  display: block;
+  position: relative;
+  background: linear-gradient(135deg, #204f6b 0%, #1c791b 100%);
+  @media (max-width: ${dimensions.maxwidthTablet}px) {
+    padding: 2.5rem 2rem;
+    flex-flow: column nowrap;
+  }
+`
+
+const HeroWrapper = styled("div")`
     display: flex;
-    position: relative;
     flex-flow: row nowrap;
     justify-content: space-between;
-
-    @media(max-width:${dimensions.maxwidthTablet}px) {
-        padding: 2.5rem 2rem;
-        flex-flow: column nowrap;
-    }
+    margin: 0 auto;
+    max-width: 1140px;
 `
 
 const HeroImageContainer = styled("div")`
@@ -41,7 +46,7 @@ const HeroImageContainer = styled("div")`
   }
   img {
       width: 100%;
-      box-shadow: 4px 4px 8px #f3f3f3;
+      /* box-shadow: 4px 4px 8px #f3f3f3; */
       @media(max-width:${dimensions.maxwidthTablet}px) {
         flex-flow: column nowrap;
       }
@@ -72,7 +77,7 @@ const HeroDetailContainer = styled("div")`
       display: block;
       width: 30px;
       height: 2px;
-      background-color: ${colors.green800};
+      background-color: #fff;
       margin-left: auto;
       margin-right: auto;
       margin-bottom: 0;
@@ -91,27 +96,29 @@ const HeroLinkContainer = styled("div")`
 `
 
 const PreviewLink = styled("a")`
-    font-family: Gelasio;
-    font-size: 16px;
-    text-align: center;
+  font-family: Gelasio;
+  font-size: 16px;
+  text-align: center;
+  color: #fff;
+  padding: 13px 20px;
+  background-color: #34c1bb;
+  margin-left: 20px;
+  &:hover {
     color: #fff;
-    padding: 13px 20px;
-    background-color: #305d3b;
-    margin-left: 20px;
-    &:hover {
-        color: #fff;
-        background-color: ${colors.green800};
-    }
-    @media(max-width: ${dimensions.maxwidthMobile}px) {
-        margin-left: 0;
-        margin-top: 15px;
-    }
+    background-color: #299691;
+    text-decoration: none;
+  }
+  @media (max-width: ${dimensions.maxwidthMobile}px) {
+    margin-left: 0;
+    margin-top: 15px;
+  }
 `
 
 const Section = styled("section")`
+    padding: 4rem 0;
     border-top: 1px solid rgba(46,46,46,0.1);
     margin-bottom: 6em;
-    display: flex;
+    display: block;
     flex-direction: column;
 
     @media(max-width:${dimensions.maxwidthTablet}px) {
@@ -122,19 +129,9 @@ const Section = styled("section")`
         margin-bottom: 0;
     }
     &.highlight-section {
-        display: flex;
-        flex-flow: row nowrap;
-        width: 100%;
         position: relative;
-        justify-content: center;
-        align-items: stretch;
-        max-height: 700px;
         margin-bottom: 0;
         border: none;
-        @media(max-width: ${dimensions.maxwidthTablet}px) {
-            flex-flow: column nowrap;
-            max-height: 100%;
-        }
     }
     &.testimonial-section {
         padding-top: 6em;
@@ -156,6 +153,21 @@ const Section = styled("section")`
         margin-bottom: 8rem;
     }
 `
+const HighlightWrapper = styled("div")`
+    display: flex;
+    flex-flow: row nowrap;
+    width: 100%;
+    max-width: 1140px;
+    margin: 0 auto;
+    justify-content: center;
+    align-items: stretch;
+
+    @media(max-width: ${dimensions.maxwidthTablet}px) {
+        flex-flow: column nowrap;
+        max-height: 100%;
+    }
+`
+
 const HighlightImageContainer = styled("div")`
     flex-grow: 1;
     position: relative;
@@ -168,18 +180,11 @@ const HighlightImageContainer = styled("div")`
         width: 100%;
         height: 100%;
     }
-    &.image-right {
-        box-shadow: -3px -4px 8px #133810;
-    }
-    &.image-left {
-        box-shadow: 3px 4px 8px #133810;
-    }
 `
 const HighlightTextContainer = styled("div")`
     flex-grow: 1;
     width: 50%;
-    background-color: ${colors.green800};
-    color: #fff;
+    color: #000;
     display: flex;
     align-items: center;
     font-family: 'Gelasio', serif;
@@ -344,40 +349,46 @@ const RenderBody = ({ home, posts, meta, reviews, previewLink }) => (
                 },
             ].concat(meta)}
         />
-        <Hero>
-            <HeroImageContainer>
-                <img src={home.hero_background.url}></img>
-            </HeroImageContainer>
-            <HeroDetailContainer>
-                <>
-                    {RichText.render(home.hero_title)}
-                    {RichText.render(home.hero_subtitle)}
-                </>
-                <HeroLinkContainer>
-                    <Checkout />
-                    <PreviewLink href={previewLink} alt="Read book preview">Read Preview</PreviewLink>
-                </HeroLinkContainer>
-            </HeroDetailContainer>
-        </Hero>
+        <HeroSection>
+            <HeroWrapper>
+                <HeroImageContainer>
+                    <img src={home.hero_background.url}></img>
+                </HeroImageContainer>
+                <HeroDetailContainer>
+                    <>
+                        {RichText.render(home.hero_title)}
+                        {RichText.render(home.hero_subtitle)}
+                    </>
+                    <HeroLinkContainer>
+                        <CheckoutButton />
+                        <PreviewLink href={previewLink} alt="Read book preview">Read Preview</PreviewLink>
+                    </HeroLinkContainer>
+                </HeroDetailContainer>
+            </HeroWrapper>
+        </HeroSection>
         <Section className="highlight-section">
-            <HighlightImageContainer className="image-left">
-                <img src={home.highlight_1[0].highlight_image_1.url} />
-            </HighlightImageContainer>
-            <HighlightTextContainer>
-                <HighlightTextWrapper className="text-right">
-                    {RichText.render(home.highlight_1[0].highlight_text_1)}
-                </HighlightTextWrapper>
-            </HighlightTextContainer>
+            <HighlightWrapper>
+                <HighlightImageContainer className="image-left">
+                    <img src={home.highlight_1[0].highlight_image_1.url} />
+                </HighlightImageContainer>
+                <HighlightTextContainer>
+                    <HighlightTextWrapper className="text-right">
+                        {RichText.render(home.highlight_1[0].highlight_text_1)}
+                    </HighlightTextWrapper>
+                </HighlightTextContainer>
+            </HighlightWrapper>
         </Section>   
         <Section className="highlight-section">
-            <HighlightTextContainer>
-                <HighlightTextWrapper className="text-left">
-                    {RichText.render(home.highlight_2[0].highlight_text_2)}
-                </HighlightTextWrapper>
-            </HighlightTextContainer>
-            <HighlightImageContainer className="image-right">
-                <img src={home.highlight_2[0].highlight_image_2.url} />
-            </HighlightImageContainer>
+            <HighlightWrapper>
+                <HighlightTextContainer>
+                    <HighlightTextWrapper className="text-left">
+                        {RichText.render(home.highlight_2[0].highlight_text_2)}
+                    </HighlightTextWrapper>
+                </HighlightTextContainer>
+                <HighlightImageContainer className="image-right">
+                    <img src={home.highlight_2[0].highlight_image_2.url} />
+                </HighlightImageContainer>
+            </HighlightWrapper>
         </Section>             
         <Section className="testimonial-section">
             <TestimonialTitle>Testimonials</TestimonialTitle>

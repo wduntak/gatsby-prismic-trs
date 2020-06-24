@@ -72,7 +72,7 @@ const PostCardAction = styled("div")`
 const PostCard = ({ category, date, title, description, uid, thumbnail}) => (
     <PostCardContainer className="BlogPostCard">
         <PostImage src={thumbnail.thumbnail.url} />
-        <PostTitle to={`${uid}`}><h3>{title[0].text}</h3></PostTitle>
+        <PostTitle to={`/blog/${uid}`}><h3>{title[0].text}</h3></PostTitle>
         <PostDate>
             <Moment format="MMMM D, YYYY">{date}</Moment>
         </PostDate>
@@ -80,7 +80,7 @@ const PostCard = ({ category, date, title, description, uid, thumbnail}) => (
             {RichText.render(description)}
         </PostDescription>
         <PostCardAction className="PostCardAction">
-            <Link to={`${uid}`}>Read More</Link>
+            <Link to={`/blog/${uid}`}>Read More</Link>
         </PostCardAction>
     </PostCardContainer>
 )

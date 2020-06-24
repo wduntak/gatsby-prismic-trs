@@ -1,14 +1,21 @@
 import React from "react"
-const buttonStyles = {
-  fontFamily: "Gelasio",
-  fontSize: "16px",
-  textAlign: "center",
-  color: "#fff",
-  padding: "12px 30px",
-  backgroundColor: "rgb(0, 0, 0)",
-  cursor: "pointer",
-}
-const Checkout = class extends React.Component {
+import styled from 'styled-components'
+
+const CheckoutButtonStyles = styled("button")`
+  font-family: "Gelasio";
+  font-size: 16px;
+  text-align: center;
+  color: #fff;
+  padding: 12px 30px;
+  background-color: #4e342e;
+  cursor: pointer;
+  border: 0;
+  &:hover {
+    background-color: #5d4037;
+  }
+`
+
+const CheckoutButton = class extends React.Component {
   // Initialise Stripe.js with your publishable key.
   // You can find your key in the Dashboard:
   // https://dashboard.stripe.com/account/apikeys
@@ -31,13 +38,12 @@ const Checkout = class extends React.Component {
   }
   render() {
     return (
-      <button
-        style={buttonStyles}
+      <CheckoutButtonStyles
         onClick={event => this.redirectToCheckout(event)}
       >
         Buy now
-      </button>
+      </CheckoutButtonStyles>
     )
   }
 }
-export default Checkout
+export default CheckoutButton
