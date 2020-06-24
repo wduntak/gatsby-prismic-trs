@@ -153,6 +153,7 @@ const Section = styled("section")`
     }
     &.blog-section {
         padding-top: 6em;
+        margin-bottom: 8rem;
     }
 `
 const HighlightImageContainer = styled("div")`

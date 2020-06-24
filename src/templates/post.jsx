@@ -7,6 +7,7 @@ import { RichText } from "prismic-reactjs";
 import styled from "@emotion/styled";
 import colors from "styles/colors";
 import Layout from "components/Layout";
+import BuyNowFooter from '../components/BuyNowFooter';
 
 const PostWrapper = styled("div")`
     padding: 30px 20px 0 20px;
@@ -168,6 +169,7 @@ const Post = ({ post, meta }) => {
                         {RichText.render(post.post_body)}
                     </PostBody>
                 </PostWrapper>
+                <BuyNowFooter/>
             </Layout>
         </>
     )

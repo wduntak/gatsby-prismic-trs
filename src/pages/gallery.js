@@ -11,7 +11,7 @@ import Layout from "components/Layout";
 const ImageGalleryContainer = styled('div')`
     display: block;
     max-width: 1140px;
-    margin: 0 auto;
+    margin: 0 auto 8rem auto;
 
     @media(min-width: ${dimensions.maxwidthDesktop}px) {
         padding-top: 40px;

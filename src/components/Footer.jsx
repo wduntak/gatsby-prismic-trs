@@ -5,7 +5,6 @@ import dimensions from "styles/dimensions";
 import Logo from "components/_ui/Logo";
 
 const FooterContainer = styled("footer")`
-    margin-top: 125px;
     padding: 75px 30px 45px 30px;
     flex: 0 0 auto;
     position: relative;
