@@ -1,8 +1,10 @@
-import React from "react";
-import { Link } from "gatsby";
-import styled from "@emotion/styled";
-import dimensions from "styles/dimensions";
-import Logo from "components/_ui/Logo";
+import React from "react"
+import { Link } from "gatsby"
+import styled from "@emotion/styled"
+import dimensions from "styles/dimensions"
+import Logo from "components/_ui/Logo"
+
+import CheckoutButton from "./CheckoutButton"
 
 const NavbarContainer = styled("nav")`
     padding: 10px 20px;
@@ -145,9 +147,12 @@ const NavbarMenu = styled("div")`
             margin: 0 15px;
             list-style-type: none;
             text-align: center;
+            display: flex;
+            align-items: center;
             @media (max-width: ${dimensions.maxwidthTablet}px) {
                 border: none;
                 margin: 10px 0;
+                display: inline;
             }
             a {
                 color: #2e2e2e;
@@ -273,6 +278,9 @@ const Navbar = class extends React.Component {
                                     to="/donate">
                                     Donate
                                 </Link>
+                            </li>
+                            <li>
+                                <CheckoutButton />
                             </li>
                         </ul>
                     </NavbarMenu>

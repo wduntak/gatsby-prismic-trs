@@ -101,7 +101,9 @@ const PreviewLink = styled("a")`
   text-align: center;
   color: #fff;
   padding: 13px 20px;
-  background-color: #34c1bb;
+  border: 2px solid #34c1bb;
+  background-color: transparent;
+  border-radius: 10px;
   margin-left: 20px;
   &:hover {
     color: #fff;

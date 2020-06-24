@@ -7,11 +7,12 @@ const CheckoutButtonStyles = styled("button")`
   text-align: center;
   color: #fff;
   padding: 12px 30px;
-  background-color: #4e342e;
+  background-color: #2196f3;
+  border: 2px solid #2196f3;
+  border-radius: 10px;
   cursor: pointer;
-  border: 0;
   &:hover {
-    background-color: #5d4037;
+    background-color: #64b5f6;
   }
 `
 
@@ -41,7 +42,7 @@ const CheckoutButton = class extends React.Component {
       <CheckoutButtonStyles
         onClick={event => this.redirectToCheckout(event)}
       >
-        Buy now
+        Buy Now
       </CheckoutButtonStyles>
     )
   }
