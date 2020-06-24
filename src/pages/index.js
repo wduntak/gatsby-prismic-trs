@@ -153,6 +153,10 @@ const Section = styled("section")`
     &.blog-section {
         padding-top: 6em;
         margin-bottom: 8rem;
+        & > a {
+            display: block;
+            text-align: center;
+        }
     }
 `
 const HighlightWrapper = styled("div")`
@@ -274,7 +278,7 @@ const BlogPostsTitle = styled("h1")`
         margin-top: 23px;
     }    
 `
-const BlogPostsWrapper = styled("section")`
+const BlogPostsWrapper = styled("div")`
     column-rule: 1px solid #eee;
     margin: 0;
     column-fill: initial;
