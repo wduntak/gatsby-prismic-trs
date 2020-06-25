@@ -230,7 +230,7 @@ const TestimonialQuote = styled('p')`
   font-family: 'Gelasio', serif;
   font-size: 18px;
   text-align: center;
-  color: #000;
+  color: #545454;
   margin: 0 auto;
   max-width: 600px;
   width: 100%;
