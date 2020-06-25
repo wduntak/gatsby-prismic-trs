@@ -156,11 +156,6 @@ const NavbarMenu = styled("div")`
             }
             a {
                 color: #2e2e2e;
-                background-image: linear-gradient(to bottom,#e5e5e5,#e5e5e5);
-                background-repeat: repeat-x;
-                background-size: 1px 1px;
-                background-position: 0 1.3em;
-                padding-bottom: 10px;
                 margin-bottom: -10px;
                 text-decoration: none;
                 &:after {
@@ -177,13 +172,7 @@ const NavbarMenu = styled("div")`
                 }
                 
                 &:hover {
-                    background-image: linear-gradient(to bottom,#bdbdbd,#bdbdbd);
-                    background-repeat: repeat-x;
-                    background-size: 1px 1px;
-                    background-position: 0 1.3em;
-                    padding-bottom: 10px;
-                    margin-bottom: -10px;
-                    text-decoration: none;
+                    text-decoration: underline;
                 }
             }
             @media(min-width: ${dimensions.maxwidthTablet}px) {

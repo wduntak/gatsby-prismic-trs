@@ -19,10 +19,6 @@ const HeroSection = styled("section")`
   display: block;
   position: relative;
   background: linear-gradient(135deg, #204f6b 0%, #1c791b 100%);
-  @media (max-width: ${dimensions.maxwidthTablet}px) {
-    padding: 2.5rem 2rem;
-    flex-flow: column nowrap;
-  }
 `
 
 const HeroWrapper = styled("div")`
@@ -31,6 +27,10 @@ const HeroWrapper = styled("div")`
     justify-content: space-between;
     margin: 0 auto;
     max-width: 1140px;
+    @media (max-width: ${dimensions.maxwidthTablet}px) {
+      padding: 0 2rem;
+      flex-flow: column nowrap;
+    }
 `
 
 const HeroImageContainer = styled("div")`
@@ -46,9 +46,9 @@ const HeroImageContainer = styled("div")`
   }
   img {
       width: 100%;
-      /* box-shadow: 4px 4px 8px #f3f3f3; */
       @media(max-width:${dimensions.maxwidthTablet}px) {
         flex-flow: column nowrap;
+        max-width: 420px;
       }
   }
 `
@@ -71,7 +71,9 @@ const HeroDetailContainer = styled("div")`
     font-size: 2.4rem;
     line-height: 1.2;
     margin: 20px 0;
-
+    @media(max-width:${dimensions.maxwidthMobile}px) {
+        font-size: 1.6rem;
+    }
     &::after {
       content: "";
       display: block;
@@ -125,6 +127,10 @@ const Section = styled("section")`
 
     @media(max-width:${dimensions.maxwidthTablet}px) {
         margin-bottom: 2em auto;
+        padding: 2rem 0;
+    }
+    @media(max-width:${dimensions.maxwidthMobile}px) {
+        padding: 0;
     }
 
     &:last-of-type {
@@ -208,13 +214,16 @@ const HighlightTextWrapper = styled("div")`
     &.text-left {
         margin: 0 0 0 auto;
     }
+    p {
+        color: #545454;
+    }
     @media(max-width: ${dimensions.maxwidthTablet}px) {
         h3, p {
             text-align: center;
         }
     }
     @media(max-width: ${dimensions.maxwidthMobile}px) {
-        padding: 0 2rem;
+        padding: 0;
     }
 `
 const TestimonialQuote = styled('p')`
