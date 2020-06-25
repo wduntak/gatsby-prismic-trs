@@ -36,7 +36,7 @@ const FooterColumn = styled("div")`
         &:nth-child(1) {
             order: 3;
             svg {
-                max-width: 200px;
+                max-width: 140px;
                 margin: 0 auto;
                 display: block;
             }
