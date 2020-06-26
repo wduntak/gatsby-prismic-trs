@@ -27,10 +27,25 @@ const HeroWrapper = styled("div")`
     justify-content: space-between;
     margin: 0 auto;
     max-width: 1140px;
+    z-index: 100;
+    position: relative;
     @media (max-width: ${dimensions.maxwidthTablet}px) {
       padding: 0 2rem;
       flex-flow: column nowrap;
     }
+`
+const HeroBackground = styled("div")`
+    background-image: url('https://images.prismic.io/trs-website/4172a4fb-e548-4ccb-b9a9-4b9add76ca73_trs_group_photo.jpg?auto=compress,format');
+    background-position-y: -300px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    filter: grayscale(1);
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    opacity: 0.1;
+    top: 0;
+    z-index: 10;
 `
 
 const HeroImageContainer = styled("div")`
@@ -392,6 +407,7 @@ const RenderBody = ({ home, posts, meta, reviews, previewLink }) => (
                     </HeroLinkContainer>
                 </HeroDetailContainer>
             </HeroWrapper>
+            <HeroBackground />
         </HeroSection>
         <Section className="highlight-section">
             <HighlightWrapper>
