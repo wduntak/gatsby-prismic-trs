@@ -14,6 +14,9 @@ const CheckoutButtonStyles = styled("button")`
   &:hover {
     background-color: #64b5f6;
   }
+  &:focus {
+    outline: none;
+  }
 `
 
 const CheckoutButton = class extends React.Component {

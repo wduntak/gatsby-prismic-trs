@@ -76,7 +76,7 @@ const NavbarBrand = styled("div")`
         span {
             background-color: currentColor;
             display: block;
-            height: 1px;
+            height: 2px;
             left: calc(50% - 8px);
             position: absolute;
             -webkit-transform-origin: center;

@@ -30,11 +30,13 @@ const PostTitle = styled(Link)`
     text-decoration: none;
     line-height: 1;
     margin-bottom: 30px;
-
     h3 {
         font-size: 2rem;
         font-weight: 500;
         margin: 15px 0;
+        @media(max-width: ${dimensions.maxwidthMobile}px) {
+            font-size: 1.4rem;
+        }
     }
 `
 

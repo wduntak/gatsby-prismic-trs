@@ -121,7 +121,6 @@ const PreviewLink = styled("a")`
 const Section = styled("section")`
     padding: 4rem 0;
     border-top: 1px solid rgba(46,46,46,0.1);
-    margin-bottom: 6em;
     display: block;
     flex-direction: column;
 
@@ -142,11 +141,18 @@ const Section = styled("section")`
         border: none;
     }
     &.testimonial-section {
-        padding-top: 6em;
+        padding: 5em 0;
+        background-color: #F7F7F7;
+        @media(max-width: ${dimensions.maxwidthMobile}px) {
+            height: 550px;
+        }
         .carousel {
             height: 250px;
             .carousel-indicators {
                 bottom: -50px;
+                @media(max-width: ${dimensions.maxwidthMobile}px) {
+                    bottom: -100px;
+                }
                 li {
                     background-color: ${colors.green800};
                 }
@@ -255,6 +261,9 @@ const TestimonialTitle = styled("h1")`
     line-height: 1.2;
     text-align: center;
     margin-bottom: 1em;
+    @media(max-width: ${dimensions.maxwidthMobile}px) {
+        font-size: 1.6rem;
+    }
     &::after {
         content: "";
         display: block;
@@ -275,6 +284,9 @@ const BlogPostsTitle = styled("h1")`
     line-height: 1.2;
     text-align: center;
     margin-bottom: 0;
+    @media(max-width: ${dimensions.maxwidthMobile}px) {
+        font-size: 1.6rem;
+    }
     &::after {
         content: "";
         display: block;

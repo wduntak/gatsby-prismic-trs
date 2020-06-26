@@ -53,6 +53,7 @@ const FooterColumn = styled("div")`
     ul {
         list-style: none;
         padding: 0;
+        font-size: 14px;
         li {
             margin-top: 20px;
             a {
@@ -73,16 +74,16 @@ const Footer = () => (
             </FooterColumn>
             <FooterColumn></FooterColumn>
             <FooterColumn>
-                <h3>Browse</h3>
+                <h3>About</h3>
                 <ul>
                     <li><Link to="/">Home</Link></li>
-                    <li><Link to="/">About</Link></li>
+                    <li><Link to="/">About Us</Link></li>
                     <li><Link to="/">Gallery</Link></li>
                     <li><Link to="/">Blog</Link></li>
                 </ul>
             </FooterColumn>
             <FooterColumn>
-                <h3>Follow</h3>
+                <h3>Social</h3>
                 <ul>
                     <li><Link to="/">Twitter</Link></li>
                     <li><Link to="/">Facebook</Link></li>

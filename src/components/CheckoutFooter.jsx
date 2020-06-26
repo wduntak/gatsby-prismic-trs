@@ -21,8 +21,8 @@ const CheckoutFooterContainer = styled("section")`
 `
 
 const CheckoutFooterInfoWrapper = styled("div")`
-  padding-top: 3rem;
-  padding-bottom: 3rem;
+  padding-top: 5rem;
+  padding-bottom: 5rem;
   max-width: 960px;
   margin: 0 auto;
   width: 100%;
@@ -68,10 +68,9 @@ const CheckoutFooter = () => (
       <polygon fill="#FFF" points="0 0 100 0 100 100"></polygon>
     </svg>
     <CheckoutFooterInfoWrapper>
-        <h3>Read about our stories now</h3>
+        <h3>Read our stories inspired by first-generation Tibetans</h3>
         <CheckoutButton />
     </CheckoutFooterInfoWrapper>
   </CheckoutFooterContainer>
 )
-
 export default CheckoutFooter;

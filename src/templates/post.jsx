@@ -10,7 +10,7 @@ import Layout from "components/Layout";
 import CheckoutFooter from '../components/CheckoutFooter';
 
 const PostWrapper = styled("div")`
-    padding: 30px 20px 0 20px;
+    padding: 30px 20px;
     max-width: 1140px;
     margin: 0 auto;
 `
