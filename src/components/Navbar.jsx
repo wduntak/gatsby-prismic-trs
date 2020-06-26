@@ -12,7 +12,7 @@ const NavbarContainer = styled("nav")`
     left: 0;
     right: 0;
     top: 0;
-    z-index: 100;
+    z-index: 200;
     transition: opacity 0.25s,transform 0.25s;
     will-change: opacity,transform;
     background-color: rgba(255,255,255,0.97);
