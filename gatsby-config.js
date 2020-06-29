@@ -20,6 +20,14 @@ module.exports = {
     `gatsby-plugin-emotion`,
     `gatsby-plugin-stripe`,
     {
+      resolve: `gatsby-source-stripe`,
+      options: {
+        objects: ['Product', 'Sku'],
+        secretKey: process.env.STRIPE_SECRET_KEY,
+        downloadFiles: true
+      },
+    },
+    {
       resolve: `gatsby-source-filesystem`,
       options: {
         name: `images`,

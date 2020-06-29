@@ -109,7 +109,7 @@ const AboutImagesWrapper = styled('div')`
 
 `
 
-const About = ({ abouts, meta }) => (
+const About = ({ abouts, meta, home, product }) => (
     <>
         <Helmet
             title={`About | Tibetan Resettlement Stories`}
@@ -149,7 +149,7 @@ const About = ({ abouts, meta }) => (
                 },
             ].concat(meta)}
         />
-        <Layout>
+        <Layout product={product} productImage={home.node.hero_background.url}>
             <AboutContainer>
                 <AboutHeroSection style={{backgroundImage: "url(" + abouts.about_title_background.url + ")"}}>
                     <AboutHeroInner>
@@ -182,17 +182,21 @@ const About = ({ abouts, meta }) => (
 export default ({ data }) => {
     const abouts = data.prismic.allAbouts.edges[0].node;
     const meta = data.site.siteMetadata;
+    const home = data.prismic.allHomepages.edges.slice(0, 1).pop();
+    const product = data.allStripeSku.edges;
     // const instaImages = data.allInstaNode.edges;
     if (!abouts) return null;
 
     return (
-        <About abouts={abouts} meta={meta} />
+        <About abouts={abouts} meta={meta} home={home} product={product} />
     )
 }
 
 About.propTypes = {
     abouts: PropTypes.object.isRequired,
-    images: PropTypes.array.isRequired
+    images: PropTypes.array.isRequired,
+    home: PropTypes.object.isRequired,
+    product: PropTypes.array.isRequired,
 };
 
 export const query = graphql`
@@ -215,6 +219,13 @@ export const query = graphql`
         #      }
         #    }
            prismic {
+            allHomepages {
+                edges {
+                    node {
+                        hero_background
+                    }
+                }
+            }
              allAbouts {
                edges {
                  node {
@@ -232,5 +243,20 @@ export const query = graphql`
                author
              }
            }
+            allStripeSku(filter: {product: {id: {eq: "prod_GVN1SL4dCamlJA"}}}) {
+                edges {
+                    node {
+                        id
+                        price
+                        currency
+                        product {
+                            name
+                            metadata {
+                                description
+                            }
+                        }
+                    }
+                }
+            }
          }
        `

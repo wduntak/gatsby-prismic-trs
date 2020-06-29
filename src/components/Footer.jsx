@@ -33,7 +33,7 @@ const FooterColumn = styled("div")`
     padding-top: 0;
     flex-grow: 1;
     @media(max-width: ${dimensions.maxwidthMobile}px) {
-        &:nth-child(1) {
+        &:nth-of-type(1) {
             order: 3;
             svg {
                 max-width: 140px;
@@ -41,7 +41,7 @@ const FooterColumn = styled("div")`
                 display: block;
             }
         }    
-        &:nth-child(3), &:nth-child(4) {
+        &:nth-of-type(3), &:nth-of-type(4) {
             order: 1;
             text-align: center;
             margin-bottom: 20px;

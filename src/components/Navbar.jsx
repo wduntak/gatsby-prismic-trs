@@ -5,6 +5,7 @@ import dimensions from "styles/dimensions"
 import Logo from "components/_ui/Logo"
 
 import CheckoutButton from "./CheckoutButton"
+import BuyModal from "./BuyModal";
 
 const NavbarContainer = styled("nav")`
     padding: 10px 20px;
@@ -90,26 +91,26 @@ const NavbarBrand = styled("div")`
             -webkit-transition-timing-function: ease-out;
             transition-timing-function: ease-out;
             width: 16px;
-            &:first-child {
+            &:first-of-type {
                 top: calc(50% - 6px);
             }
-            &:nth-child(2) {
+            &:nth-of-type(2) {
                 top: calc(50% - 1px);
             }
-            &:nth-child(3) {
+            &:nth-of-type(3) {
                 top: calc(50% + 4px);
             }
         }
         &.is-active {
             span {
-                &:first-child {
+                &:first-of-type {
                     -webkit-transform: translateY(5px) rotate(45deg);
                     transform: translateY(5px) rotate(45deg);
                 }
-                &:nth-child(2) {
+                &:nth-of-type(2) {
                     opacity: 0;
                 }
-                &:nth-child(3) {
+                &:nth-of-type(3) {
                     -webkit-transform: translateY(-5px) rotate(-45deg);
                     transform: translateY(-5px) rotate(-45deg);
                 }
@@ -269,11 +270,11 @@ const Navbar = class extends React.Component {
                                 </Link>
                             </li>
                             <li>
-                                <CheckoutButton />
+                                {/* <CheckoutButton /> */}
+                                <BuyModal buttonText="Buy Now" product={this.props.product} productImage={this.props.productImage} />
                             </li>
                         </ul>
                     </NavbarMenu>
-
                 </NavbarWrapper>
         </NavbarContainer>            
         );

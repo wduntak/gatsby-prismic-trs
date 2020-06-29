@@ -12,13 +12,16 @@ const PostCardContainer = styled("article")`
     border-bottom: 1px solid #eee;
     display: inline-block;
     vertical-align: top;
-    &:nth-child(even) {
+    &:nth-of-type(even) {
         border-bottom: none;
     }
 `
 const PostImage = styled("img")`
     max-width: 350px;
+    max-height: 180px;
     width: 100%;
+    height: auto;
+    background-color: #eee;
     @media(max-width: ${dimensions.maxwidthMobile}px) {
         max-width: 100%;
     }
@@ -46,9 +49,14 @@ const PostDate = styled("div")`
 `
 
 const PostDescription = styled("div")`
+    height: 200px;
     p {
         font-family: 'Gelasio';
         margin-top: 10px;
+        overflow: hidden;
+        display: -webkit-box;
+        -webkit-line-clamp: 5;
+        -webkit-box-orient: vertical;
     }
 `
 

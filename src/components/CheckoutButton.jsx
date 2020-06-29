@@ -20,6 +20,9 @@ const CheckoutButtonStyles = styled("button")`
 `
 
 const CheckoutButton = class extends React.Component {
+  constructor(props) {
+    super(props);
+  }
   // Initialise Stripe.js with your publishable key.
   // You can find your key in the Dashboard:
   // https://dashboard.stripe.com/account/apikeys
@@ -29,12 +32,19 @@ const CheckoutButton = class extends React.Component {
   async redirectToCheckout(event) {
     event.preventDefault()
     const { error } = await this.stripe.redirectToCheckout({
-      items: [{ sku: "sku_GVN1CThT3LfCM6", quantity: 1 }],
+      lineItems: [
+        { price: "sku_GVN1CThT3LfCM6", quantity: parseInt(this.props.quantity) },
+        {
+          price: "price_1GyKSLDAAFXMo1n8uUmiO1Kf",
+          quantity: parseInt(this.props.quantity),
+        },
+      ],
+      mode: "payment",
       successUrl: `https://peaceful-lamport-38d18b.netlify.com/success/`,
       cancelUrl: `https://peaceful-lamport-38d18b.netlify.com/`,
       shippingAddressCollection: {
-        allowedCountries: ['CA', 'US'],
-      }
+        allowedCountries: ["CA", "US"],
+      },
     })
     if (error) {
       console.warn("Error:", error)
@@ -42,10 +52,8 @@ const CheckoutButton = class extends React.Component {
   }
   render() {
     return (
-      <CheckoutButtonStyles
-        onClick={event => this.redirectToCheckout(event)}
-      >
-        Buy Now
+      <CheckoutButtonStyles onClick={event => this.redirectToCheckout(event)}>
+        Checkout
       </CheckoutButtonStyles>
     )
   }
