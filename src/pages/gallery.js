@@ -28,7 +28,7 @@ const ImageGalleryContainer = styled('div')`
     }
 `
 
-const Gallery = ({ images, meta }) => (
+const Gallery = ({ images, meta, product, home }) => (
     <>
         <Helmet
             title={`Gallery | Prist, Gatsby & Prismic Starter`}
@@ -68,7 +68,7 @@ const Gallery = ({ images, meta }) => (
                 },
             ].concat(meta)}
         />
-        <Layout>
+        <Layout product={product} productImage={home.hero_background.url}>
             <ImageGalleryContainer>
                 <ImageGallery items={images} showFullscreenButton={false} showPlayButton={false} showIndex={true} />
             </ImageGalleryContainer>
@@ -79,6 +79,9 @@ const Gallery = ({ images, meta }) => (
 export default ({ data }) => {
     const gallerys = data.prismic.allGallerys.edges;
     const meta = data.site.siteMetadata;
+    const product = data.allStripeSku.edges;
+    const home = data.prismic.allHomepages.edges.slice(0, 1).pop();
+
     if (!gallerys) return null;
 
     const images = gallerys[0].node.body[0].fields.map((image, i) => {
@@ -91,7 +94,7 @@ export default ({ data }) => {
     });
 
     return (
-        <Gallery images={images} meta={meta} />
+        <Gallery images={images} meta={meta} product={product} home={home.node}/>
     )
 }
 
@@ -102,6 +105,13 @@ Gallery.propTypes = {
 export const query = graphql`
     {
         prismic {
+            allHomepages {
+                edges {
+                    node {
+                        hero_background
+                    }
+                }
+            }            
             allGallerys {
                 edges {
                     node {
@@ -123,6 +133,21 @@ export const query = graphql`
                 title
                 description
                 author
+            }
+        }
+        allStripeSku(filter: {product: {id: {eq: "prod_GVN1SL4dCamlJA"}}}) {
+            edges {
+                node {
+                    id
+                    price
+                    currency
+                    product {
+                        name
+                        metadata {
+                            description
+                        }
+                    }
+                }
             }
         }
     }

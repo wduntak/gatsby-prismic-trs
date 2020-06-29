@@ -149,7 +149,7 @@ const About = ({ abouts, meta, home, product }) => (
                 },
             ].concat(meta)}
         />
-        <Layout product={product} productImage={home.node.hero_background.url}>
+        <Layout product={product} productImage={home.hero_background.url}>
             <AboutContainer>
                 <AboutHeroSection style={{backgroundImage: "url(" + abouts.about_title_background.url + ")"}}>
                     <AboutHeroInner>
@@ -188,7 +188,7 @@ export default ({ data }) => {
     if (!abouts) return null;
 
     return (
-        <About abouts={abouts} meta={meta} home={home} product={product} />
+        <About abouts={abouts} meta={meta} home={home.node} product={product} />
     )
 }
 

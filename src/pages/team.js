@@ -95,7 +95,7 @@ const TeamMemberCard = styled('div')`
 
 `
 
-const Team = ({ teams, meta }) => (
+const Team = ({ teams, meta, product, home }) => (
     <>
         <Helmet
             title={`Team | Tibetan Resettlement Stories`}
@@ -135,7 +135,7 @@ const Team = ({ teams, meta }) => (
                 },
             ].concat(meta)}
         />
-        <Layout>
+        <Layout product={product} productImage={home.hero_background.url}>
             <TeamContainer>
                 <TeamHeroSection style={{backgroundImage: "url(" + teams.team_title_background.url + ")"}}>
                     <TeamHeroInner>
@@ -165,10 +165,13 @@ const Team = ({ teams, meta }) => (
 export default ({ data }) => {
     const teams = data.prismic.allTeams.edges[0].node;
     const meta = data.site.siteMetadata;
+    const product = data.allStripeSku.edges;
+    const home = data.prismic.allHomepages.edges.slice(0, 1).pop()
+
     if (!teams) return null;
 
     return (
-        <Team teams={teams} meta={meta} />
+        <Team teams={teams} meta={meta} product={product} home={home.node} />
     )
 }
 
@@ -179,6 +182,13 @@ Team.propTypes = {
 export const query = graphql`
     {
         prismic {
+            allHomepages {
+                edges {
+                    node {
+                        hero_background
+                    }
+                }
+            }
             allTeams {
                 edges {
                     node {
@@ -206,6 +216,21 @@ export const query = graphql`
                 title
                 description
                 author
+            }
+        }
+        allStripeSku(filter: {product: {id: {eq: "prod_GVN1SL4dCamlJA"}}}) {
+            edges {
+                node {
+                    id
+                    price
+                    currency
+                    product {
+                        name
+                        metadata {
+                            description
+                        }
+                    }
+                }
             }
         }
     }

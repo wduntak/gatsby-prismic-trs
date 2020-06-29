@@ -19,9 +19,6 @@ const PostHeroContainer = styled("div")`
     max-height: 600px;
     overflow: hidden;
     display: block;
-    /* display: flex;
-    flex-direction: column;
-    justify-content: flex-end; */
     margin-bottom: 3em;
 
     img {
@@ -100,7 +97,7 @@ const PostDate = styled("div")`
     margin: 0;
 `
 
-const Post = ({ post, meta }) => {
+const Post = ({ post, meta, product, home }) => {
     return (
         <>
             <Helmet
@@ -141,11 +138,8 @@ const Post = ({ post, meta }) => {
                     },
                 ].concat(meta)}
             />
-            <Layout>
+            <Layout product={product}>
                 <PostWrapper>
-                    {/* <PostCategory>
-                        {RichText.render(post.post_category)}
-                    </PostCategory> */}
                     <PostTitle>
                         {RichText.render(post.post_title)}
                     </PostTitle>
@@ -160,16 +154,13 @@ const Post = ({ post, meta }) => {
                         {post.post_hero_image && (
                         <PostHeroContainer>
                             <img src={post.post_hero_image.url} alt="bees" />
-                            {/* <PostHeroAnnotation>
-                                {RichText.render(post.post_hero_annotation)}
-                            </PostHeroAnnotation> */}
                         </PostHeroContainer>
                     )}
                     <PostBody>
                         {RichText.render(post.post_body)}
                     </PostBody>
                 </PostWrapper>
-                <CheckoutFooter/>
+                <CheckoutFooter product={product} productImage={home.hero_background.url} />
             </Layout>
         </>
     )
@@ -178,19 +169,31 @@ const Post = ({ post, meta }) => {
 export default ({ data }) => {
     const postContent = data.prismic.allPosts.edges[0].node;
     const meta = data.site.siteMetadata;
+    const product = data.allStripeSku.edges;
+    const home = data.prismic.allHomepages.edges.slice(0, 1).pop();
+
     return (
-        <Post post={postContent} meta={meta}/>
+        <Post post={postContent} meta={meta} product={product} home={home.node}/>
     )
 }
 
 Post.propTypes = {
     post: PropTypes.object.isRequired,
     meta: PropTypes.object.isRequired,
+    home: PropTypes.object.isRequired,
+    product: PropTypes.array.isRequired,
 };
 
 export const query = graphql`
     query PostQuery($uid: String) {
         prismic {
+            allHomepages {
+                edges {
+                    node {
+                        hero_background
+                    }
+                }
+            }
             allPosts(uid: $uid) {
                 edges {
                     node {
@@ -214,6 +217,21 @@ export const query = graphql`
                 title
                 description
                 author
+            }
+        }
+        allStripeSku(filter: {product: {id: {eq: "prod_GVN1SL4dCamlJA"}}}) {
+            edges {
+                node {
+                    id
+                    price
+                    currency
+                    product {
+                        name
+                        metadata {
+                            description
+                        }
+                    }
+                }
             }
         }
     }

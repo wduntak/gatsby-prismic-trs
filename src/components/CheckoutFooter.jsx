@@ -2,7 +2,7 @@ import React from "react"
 import { Link } from "gatsby"
 import styled from "@emotion/styled"
 
-import CheckoutButton from "./CheckoutButton"
+import BuyModal from "./BuyModal"
 
 const CheckoutFooterContainer = styled("section")`
   color: #fff;
@@ -16,7 +16,7 @@ const CheckoutFooterContainer = styled("section")`
     height: 6rem;
     width: 100%;
     overflow: hidden;
-    vertical-align: middle;
+    /* vertical-align: middle; */
   }
 `
 
@@ -59,7 +59,7 @@ const CheckoutFooterInfoWrapper = styled("div")`
   }
 `
 
-const CheckoutFooter = () => (
+const CheckoutFooter = (props) => (
   <CheckoutFooterContainer>
     <svg
       preserveAspectRatio="none"
@@ -69,8 +69,7 @@ const CheckoutFooter = () => (
     </svg>
     <CheckoutFooterInfoWrapper>
         <h3>Read our stories inspired by first-generation Tibetans</h3>
-        <CheckoutButton />
-    </CheckoutFooterInfoWrapper>
+        <BuyModal buttonText="Buy Now" product={props.product} productImage={props.productImage} />    </CheckoutFooterInfoWrapper>
   </CheckoutFooterContainer>
 )
 export default CheckoutFooter;

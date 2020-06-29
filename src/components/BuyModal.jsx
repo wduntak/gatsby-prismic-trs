@@ -7,7 +7,7 @@ import {
   Col,
   Form,
   InputGroup,
-} from "react-bootstrap"
+} from "react-bootstrap";
 import styled from 'styled-components';
 import CheckoutButton from './CheckoutButton';
 
@@ -75,11 +75,11 @@ export default function BuyModal(props)  {
                 <Row>
                   <h5>{props.product[0].node.product.name}</h5>
                 </Row>
-                <Row style={{ fontFamily: 'Gelasio' }}>{props.product[0].node.product.metadata.description}</Row>
+                <Row>{props.product[0].node.product.metadata.description}</Row>
               </Col>
               <Col xs={6} md={2}>
                 <strong>${formatPrice} {props.product[0].node.currency.toUpperCase()}</strong>
-                <p style={{ fontSize: "12px" }}>+ Shipping Fees</p>
+                <p>+ Shipping Fees</p>
               </Col>
             </Row>
             <Row>

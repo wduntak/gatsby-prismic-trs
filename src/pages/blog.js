@@ -35,7 +35,7 @@ const BlogWrapper = styled("div")`
     margin: 0 auto;
 `
 
-const Blog = ({ posts, meta }) => (
+const Blog = ({ posts, meta, product, home }) => (
     <>
         <Helmet
             title={`Blog | Prist, Gatsby & Prismic Starter`}
@@ -75,7 +75,7 @@ const Blog = ({ posts, meta }) => (
                 },
             ].concat(meta)}
         />
-        <Layout>
+        <Layout product={product} productImage={home.hero_background.url}>
             <BlogWrapper>
                 <BlogTitle>
                     Blog
@@ -102,10 +102,13 @@ const Blog = ({ posts, meta }) => (
 export default ({ data }) => {
     const posts = data.prismic.allPosts.edges;
     const meta = data.site.siteMetadata;
+    const product = data.allStripeSku.edges;
+    const home = data.prismic.allHomepages.edges.slice(0, 1).pop();
+
     if (!posts) return null;
 
     return (
-        <Blog posts={posts} meta={meta}/>
+        <Blog posts={posts} meta={meta} product={product} home={home.node}/>
     )
 }
 
@@ -118,6 +121,13 @@ Blog.propTypes = {
 export const query = graphql`
     {
         prismic {
+            allHomepages {
+                edges {
+                    node {
+                        hero_background
+                    }
+                }
+            }  
             allPosts(sortBy: post_date_DESC) {
                 edges {
                     node {
@@ -139,6 +149,21 @@ export const query = graphql`
                 title
                 description
                 author
+            }
+        }
+        allStripeSku(filter: {product: {id: {eq: "prod_GVN1SL4dCamlJA"}}}) {
+            edges {
+                node {
+                    id
+                    price
+                    currency
+                    product {
+                        name
+                        metadata {
+                            description
+                        }
+                    }
+                }
             }
         }
     }
