@@ -156,7 +156,10 @@ const Section = styled("section")`
     }
     &.testimonial-section {
         padding: 5em 0;
-        background-color: #F7F7F7;
+        position: relative;
+        display: block;
+        width: 100%;
+        height: 100%;
         @media(max-width: ${dimensions.maxwidthMobile}px) {
             height: 550px;
         }
@@ -174,6 +177,17 @@ const Section = styled("section")`
             .carousel-inner {
                 padding: 0 20px;
             }
+        }
+        &::after {
+            content: "";
+            background: url('./tibet_map_bg.jpg');
+            opacity: 0.4;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            position: absolute;
+            z-index: -1;
         }
     }
     &.blog-section {
