@@ -11,6 +11,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Layout from "components/Layout";
 import BuyModal from "components/BuyModal";
 import PostCard from "components/PostCard";
+import ContactUs from "components/ContactUs";
 
 const HeroSection = styled("section")`
   padding: 4rem 0;
@@ -153,6 +154,9 @@ const Section = styled("section")`
         position: relative;
         margin-bottom: 0;
         border: none;
+        @media(max-width: ${dimensions.maxwidthTablet}px) {
+            padding: 0 0 2em 0;
+        }
     }
     &.testimonial-section {
         padding: 5em 0;
@@ -230,9 +234,13 @@ const HighlightImageContainer = styled("div")`
     }
     figure.bg-swatch.right {
         z-index: -1;
-        max-width: 20rem;
+        max-width: 18rem;
         right: 0;
         bottom: 0;
+        @media(max-width: ${dimensions.maxwidthTablet}px) {
+            right: 200px;
+            bottom: -150px;
+        }
         div.swatch-wrapper {
             margin-right: -8rem;
             margin-bottom: -8rem;
@@ -240,9 +248,13 @@ const HighlightImageContainer = styled("div")`
     }
     figure.bg-swatch.left {
         z-index: -1;
-        max-width: 24rem;
+        max-width: 20rem;
         left: 0;
         bottom: 0;
+        @media(max-width: ${dimensions.maxwidthTablet}px) {
+            left: 200px;
+            bottom: -150px;
+        }
         div.swatch-wrapper {
             margin-left: -8rem;
             margin-bottom: -8rem;
@@ -257,10 +269,13 @@ const HighlightTextContainer = styled("div")`
     display: flex;
     align-items: center;
     font-family: 'Gelasio', serif;
+    margin-top: 30px;
     @media(max-width: ${dimensions.maxwidthTablet}px) {
         width: 100%;
         order: 2;
         padding: 30px;
+        display: flex;
+        justify-content: center;
     }
 `
 
@@ -268,8 +283,10 @@ const HighlightTextWrapper = styled("div")`
     padding: 0 4rem;
     width: 100%;
     max-width: 650px;
-    &.text-left {
-        margin: 0 0 0 auto;
+    @media(min-width: ${dimensions.maxwidthTablet}px) {
+        &.text-left {
+            margin: 0 0 0 auto;
+        }
     }
     p {
         color: #545454;
@@ -470,7 +487,7 @@ const RenderBody = ({ home, posts, meta, reviews, previewLink, product }) => (
                     </HighlightTextWrapper>
                 </HighlightTextContainer>
                 <HighlightImageContainer className="image-right">
-                    <img src={home.highlight_2[0].highlight_image_2.url} />
+                    <img src={home.highlight_2[0].highlight_image_2.url} className="highlight-photo"/>
                     <figure className="max-w-15rem w-100 position-absolute bg-swatch left">
                         <div className="swatch-wrapper">
                             <img className="img-fluid" src="./swatch-1.svg" alt="Image Description" />
@@ -510,6 +527,9 @@ const RenderBody = ({ home, posts, meta, reviews, previewLink, product }) => (
             <WorkAction to={"/blog"}>
                 See all posts
             </WorkAction>
+        </Section>
+        <Section>
+            <ContactUs />
         </Section>
     </>
 );
