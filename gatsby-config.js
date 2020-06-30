@@ -4,9 +4,9 @@ require('dotenv').config({
 
 module.exports = {
   siteMetadata: {
-    title: `Prist | Gatsby & Prismic Starter`,
-        description: `A starter powered by Gatsby and Prismic to showcase portfolios and blogs.`,
-    author: `Marguerite Roth | marguerite.io`,
+    title: `Tibetan Resettlement Stories`,
+    description: `Sharing stories from first-generation immigrants that has touched our hearts and truly deepend our understanding of what it means to leave Tibet and begin a life in the United States of America.`,
+    author: `Wangdu Duntak`,
   },
   plugins: [
     `gatsby-plugin-react-helmet`,

@@ -50,6 +50,9 @@ const PostDate = styled("div")`
 
 const PostDescription = styled("div")`
     height: 200px;
+    @media(max-width: ${dimensions.maxwidthMobile}px) {
+        height: 150px;
+    }
     p {
         font-family: 'Gelasio';
         margin-top: 10px;

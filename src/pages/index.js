@@ -222,9 +222,32 @@ const HighlightImageContainer = styled("div")`
         width: 100%;
         order: 1;
     }
-    img {
+    img.highlight-photo {
         width: 100%;
         height: 100%;
+        border-radius: 10px;
+        box-shadow: 3px 3px 12px #888888
+    }
+    figure.bg-swatch.right {
+        z-index: -1;
+        max-width: 20rem;
+        right: 0;
+        bottom: 0;
+        div.swatch-wrapper {
+            margin-right: -8rem;
+            margin-bottom: -8rem;
+        }
+    }
+    figure.bg-swatch.left {
+        z-index: -1;
+        max-width: 24rem;
+        left: 0;
+        bottom: 0;
+        div.swatch-wrapper {
+            margin-left: -8rem;
+            margin-bottom: -8rem;
+            transform: rotate(50deg);
+        }
     }
 `
 const HighlightTextContainer = styled("div")`
@@ -425,7 +448,12 @@ const RenderBody = ({ home, posts, meta, reviews, previewLink, product }) => (
         <Section className="highlight-section">
             <HighlightWrapper>
                 <HighlightImageContainer className="image-left">
-                    <img src={home.highlight_1[0].highlight_image_1.url} />
+                    <img src={home.highlight_1[0].highlight_image_1.url} className="highlight-photo" />
+                    <figure className="max-w-15rem w-100 position-absolute bg-swatch right">
+                        <div className="swatch-wrapper">
+                            <img className="img-fluid" src="./swatch-1.svg" alt="Image Description" />
+                        </div>
+                    </figure>
                 </HighlightImageContainer>
                 <HighlightTextContainer>
                     <HighlightTextWrapper className="text-right">
@@ -443,6 +471,11 @@ const RenderBody = ({ home, posts, meta, reviews, previewLink, product }) => (
                 </HighlightTextContainer>
                 <HighlightImageContainer className="image-right">
                     <img src={home.highlight_2[0].highlight_image_2.url} />
+                    <figure className="max-w-15rem w-100 position-absolute bg-swatch left">
+                        <div className="swatch-wrapper">
+                            <img className="img-fluid" src="./swatch-1.svg" alt="Image Description" />
+                        </div>
+                    </figure>
                 </HighlightImageContainer>
             </HighlightWrapper>
         </Section>             
