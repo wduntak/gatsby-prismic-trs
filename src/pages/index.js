@@ -202,6 +202,10 @@ const Section = styled("section")`
             text-align: center;
         }
     }
+    &.contact-section {
+        display: flex;
+        align-items: center;
+    }
 `
 const HighlightWrapper = styled("div")`
     display: flex;
@@ -528,7 +532,7 @@ const RenderBody = ({ home, posts, meta, reviews, previewLink, product }) => (
                 See all posts
             </WorkAction>
         </Section>
-        <Section>
+        <Section className="contact-section">
             <ContactUs />
         </Section>
     </>
