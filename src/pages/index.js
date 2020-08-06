@@ -194,7 +194,7 @@ const Section = styled("section")`
             z-index: -1;
         }
     }
-    &.blog-section {
+    &.news-section {
         padding-top: 6em;
         margin-bottom: 8rem;
         & > a {
@@ -349,7 +349,7 @@ const TestimonialTitle = styled("h1")`
     }    
 `
 
-const BlogPostsTitle = styled("h1")`
+const NewsPostsTitle = styled("h1")`
     font-family: Gelasio;
     font-weight: 200;
     font-size: 2.4rem;
@@ -371,7 +371,7 @@ const BlogPostsTitle = styled("h1")`
         margin-top: 23px;
     }    
 `
-const BlogPostsWrapper = styled("div")`
+const NewsPostsWrapper = styled("div")`
     column-rule: 1px solid #eee;
     margin: 0;
     column-fill: initial;
@@ -513,9 +513,9 @@ const RenderBody = ({ home, posts, meta, reviews, previewLink, product }) => (
                 })}
             </Carousel>
         </Section>
-        <Section className="blog-section">
-            <BlogPostsTitle>Blog Posts</BlogPostsTitle>
-            <BlogPostsWrapper>
+        <Section className="news-section">
+            <NewsPostsTitle>News</NewsPostsTitle>
+            <NewsPostsWrapper>
                 {posts.slice(0).reverse().map((post, i) => (
                     <PostCard 
                         key={i}
@@ -527,8 +527,8 @@ const RenderBody = ({ home, posts, meta, reviews, previewLink, product }) => (
                         date={post.node.post_date}          
                     />
                 ))}
-            </BlogPostsWrapper>
-            <WorkAction to={"/blog"}>
+            </NewsPostsWrapper>
+            <WorkAction to={"/news"}>
                 See all posts
             </WorkAction>
         </Section>

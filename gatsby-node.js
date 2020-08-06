@@ -47,8 +47,8 @@ exports.createPages = async ({ graphql, actions }) => {
     postsList.forEach(edge => {
         createPage({
             type: 'Post',
-            match: '/blog/:uid',
-            path: `/blog/${edge.node._meta.uid}`,
+            match: '/news/:uid',
+            path: `/news/${edge.node._meta.uid}`,
             component: postTemplate,
             context: {
                 uid: edge.node._meta.uid,

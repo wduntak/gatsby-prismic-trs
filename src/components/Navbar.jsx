@@ -250,8 +250,8 @@ const Navbar = class extends React.Component {
                             <li>
                                 <Link
                                     activeClassName="Link--is-active"
-                                    to="/blog">
-                                    Blog
+                                    to="/news">
+                                    News
                                 </Link>
 
                             </li>

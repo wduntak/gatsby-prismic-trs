@@ -7,13 +7,13 @@ import dimensions from "styles/dimensions";
 import Layout from "components/Layout";
 import PostCard from "components/PostCard";
 
-const BlogTitle = styled("h1")`
+const NewsTitle = styled("h1")`
     font-family: 'Gelasio', serif;
     margin-bottom: 1em;
     text-align: center;
 `
 
-const BlogGrid = styled("div")`
+const NewsGrid = styled("div")`
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-gap: 2.5em;
@@ -29,17 +29,17 @@ const BlogGrid = styled("div")`
     }
 `
 
-const BlogWrapper = styled("div")`
+const NewsWrapper = styled("div")`
     padding: 20px 30px 0 30px;
     max-width: 1140px;
     margin: 0 auto;
 `
 
-const Blog = ({ posts, meta, product, home }) => (
+const News = ({ posts, meta, product, home }) => (
     <>
         <Helmet
-            title={`Blog | Prist, Gatsby & Prismic Starter`}
-            titleTemplate={`%s | Blog | Prist, Gatsby & Prismic Starter`}
+            title={`News | Prist, Gatsby & Prismic Starter`}
+            titleTemplate={`%s | News | Prist, Gatsby & Prismic Starter`}
             meta={[
                 {
                     name: `description`,
@@ -47,7 +47,7 @@ const Blog = ({ posts, meta, product, home }) => (
                 },
                 {
                     property: `og:title`,
-                    content: `Blog | Prist, Gatsby & Prismic Starter`,
+                    content: `News | Prist, Gatsby & Prismic Starter`,
                 },
                 {
                     property: `og:description`,
@@ -76,11 +76,11 @@ const Blog = ({ posts, meta, product, home }) => (
             ].concat(meta)}
         />
         <Layout product={product} productImage={home.hero_background.url}>
-            <BlogWrapper>
-                <BlogTitle>
-                    Blog
-                </BlogTitle>
-                <BlogGrid>
+            <NewsWrapper>
+                <NewsTitle>
+                    News
+                </NewsTitle>
+                <NewsGrid>
                     {posts.map((post, i) => (
                         <PostCard
                             key={i}
@@ -93,8 +93,8 @@ const Blog = ({ posts, meta, product, home }) => (
                             thumbnail={post.node.post_hero_image}
                         />
                     ))}
-                </BlogGrid>
-            </BlogWrapper>
+                </NewsGrid>
+            </NewsWrapper>
         </Layout>
     </>
 );
@@ -108,11 +108,11 @@ export default ({ data }) => {
     if (!posts) return null;
 
     return (
-        <Blog posts={posts} meta={meta} product={product} home={home.node}/>
+        <News posts={posts} meta={meta} product={product} home={home.node}/>
     )
 }
 
-Blog.propTypes = {
+News.propTypes = {
     posts: PropTypes.array.isRequired,
     meta: PropTypes.object.isRequired,
 };
