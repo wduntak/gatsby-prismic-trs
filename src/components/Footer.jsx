@@ -59,6 +59,9 @@ const FooterColumn = styled("div")`
             a {
                 color: #757575;
                 text-decoration: none;
+                img {
+                    width: 25px;
+                }
             }
         }
     }
@@ -85,10 +88,10 @@ const Footer = () => (
             <FooterColumn>
                 <h3>Social</h3>
                 <ul>
-                    <li><Link to="/">Twitter</Link></li>
-                    <li><Link to="/">Facebook</Link></li>
-                    <li><Link to="/">Instagram</Link></li>
-                    <li><Link to="/">Youtube</Link></li>
+                    <li><Link to="/"><img className="social-icon" src="./icons/twitter.svg" /></Link></li>
+                    <li><Link to="/"><img className="social-icon" src="./icons/facebook.svg" /></Link></li>
+                    <li><Link to="/"><img className="social-icon" src="./icons/instagram.svg" /></Link></li>
+                    <li><Link to="/"><img className="social-icon" src="./icons/youtube.svg" /></Link></li>
                 </ul>
             </FooterColumn>
         </FooterColumns>

@@ -175,7 +175,7 @@ const Section = styled("section")`
                     bottom: -100px;
                 }
                 li {
-                    background-color: ${colors.green800};
+                    background-color: #fff;
                 }
             }
             .carousel-inner {
@@ -185,13 +185,14 @@ const Section = styled("section")`
         &::after {
             content: "";
             background: url('./tibet_map_bg.jpg');
-            opacity: 0.4;
+            opacity: 0.8;
             top: 0;
             left: 0;
             bottom: 0;
             right: 0;
             position: absolute;
             z-index: -1;
+            filter: invert(1);
         }
     }
     &.news-section {
@@ -308,7 +309,7 @@ const TestimonialQuote = styled('p')`
   font-family: 'Gelasio', serif;
   font-size: 18px;
   text-align: center;
-  color: #545454;
+  color: #fff;
   margin: 0 auto;
   max-width: 600px;
   width: 100%;
@@ -318,7 +319,7 @@ const TestimonialQuote = styled('p')`
 `
 
 const TestimonialAuthor = styled('p')`
-  color: #000;
+  color: #fff;
   margin-bottom: 3rem;
   text-align: center;
   margin: 20px auto;
@@ -333,6 +334,7 @@ const TestimonialTitle = styled("h1")`
     line-height: 1.2;
     text-align: center;
     margin-bottom: 1em;
+    color: #fff;
     @media(max-width: ${dimensions.maxwidthMobile}px) {
         font-size: 1.6rem;
     }
@@ -341,7 +343,7 @@ const TestimonialTitle = styled("h1")`
         display: block;
         width: 30px;
         height: 2px;
-        background-color: ${colors.green800};
+        background-color: #fff;
         margin-left: auto;
         margin-right: auto;
         margin-bottom: 0;
@@ -652,6 +654,13 @@ export const query = graphql`
                         name
                         metadata {
                             description
+                        }
+                    }
+                    localFiles {
+                        childImageSharp {
+                            fluid {
+                            src
+                            }
                         }
                     }
                 }

@@ -1,6 +1,6 @@
 import React from 'react'
 import { navigate } from 'gatsby-link'
-import { Form, Button, InputGroup, Container, Row, Col } from 'react-bootstrap';
+import { Form, Button, Container, Row, Col } from 'react-bootstrap';
 
 function encode(data) {
   return Object.keys(data)
@@ -75,9 +75,7 @@ export default function ContactUs() {
                         </Form.Label>
                         <Form.Control as="textarea" rows="5" name="message" onChange={handleChange} />
                     </Form.Group>
-                    <p>
-                    <Button type="submit" className="w-100">Send</Button>
-                    </p>
+                    <Button type="submit" className="w-100" style={{backgroundColor: '#2196f3', borderColor: '#2196f3'}}>Send</Button>
                 </Form>
             </Col>
         </Row>
