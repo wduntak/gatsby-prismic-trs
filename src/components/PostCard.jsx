@@ -7,14 +7,11 @@ import dimensions from "styles/dimensions";
 import PropTypes from "prop-types";
 
 const PostCardContainer = styled("article")`
-    padding-bottom: 25px;
+    padding: 25px;
     margin-bottom: 25px;
-    border-bottom: 1px solid #eee;
+    border: 1px solid #eee;
     display: inline-block;
     vertical-align: top;
-    &:nth-of-type(even) {
-        border-bottom: none;
-    }
 `
 const PostImage = styled("img")`
     max-width: 350px;
@@ -69,17 +66,6 @@ const PostCardAction = styled("div")`
         color: #555;
         text-decoration: underline;
     }
-    /* font-weight: 600;
-    text-decoration: none;
-    color: currentColor;
-    transition: all 150ms ease-in-out;
-
-    span {
-        margin-left: 1em;
-        transform: translateX(-8px);
-        display: inline-block;
-        transition: transform 400ms ease-in-out;
-    } */
 `
 
 const PostCard = ({ category, date, title, description, uid, thumbnail}) => (

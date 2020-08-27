@@ -4,7 +4,6 @@ import styled from "@emotion/styled"
 import dimensions from "styles/dimensions"
 import Logo from "components/_ui/Logo"
 
-import CheckoutButton from "./CheckoutButton"
 import BuyModal from "./BuyModal";
 
 const NavbarContainer = styled("nav")`
@@ -187,6 +186,7 @@ const NavbarMenu = styled("div")`
         }
     }
 `
+
 const Navbar = class extends React.Component {
     constructor(props) {
         super(props);
@@ -212,7 +212,7 @@ const Navbar = class extends React.Component {
 
     render() {
         return (
-            <NavbarContainer className={this.state.navbarActiveClass}>
+            <NavbarContainer className={`${this.state.navbarActiveClass}`}>
                 <NavbarWrapper>
                     <NavbarBrand>
                         <Link 
@@ -265,12 +265,18 @@ const Navbar = class extends React.Component {
                             <li>
                                 <Link
                                     activeClassName="Link--is-active"
+                                    to="/#contact">
+                                    Contact
+                                </Link>
+                            </li>
+                            <li>
+                                <Link
+                                    activeClassName="Link--is-active"
                                     to="/donate">
                                     Donate
                                 </Link>
                             </li>
                             <li>
-                                {/* <CheckoutButton /> */}
                                 <BuyModal buttonText="Buy Now" product={this.props.product} productImage={this.props.productImage} />
                             </li>
                         </ul>

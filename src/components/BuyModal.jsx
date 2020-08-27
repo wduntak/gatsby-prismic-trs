@@ -45,14 +45,22 @@ const CustomButton = styled(Button)`
 `
 
 export default function BuyModal(props)  {
-  const [show, setShow] = useState(false)
-
+  const [show, setShow] = useState(false);
   const [quantity, setQuantity] = useState(1);
-
+  const [product, setProduct] = useState(props.product[0]);
+    
   const handleClose = () => setShow(false)
   const handleShow = () => setShow(true)
 
-  const price = props.product[0].node.price;
+  const handleProduct = id => {
+    var selectedProduct = props.product.filter(item => {
+      return item.node.id === id;
+    })
+    console.log('selectedProduct', selectedProduct[0]);
+    setProduct(selectedProduct[0]);
+  }
+
+  const price = product.node.price;
   const formatPrice = (price/100).toFixed(2);
 
   return (
@@ -69,17 +77,38 @@ export default function BuyModal(props)  {
           <Container>
             <Row>
               <Col xs={12} md={4}>
-                <img src={props.productImage}></img>
+                <img src={props.productImage} alt="Book Cover"></img>
               </Col>
               <Col xs={6} md={6}>
                 <Row>
-                  <h5>{props.product[0].node.product.name}</h5>
+                  <h5>{product.node.product.name}</h5>
                 </Row>
-                <Row>{props.product[0].node.product.metadata.description}</Row>
+                <Row>{product.node.product.metadata.description}</Row>
               </Col>
               <Col xs={6} md={2}>
-                <strong>${formatPrice} {props.product[0].node.currency.toUpperCase()}</strong>
+                <strong>${formatPrice} {product.node.currency.toUpperCase()}</strong>
                 <p>+ Shipping Fees</p>
+              </Col>
+            </Row>
+            <Row>
+              <Col xs={8} md={8}></Col>
+              <Col xs={4} md={4}>
+                <InputGroup>
+                  <InputGroup.Prepend>
+                    <InputGroup.Text id="basic-addon1">Currency: </InputGroup.Text>
+                  </InputGroup.Prepend>
+                  <Form.Control
+                    as="select"
+                    id="input-select-currency"
+                    onChange={e => {
+                      handleProduct(e.target.value)
+                    }}
+                  >
+                    {props.product.map((item, i) => (
+                      <option key={i} value={item.node.id}>{item.node.currency.toUpperCase()}</option>
+                    ))}
+                  </Form.Control>
+                </InputGroup>
               </Col>
             </Row>
             <Row>
@@ -105,7 +134,7 @@ export default function BuyModal(props)  {
           <CustomButton onClick={handleClose} className="cancel-btn">
             Cancel
           </CustomButton>
-          <CheckoutButton quantity={quantity} />
+          <CheckoutButton quantity={quantity} product={product}/>
         </Modal.Footer>
       </CustomModal>
     </>

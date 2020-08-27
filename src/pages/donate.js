@@ -7,7 +7,6 @@ import styled from "@emotion/styled"
 import dimensions from "styles/dimensions"
 import colors from "styles/colors"
 import Layout from "components/Layout"
-import Img from "gatsby-image"
 
 const DonateContainer = styled("div")`
   max-width: 1140px;

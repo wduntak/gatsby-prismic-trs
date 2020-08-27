@@ -7,7 +7,6 @@ import styled from "@emotion/styled";
 import dimensions from "styles/dimensions";
 import colors from "styles/colors";
 import Layout from "components/Layout";
-import Img from "gatsby-image"
 
 const AboutContainer = styled('div')`
    max-width: 1140px;
@@ -79,35 +78,6 @@ const AboutBodySection = styled('div')`
         font-style: italic;
     }
 `
-const AboutImages = styled('div')`
-
-`
-
-const AboutImagesTitle = styled('div')`
-    font-family: 'Gelasio', serif;
-    h3 {
-        text-align: center;
-        font-size: 1.6rem;
-        &::after {
-            content: "";
-            display: block;
-            width: 30px;
-            height: 2px;
-            background-color: ${colors.green800};
-            margin-left: auto;
-            margin-right: auto;
-            margin-bottom: 0;
-            margin-top: 23px;
-        }
-    }
-`
-const AboutImagesWrapper = styled('div')`
-    display: flex;
-    flex-flow: row wrap;
-    justify-content: space-evenly;
-    max-width: 1140px;
-
-`
 
 const About = ({ abouts, meta, home, product }) => (
     <>
@@ -159,21 +129,6 @@ const About = ({ abouts, meta, home, product }) => (
                 <AboutBodySection>
                     {RichText.render(abouts.about_body)}
                 </AboutBodySection>
-                <AboutImages>
-                    <AboutImagesTitle>
-                        <h3>Follow us on Instagram</h3>
-                    </AboutImagesTitle>
-                    {/* <AboutImagesWrapper>
-                        {images.map((image, i) => (
-                            <a href={"https://www.instagram.com/voicesofbostontrs/"}>
-                                <Img 
-                                    key={i}
-                                    fixed={image.node.localFile.childImageSharp.fixed}        
-                                />
-                            </a>
-                        ))}
-                    </AboutImagesWrapper> */}
-                </AboutImages>
             </AboutContainer>
         </Layout>
     </>
@@ -184,7 +139,6 @@ export default ({ data }) => {
     const meta = data.site.siteMetadata;
     const home = data.prismic.allHomepages.edges.slice(0, 1).pop();
     const product = data.allStripeSku.edges;
-    // const instaImages = data.allInstaNode.edges;
     if (!abouts) return null;
 
     return (
@@ -194,69 +148,51 @@ export default ({ data }) => {
 
 About.propTypes = {
     abouts: PropTypes.object.isRequired,
-    images: PropTypes.array.isRequired,
     home: PropTypes.object.isRequired,
     product: PropTypes.array.isRequired,
 };
 
 export const query = graphql`
-         {
-        #    allInstaNode(limit: 4, sort: { fields: timestamp, order: DESC }) {
-        #      edges {
-        #        node {
-        #          localFile {
-        #            childImageSharp {
-        #              fixed(width: 250, height: 250) {
-        #                base64
-        #                width
-        #                height
-        #                src
-        #                srcSet
-        #              }
-        #            }
-        #          }
-        #        }
-        #      }
-        #    }
-           prismic {
-            allHomepages {
-                edges {
-                    node {
-                        hero_background
+    {
+    prismic {
+    allHomepages {
+        edges {
+            node {
+                hero_background
+            }
+        }
+    }
+        allAbouts {
+        edges {
+            node {
+            about_title
+            about_title_background
+            about_body
+            }
+        }
+        }
+    }
+    site {
+        siteMetadata {
+        title
+        description
+        author
+        }
+    }
+    allStripeSku(filter: {product: {id: {eq: "prod_GVN1SL4dCamlJA"}}}) {
+        edges {
+            node {
+                id
+                price
+                currency
+                product {
+                    name
+                    metadata {
+                        description
                     }
                 }
             }
-             allAbouts {
-               edges {
-                 node {
-                   about_title
-                   about_title_background
-                   about_body
-                 }
-               }
-             }
-           }
-           site {
-             siteMetadata {
-               title
-               description
-               author
-             }
-           }
-            allStripeSku(filter: {product: {id: {eq: "prod_GVN1SL4dCamlJA"}}}) {
-                edges {
-                    node {
-                        id
-                        price
-                        currency
-                        product {
-                            name
-                            metadata {
-                                description
-                            }
-                        }
-                    }
-                }
-            }
-         }
-       `
+        }
+    }
+    }
+`

@@ -94,12 +94,12 @@ export default ({ data }) => {
     });
 
     return (
-        <Gallery images={images} meta={meta} product={product} home={home.node}/>
+        <Gallery images={images} meta={meta} product={product} home={home.node} />
     )
 }
 
 Gallery.propTypes = {
-    gallerys: PropTypes.array.isRequired,
+    images: PropTypes.array.isRequired,
 };
 
 export const query = graphql`

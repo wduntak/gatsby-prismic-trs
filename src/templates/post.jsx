@@ -26,34 +26,6 @@ const PostHeroContainer = styled("div")`
     }
 `
 
-const PostHeroAnnotation = styled("div")`
-    padding-top: 0.25em;
-
-    h6 {
-        text-align: right;
-        color: ${colors.grey600};
-        font-weight: 400;
-        font-size: 0.85rem;
-    }
-
-    a {
-        color: currentColor;
-    }
-`
-
-const PostCategory = styled("div")`
-    max-width: 550px;
-    margin: 0 auto;
-    text-align: center;
-    font-weight: 600;
-    color: ${colors.grey600};
-
-    h5 {
-        margin-top: 0;
-        margin-bottom: 1em;
-    }
-`
-
 const PostTitle = styled("div")`
     max-width: 550px;
     margin: 0 auto;

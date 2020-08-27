@@ -118,7 +118,7 @@ const PreviewLink = styled("a")`
   text-align: center;
   color: #fff;
   padding: 13px 20px;
-  border: 2px solid #34c1bb;
+  border: 2px solid #2196f3;
   background-color: transparent;
   border-radius: 10px;
   margin-left: 20px;
@@ -185,6 +185,8 @@ const Section = styled("section")`
         &::after {
             content: "";
             background: url('./tibet_map_bg.jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
             opacity: 0.8;
             top: 0;
             left: 0;
@@ -204,6 +206,8 @@ const Section = styled("section")`
         }
     }
     &.contact-section {
+        padding-top: 6em;
+        margin-bottom: 8rem;
         display: flex;
         align-items: center;
     }
@@ -232,10 +236,16 @@ const HighlightImageContainer = styled("div")`
         order: 1;
     }
     img.highlight-photo {
+        max-width: 530px;
+        max-height: 400px;
         width: 100%;
         height: 100%;
         border-radius: 10px;
-        box-shadow: 3px 3px 12px #888888
+        box-shadow: 3px 3px 12px #888888;
+        @media(max-width: ${dimensions.maxwidthTablet}px) {
+            margin: 30px auto 0 auto;
+            display: block;
+        }
     }
     figure.bg-swatch.right {
         z-index: -1;
@@ -374,7 +384,6 @@ const NewsPostsTitle = styled("h1")`
     }    
 `
 const NewsPostsWrapper = styled("div")`
-    column-rule: 1px solid #eee;
     margin: 0;
     column-fill: initial;
     column-count: 3;
@@ -410,7 +419,7 @@ const WorkAction = styled(Link)`
     }
 `
 
-const RenderBody = ({ home, posts, meta, reviews, previewLink, product }) => (
+const RenderBody = ({ home, posts, meta, reviews, previewLink, product, banner }) => (
     <>
         <Helmet
             title={meta.title}
@@ -453,7 +462,7 @@ const RenderBody = ({ home, posts, meta, reviews, previewLink, product }) => (
         <HeroSection>
             <HeroWrapper>
                 <HeroImageContainer>
-                    <img src={home.hero_background.url}></img>
+                    <img src={home.hero_background.url} alt="Book Cover"></img>
                 </HeroImageContainer>
                 <HeroDetailContainer>
                     <>
@@ -471,10 +480,10 @@ const RenderBody = ({ home, posts, meta, reviews, previewLink, product }) => (
         <Section className="highlight-section">
             <HighlightWrapper>
                 <HighlightImageContainer className="image-left">
-                    <img src={home.highlight_1[0].highlight_image_1.url} className="highlight-photo" />
+                    <img src={home.highlight_1[0].highlight_image_1.url} className="highlight-photo" alt={home.highlight_1[0].highlight_image_1.alt} />
                     <figure className="max-w-15rem w-100 position-absolute bg-swatch right">
                         <div className="swatch-wrapper">
-                            <img className="img-fluid" src="./swatch-1.svg" alt="Image Description" />
+                            <img className="img-fluid" src="./swatch-1.svg" alt="Green Splash"/>
                         </div>
                     </figure>
                 </HighlightImageContainer>
@@ -493,10 +502,10 @@ const RenderBody = ({ home, posts, meta, reviews, previewLink, product }) => (
                     </HighlightTextWrapper>
                 </HighlightTextContainer>
                 <HighlightImageContainer className="image-right">
-                    <img src={home.highlight_2[0].highlight_image_2.url} className="highlight-photo"/>
+                    <img src={home.highlight_2[0].highlight_image_2.url} className="highlight-photo" alt={home.highlight_2[0].highlight_image_2.alt}/>
                     <figure className="max-w-15rem w-100 position-absolute bg-swatch left">
                         <div className="swatch-wrapper">
-                            <img className="img-fluid" src="./swatch-1.svg" alt="Image Description" />
+                            <img className="img-fluid" src="./swatch-1.svg" alt="Green Splash" />
                         </div>
                     </figure>
                 </HighlightImageContainer>
@@ -534,7 +543,7 @@ const RenderBody = ({ home, posts, meta, reviews, previewLink, product }) => (
                 See all posts
             </WorkAction>
         </Section>
-        <Section className="contact-section">
+        <Section className="contact-section" id="contact">
             <ContactUs />
         </Section>
     </>
@@ -548,14 +557,15 @@ export default ({ data }) => {
     const reviews = data.prismic.allReviews.edges;
     const previews = data.prismic.allPreviewbookpages.edges;
     const product = data.allStripeSku.edges;
+    const banner = data.prismic.allSkinnybanners.edges;
 
-    if (!doc || !reviews|| !posts || !previews || !product) return null;
+    if (!doc || !reviews|| !posts || !previews || !product || !banner) return null;
 
     const previewLink = previews[0].node.previewbooklink.url;
     
     return (
-        <Layout product={product} productImage={doc.node.hero_background.url}>
-            <RenderBody home={doc.node} meta={meta} reviews={reviews} posts={posts} previewLink={previewLink} product={product}/>
+        <Layout product={product} productImage={doc.node.hero_background.url} banner={banner}>
+            <RenderBody home={doc.node} meta={meta} reviews={reviews} posts={posts} previewLink={previewLink} product={product} />
         </Layout>
     )
 }
@@ -633,6 +643,14 @@ export const query = graphql`
                             _linkType
                             }
                         }
+                    }
+                }
+            }
+            allSkinnybanners {
+                edges {
+                    node {
+                        banner_message
+                        enable_banner
                     }
                 }
             }
