@@ -4,8 +4,8 @@ import { graphql } from "gatsby"
 
 import Layout from "components/Layout";
 
-const NotFoundPage = ({ home, product }) => (
-    <Layout product={product}>
+const NotFoundPage = ({ home, product, shipping }) => (
+    <Layout product={product} shipping={shipping}>
         <h1>
             NOT FOUND
         </h1>
@@ -18,10 +18,11 @@ const NotFoundPage = ({ home, product }) => (
 export default ({ data }) => {
     const home = data.prismic.allHomepages.edges.slice(0, 1).pop();
     const product = data.allStripeSku.edges;
+    const shipping = data.allStripePrice.edges;
     if (!home || !product) return null;
 
     return (
-        <NotFoundPage home={home.node} product={product} />
+        <NotFoundPage home={home.node} product={product} shipping={shipping} />
     )
 }
 
@@ -53,6 +54,15 @@ export const query = graphql`
                         description
                     }
                 }
+            }
+        }
+    }
+    allStripePrice {
+        edges {
+            node {
+                currency
+                unit_amount
+                id
             }
         }
     }
