@@ -68,7 +68,7 @@ const CheckoutFooter = (props) => (
     </svg>
     <CheckoutFooterInfoWrapper>
         <h3>Read our stories inspired by first-generation Tibetans</h3>
-        <BuyModal buttonText="Buy Now" product={props.product} productImage={props.productImage} />    </CheckoutFooterInfoWrapper>
+        <BuyModal buttonText="Buy Now" product={props.product} productImage={props.productImage} shipping={props.shipping} />    </CheckoutFooterInfoWrapper>
   </CheckoutFooterContainer>
 )
 export default CheckoutFooter;

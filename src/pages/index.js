@@ -419,7 +419,7 @@ const WorkAction = styled(Link)`
     }
 `
 
-const RenderBody = ({ home, posts, meta, reviews, previewLink, product, banner }) => (
+const RenderBody = ({ home, posts, meta, reviews, previewLink, product, banner, shipping }) => (
     <>
         <Helmet
             title={meta.title}
@@ -470,7 +470,7 @@ const RenderBody = ({ home, posts, meta, reviews, previewLink, product, banner }
                         {RichText.render(home.hero_subtitle)}
                     </>
                     <HeroLinkContainer>
-                        <BuyModal buttonText="Buy Now" product={product} productImage={home.hero_background.url} />
+                        <BuyModal buttonText="Buy Now" product={product} productImage={home.hero_background.url} shipping={shipping}/>
                         <PreviewLink href={previewLink} alt="Read book preview">Read Preview</PreviewLink>
                     </HeroLinkContainer>
                 </HeroDetailContainer>
@@ -557,15 +557,16 @@ export default ({ data }) => {
     const reviews = data.prismic.allReviews.edges;
     const previews = data.prismic.allPreviewbookpages.edges;
     const product = data.allStripeSku.edges;
+    const shipping = data.allStripePrice.edges;
     const banner = data.prismic.allSkinnybanners.edges;
 
-    if (!doc || !reviews|| !posts || !previews || !product || !banner) return null;
+    if (!doc || !reviews|| !posts || !previews || !product || !banner || !shipping) return null;
 
     const previewLink = previews[0].node.previewbooklink.url;
     
     return (
-        <Layout product={product} productImage={doc.node.hero_background.url} banner={banner}>
-            <RenderBody home={doc.node} meta={meta} reviews={reviews} posts={posts} previewLink={previewLink} product={product} />
+        <Layout product={product} productImage={doc.node.hero_background.url} banner={banner} shipping={shipping}>
+            <RenderBody home={doc.node} meta={meta} reviews={reviews} posts={posts} previewLink={previewLink} product={product} shipping={shipping}/>
         </Layout>
     )
 }
@@ -681,6 +682,15 @@ export const query = graphql`
                             }
                         }
                     }
+                }
+            }
+        }
+        allStripePrice {
+            edges {
+                node {
+                    currency
+                    unit_amount
+                    id
                 }
             }
         }

@@ -35,7 +35,7 @@ const NewsWrapper = styled("div")`
     margin: 0 auto;
 `
 
-const News = ({ posts, meta, product, home }) => (
+const News = ({ posts, meta, product, home, shipping }) => (
     <>
         <Helmet
             title={`News | Prist, Gatsby & Prismic Starter`}
@@ -75,7 +75,7 @@ const News = ({ posts, meta, product, home }) => (
                 },
             ].concat(meta)}
         />
-        <Layout product={product} productImage={home.hero_background.url}>
+        <Layout product={product} productImage={home.hero_background.url} shipping={shipping}>
             <NewsWrapper>
                 <NewsTitle>
                     News
@@ -103,12 +103,13 @@ export default ({ data }) => {
     const posts = data.prismic.allPosts.edges;
     const meta = data.site.siteMetadata;
     const product = data.allStripeSku.edges;
+    const shipping = data.allStripePrice.edges;
     const home = data.prismic.allHomepages.edges.slice(0, 1).pop();
 
     if (!posts) return null;
 
     return (
-        <News posts={posts} meta={meta} product={product} home={home.node}/>
+        <News posts={posts} meta={meta} product={product} home={home.node} shipping={shipping}/>
     )
 }
 
@@ -163,6 +164,15 @@ export const query = graphql`
                             description
                         }
                     }
+                }
+            }
+        }
+        allStripePrice {
+            edges {
+                node {
+                    currency
+                    unit_amount
+                    id
                 }
             }
         }

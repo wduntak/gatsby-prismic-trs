@@ -30,10 +30,13 @@ const CheckoutButton = class extends React.Component {
     event.preventDefault()
     const { error } = await this.stripe.redirectToCheckout({
       lineItems: [
-        { price: this.props.product.node.id, quantity: parseInt(this.props.quantity) },
+        { 
+          price: this.props.product.node.id, 
+          quantity: parseInt(this.props.quantity) 
+        },
         {
-          price: "price_1GyKSLDAAFXMo1n8uUmiO1Kf",
-          quantity: parseInt(this.props.quantity),
+          price: this.props.shipping.node.id,
+          quantity: 1,
         },
       ],
       mode: "payment",

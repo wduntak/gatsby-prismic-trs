@@ -28,7 +28,7 @@ const ImageGalleryContainer = styled('div')`
     }
 `
 
-const Gallery = ({ images, meta, product, home }) => (
+const Gallery = ({ images, meta, product, home, shipping }) => (
     <>
         <Helmet
             title={`Gallery | Prist, Gatsby & Prismic Starter`}
@@ -68,7 +68,7 @@ const Gallery = ({ images, meta, product, home }) => (
                 },
             ].concat(meta)}
         />
-        <Layout product={product} productImage={home.hero_background.url}>
+        <Layout product={product} productImage={home.hero_background.url} shipping={shipping}>
             <ImageGalleryContainer>
                 <ImageGallery items={images} showFullscreenButton={false} showPlayButton={false} showIndex={true} />
             </ImageGalleryContainer>
@@ -80,6 +80,7 @@ export default ({ data }) => {
     const gallerys = data.prismic.allGallerys.edges;
     const meta = data.site.siteMetadata;
     const product = data.allStripeSku.edges;
+    const shipping = data.allStripePrice.edges
     const home = data.prismic.allHomepages.edges.slice(0, 1).pop();
 
     if (!gallerys) return null;
@@ -94,7 +95,7 @@ export default ({ data }) => {
     });
 
     return (
-        <Gallery images={images} meta={meta} product={product} home={home.node} />
+        <Gallery images={images} meta={meta} product={product} home={home.node} shipping={shipping} />
     )
 }
 
@@ -147,6 +148,15 @@ export const query = graphql`
                             description
                         }
                     }
+                }
+            }
+        }
+        allStripePrice {
+            edges {
+                node {
+                    currency
+                    unit_amount
+                    id
                 }
             }
         }

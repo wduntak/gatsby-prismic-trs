@@ -95,7 +95,7 @@ const TeamMemberCard = styled('div')`
 
 `
 
-const Team = ({ teams, meta, product, home }) => (
+const Team = ({ teams, meta, product, home, shipping }) => (
     <>
         <Helmet
             title={`Team | Tibetan Resettlement Stories`}
@@ -135,7 +135,7 @@ const Team = ({ teams, meta, product, home }) => (
                 },
             ].concat(meta)}
         />
-        <Layout product={product} productImage={home.hero_background.url}>
+        <Layout product={product} productImage={home.hero_background.url} shipping={shipping}>
             <TeamContainer>
                 <TeamHeroSection style={{backgroundImage: "url(" + teams.team_title_background.url + ")"}}>
                     <TeamHeroInner>
@@ -166,12 +166,13 @@ export default ({ data }) => {
     const teams = data.prismic.allTeams.edges[0].node;
     const meta = data.site.siteMetadata;
     const product = data.allStripeSku.edges;
+    const shipping = data.allStripePrice.edges;
     const home = data.prismic.allHomepages.edges.slice(0, 1).pop()
 
     if (!teams) return null;
 
     return (
-        <Team teams={teams} meta={meta} product={product} home={home.node} />
+        <Team teams={teams} meta={meta} product={product} home={home.node} shipping={shipping} />
     )
 }
 
@@ -230,6 +231,15 @@ export const query = graphql`
                             description
                         }
                     }
+                }
+            }
+        }
+        allStripePrice {
+            edges {
+                node {
+                    currency
+                    unit_amount
+                    id
                 }
             }
         }

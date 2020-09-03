@@ -69,7 +69,7 @@ const PostDate = styled("div")`
     margin: 0;
 `
 
-const Post = ({ post, meta, product, home }) => {
+const Post = ({ post, meta, product, home, shipping }) => {
     return (
         <>
             <Helmet
@@ -110,7 +110,7 @@ const Post = ({ post, meta, product, home }) => {
                     },
                 ].concat(meta)}
             />
-            <Layout product={product}>
+            <Layout product={product} shipping={shipping}>
                 <PostWrapper>
                     <PostTitle>
                         {RichText.render(post.post_title)}
@@ -132,7 +132,7 @@ const Post = ({ post, meta, product, home }) => {
                         {RichText.render(post.post_body)}
                     </PostBody>
                 </PostWrapper>
-                <CheckoutFooter product={product} productImage={home.hero_background.url} />
+                <CheckoutFooter product={product} productImage={home.hero_background.url} shipping={shipping} />
             </Layout>
         </>
     )
@@ -142,10 +142,11 @@ export default ({ data }) => {
     const postContent = data.prismic.allPosts.edges[0].node;
     const meta = data.site.siteMetadata;
     const product = data.allStripeSku.edges;
+    const shipping = data.allStripePrice.edges;
     const home = data.prismic.allHomepages.edges.slice(0, 1).pop();
 
     return (
-        <Post post={postContent} meta={meta} product={product} home={home.node}/>
+        <Post post={postContent} meta={meta} product={product} home={home.node} shipping={shipping}/>
     )
 }
 
@@ -203,6 +204,15 @@ export const query = graphql`
                             description
                         }
                     }
+                }
+            }
+        }
+        allStripePrice {
+            edges {
+                node {
+                    currency
+                    unit_amount
+                    id
                 }
             }
         }

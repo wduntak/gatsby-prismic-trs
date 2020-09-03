@@ -86,7 +86,7 @@ const DonateBodySection = styled("div")`
   }
 `
 
-const Donate = ({ donates, meta, home, product }) => (
+const Donate = ({ donates, meta, home, product, shipping }) => (
   <>
     <Helmet
       title={`Donate | Tibetan Resettlement Stories`}
@@ -126,7 +126,7 @@ const Donate = ({ donates, meta, home, product }) => (
         },
       ].concat(meta)}
     />
-    <Layout product={product} productImage={home.hero_background.url}>
+    <Layout product={product} productImage={home.hero_background.url} shipping={shipping}>
       <DonateContainer>
         <DonateHeroSection
           style={{
@@ -148,10 +148,12 @@ export default ({ data }) => {
   const meta = data.site.siteMetadata
   const home = data.prismic.allHomepages.edges.slice(0, 1).pop()
   const product = data.allStripeSku.edges
+  const shipping = data.allStripePrice.edges
+
   if (!donates) return null
 
   return (
-    <Donate donates={donates} meta={meta} home={home.node} product={product} />
+    <Donate donates={donates} meta={meta} home={home.node} product={product} shipping={shipping} />
   )
 }
 
@@ -202,6 +204,15 @@ export const query = graphql`
           }
         }
       }
+    }
+    allStripePrice {
+        edges {
+            node {
+                currency
+                unit_amount
+                id
+            }
+        }
     }
   }
 `

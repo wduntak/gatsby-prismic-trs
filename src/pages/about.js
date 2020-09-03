@@ -79,7 +79,7 @@ const AboutBodySection = styled('div')`
     }
 `
 
-const About = ({ abouts, meta, home, product }) => (
+const About = ({ abouts, meta, home, product, shipping }) => (
     <>
         <Helmet
             title={`About | Tibetan Resettlement Stories`}
@@ -119,7 +119,7 @@ const About = ({ abouts, meta, home, product }) => (
                 },
             ].concat(meta)}
         />
-        <Layout product={product} productImage={home.hero_background.url}>
+        <Layout product={product} productImage={home.hero_background.url} shipping={shipping}>
             <AboutContainer>
                 <AboutHeroSection style={{backgroundImage: "url(" + abouts.about_title_background.url + ")"}}>
                     <AboutHeroInner>
@@ -139,10 +139,12 @@ export default ({ data }) => {
     const meta = data.site.siteMetadata;
     const home = data.prismic.allHomepages.edges.slice(0, 1).pop();
     const product = data.allStripeSku.edges;
+    const shipping = data.allStripePrice.edges;
+
     if (!abouts) return null;
 
     return (
-        <About abouts={abouts} meta={meta} home={home.node} product={product} />
+        <About abouts={abouts} meta={meta} home={home.node} product={product} shipping={shipping} />
     )
 }
 
@@ -153,7 +155,7 @@ About.propTypes = {
 };
 
 export const query = graphql`
-    {
+{
     prismic {
     allHomepages {
         edges {
@@ -194,5 +196,14 @@ export const query = graphql`
             }
         }
     }
+    allStripePrice {
+        edges {
+            node {
+                currency
+                unit_amount
+                id
+            }
+        }
     }
+}
 `

@@ -36,7 +36,7 @@ const BannerContainer = styled.div`
   }
 `
 
-const Layout = ({ children, product, productImage, banner }) => {
+const Layout = ({ children, product, productImage, banner, shipping }) => {
   let bannerTemplate = null;
   if (banner !== undefined) {
     const isBannerEnabled = banner[0].node.enable_banner;
@@ -48,7 +48,7 @@ const Layout = ({ children, product, productImage, banner }) => {
   return (
     <LayoutContainer className="div">
       <Global styles={[globalStyles, typeStyles]} />
-      <Navbar product={product} productImage={productImage} />
+      <Navbar product={product} productImage={productImage} shipping={shipping} />
       <div className="Layout">
         <main className="Layout__content">
           {bannerTemplate}

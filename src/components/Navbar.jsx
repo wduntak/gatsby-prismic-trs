@@ -277,7 +277,7 @@ const Navbar = class extends React.Component {
                                 </Link>
                             </li>
                             <li>
-                                <BuyModal buttonText="Buy Now" product={this.props.product} productImage={this.props.productImage} />
+                                <BuyModal buttonText="Buy Now" product={this.props.product} productImage={this.props.productImage} shipping={this.props.shipping}/>
                             </li>
                         </ul>
                     </NavbarMenu>

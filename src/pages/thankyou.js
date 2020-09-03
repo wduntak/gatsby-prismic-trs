@@ -7,11 +7,11 @@ import dimensions from "styles/dimensions"
 import colors from "styles/colors"
 import Layout from "components/Layout"
 
-const ThankYouContainer = styled("div")`
+const SuccessContainer = styled("div")`
   max-width: 1140px;
   margin: 0 auto;
 `
-const ThankYouHeroSection = styled("header")`
+const SuccessHeroSection = styled("header")`
   display: flex;
   height: 600px;
   width: 100%;
@@ -23,7 +23,7 @@ const ThankYouHeroSection = styled("header")`
     height: 300px;
   }
 `
-const ThankYouHeroInner = styled("div")`
+const SuccessHeroInner = styled("div")`
   max-width: 800px;
   width: 100%;
   max-height: 300px;
@@ -57,7 +57,7 @@ const ThankYouHeroInner = styled("div")`
   }
 `
 
-const ThankYouBodySection = styled("div")`
+const SuccessBodySection = styled("div")`
   font-family: "Gelasio", serif;
   margin-bottom: 60px;
   padding: 0 20px;
@@ -85,11 +85,11 @@ const ThankYouBodySection = styled("div")`
   }
 `
 
-const ThankYou = ({ meta, home, product }) => (
+const Success = ({ meta, home, product, shipping }) => (
     <>
         <Helmet
-            title={`ThankYou | Tibetan Resettlement Stories`}
-            titleTemplate={`%s | ThankYou | Tibetan Resettlement Stories`}
+            title={`Success | Tibetan Resettlement Stories`}
+            titleTemplate={`%s | Success | Tibetan Resettlement Stories`}
             meta={[
                 {
                     name: `description`,
@@ -97,7 +97,7 @@ const ThankYou = ({ meta, home, product }) => (
                 },
                 {
                     property: `og:title`,
-                    content: `ThankYou | Tibetan Resettlement Stories`,
+                    content: `Success | Tibetan Resettlement Stories`,
                 },
                 {
                     property: `og:description`,
@@ -125,15 +125,15 @@ const ThankYou = ({ meta, home, product }) => (
                 },
             ].concat(meta)}
         />
-        <Layout product={product} productImage={home.hero_background.url}>
-            <ThankYouContainer>
-                <ThankYouHeroSection>
-                    <ThankYouHeroInner>Thank You</ThankYouHeroInner>
-                </ThankYouHeroSection>
-                <ThankYouBodySection>
+        <Layout product={product} productImage={home.hero_background.url} shipping={shipping}>
+            <SuccessContainer>
+                <SuccessHeroSection>
+                    <SuccessHeroInner>Thank You</SuccessHeroInner>
+                </SuccessHeroSection>
+                <SuccessBodySection>
                     Thanks
-                </ThankYouBodySection>
-            </ThankYouContainer>
+                </SuccessBodySection>
+            </SuccessContainer>
         </Layout>
     </>
 )
@@ -142,13 +142,13 @@ export default ({ data }) => {
     const meta = data.site.siteMetadata
     const home = data.prismic.allHomepages.edges.slice(0, 1).pop()
     const product = data.allStripeSku.edges
-
+    const shipping = data.allStripePrice.edges
     return (
-        <ThankYou meta={meta} home={home.node} product={product} />
+        <Success meta={meta} home={home.node} product={product} shipping={shipping}/>
     )
 }
 
-ThankYou.propTypes = {
+Success.propTypes = {
     home: PropTypes.object.isRequired,
     product: PropTypes.array.isRequired,
 }
@@ -185,6 +185,15 @@ export const query = graphql`
           }
         }
       }
+    }
+    allStripePrice {
+        edges {
+            node {
+                currency
+                unit_amount
+                id
+            }
+        }
     }
   }
 `
