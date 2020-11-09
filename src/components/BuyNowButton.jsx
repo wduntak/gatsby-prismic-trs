@@ -28,7 +28,7 @@ const BuyNowButton = ({ children }) => (
             className="snipcart-add-item"
             data-item-id="trs-boston-book"
             data-item-price="49.99"
-            data-item-url="/book/trs-boston-book"
+            data-item-url="/"
             data-item-description="Stories of Tibetan Resettlement"
             data-item-image="./trs-book.png"
             data-item-name="Tibetan Resettlement Stories: Voices of Boston"
