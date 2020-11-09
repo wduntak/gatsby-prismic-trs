@@ -9,7 +9,7 @@ import dimensions from "styles/dimensions";
 import Carousel from 'react-bootstrap/Carousel'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Layout from "components/Layout";
-import BuyModal from "components/BuyModal";
+import BuyNowButton from "components/BuyNowButton";
 import PostCard from "components/PostCard";
 import ContactUs from "components/ContactUs";
 
@@ -419,7 +419,7 @@ const WorkAction = styled(Link)`
     }
 `
 
-const RenderBody = ({ home, posts, meta, reviews, previewLink, product, banner, shipping }) => (
+const RenderBody = ({ home, posts, meta, reviews, previewLink, banner }) => (
     <>
         <Helmet
             title={meta.title}
@@ -470,7 +470,7 @@ const RenderBody = ({ home, posts, meta, reviews, previewLink, product, banner, 
                         {RichText.render(home.hero_subtitle)}
                     </>
                     <HeroLinkContainer>
-                        <BuyModal buttonText="Buy Now" product={product} productImage={home.hero_background.url} shipping={shipping}/>
+                        <BuyNowButton>Add to Cart</BuyNowButton>
                         <PreviewLink href={previewLink} alt="Read book preview">Read Preview</PreviewLink>
                     </HeroLinkContainer>
                 </HeroDetailContainer>
@@ -556,17 +556,15 @@ export default ({ data }) => {
     const meta = data.site.siteMetadata;
     const reviews = data.prismic.allReviews.edges;
     const previews = data.prismic.allPreviewbookpages.edges;
-    const product = data.allStripeSku.edges;
-    const shipping = data.allStripePrice.edges;
     const banner = data.prismic.allSkinnybanners.edges;
 
-    if (!doc || !reviews|| !posts || !previews || !product || !banner || !shipping) return null;
+    if (!doc || !reviews|| !posts || !previews || !banner) return null;
 
     const previewLink = previews[0].node.previewbooklink.url;
     
     return (
-        <Layout product={product} productImage={doc.node.hero_background.url} banner={banner} shipping={shipping}>
-            <RenderBody home={doc.node} meta={meta} reviews={reviews} posts={posts} previewLink={previewLink} product={product} shipping={shipping}/>
+        <Layout productImage={doc.node.hero_background.url} banner={banner}>
+            <RenderBody home={doc.node} meta={meta} reviews={reviews} posts={posts} previewLink={previewLink}/>
         </Layout>
     )
 }
@@ -577,7 +575,6 @@ RenderBody.propTypes = {
     meta: PropTypes.object.isRequired,
     reviews: PropTypes.array.isRequired,
     previewLink: PropTypes.string.isRequired,
-    product: PropTypes.array.isRequired,
 };
 
 export const query = graphql`
@@ -661,37 +658,6 @@ export const query = graphql`
                 title
                 description
                 author
-            }
-        }
-        allStripeSku(filter: {product: {id: {eq: "prod_GVN1SL4dCamlJA"}}}) {
-            edges {
-                node {
-                    id
-                    price
-                    currency
-                    product {
-                        name
-                        metadata {
-                            description
-                        }
-                    }
-                    localFiles {
-                        childImageSharp {
-                            fluid {
-                            src
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        allStripePrice {
-            edges {
-                node {
-                    currency
-                    unit_amount
-                    id
-                }
             }
         }
     }

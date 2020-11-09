@@ -60,7 +60,8 @@ const AboutBodySection = styled('div')`
     h1 {
         text-align: center;
         font-size: 2.4rem;
-        margin-top: 100px;
+        margin-top: 80px;
+        margin-bottom: 40px;
         &::after {
             content: "";
             display: block;
@@ -72,14 +73,23 @@ const AboutBodySection = styled('div')`
             margin-bottom: 0;
             margin-top: 23px;
         }
+        @media(max-width: ${dimensions.maxwidthMobile}px) {
+            font-size: 1.6rem;
+        }
     }
     h2, h3, h4 {
         text-align: center;
         font-style: italic;
     }
+    img {
+        display: block;
+        margin: 30px auto;
+        width: 100%;
+        max-width: 800px;
+    }
 `
 
-const About = ({ abouts, meta, home, product, shipping }) => (
+const About = ({ abouts, meta, home }) => (
     <>
         <Helmet
             title={`About | Tibetan Resettlement Stories`}
@@ -119,7 +129,7 @@ const About = ({ abouts, meta, home, product, shipping }) => (
                 },
             ].concat(meta)}
         />
-        <Layout product={product} productImage={home.hero_background.url} shipping={shipping}>
+        <Layout productImage={home.hero_background.url}>
             <AboutContainer>
                 <AboutHeroSection style={{backgroundImage: "url(" + abouts.about_title_background.url + ")"}}>
                     <AboutHeroInner>
@@ -138,20 +148,17 @@ export default ({ data }) => {
     const abouts = data.prismic.allAbouts.edges[0].node;
     const meta = data.site.siteMetadata;
     const home = data.prismic.allHomepages.edges.slice(0, 1).pop();
-    const product = data.allStripeSku.edges;
-    const shipping = data.allStripePrice.edges;
 
     if (!abouts) return null;
 
     return (
-        <About abouts={abouts} meta={meta} home={home.node} product={product} shipping={shipping} />
+        <About abouts={abouts} meta={meta} home={home.node} />
     )
 }
 
 About.propTypes = {
     abouts: PropTypes.object.isRequired,
     home: PropTypes.object.isRequired,
-    product: PropTypes.array.isRequired,
 };
 
 export const query = graphql`
@@ -179,30 +186,6 @@ export const query = graphql`
         title
         description
         author
-        }
-    }
-    allStripeSku(filter: {product: {id: {eq: "prod_GVN1SL4dCamlJA"}}}) {
-        edges {
-            node {
-                id
-                price
-                currency
-                product {
-                    name
-                    metadata {
-                        description
-                    }
-                }
-            }
-        }
-    }
-    allStripePrice {
-        edges {
-            node {
-                currency
-                unit_amount
-                id
-            }
         }
     }
 }

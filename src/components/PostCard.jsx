@@ -46,7 +46,7 @@ const PostDate = styled("div")`
 `
 
 const PostDescription = styled("div")`
-    height: 200px;
+    height: 175px;
     @media(max-width: ${dimensions.maxwidthMobile}px) {
         height: 150px;
     }

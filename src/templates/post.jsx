@@ -69,7 +69,7 @@ const PostDate = styled("div")`
     margin: 0;
 `
 
-const Post = ({ post, meta, product, home, shipping }) => {
+const Post = ({ post, meta, home }) => {
     return (
         <>
             <Helmet
@@ -110,7 +110,7 @@ const Post = ({ post, meta, product, home, shipping }) => {
                     },
                 ].concat(meta)}
             />
-            <Layout product={product} shipping={shipping}>
+            <Layout>
                 <PostWrapper>
                     <PostTitle>
                         {RichText.render(post.post_title)}
@@ -132,7 +132,7 @@ const Post = ({ post, meta, product, home, shipping }) => {
                         {RichText.render(post.post_body)}
                     </PostBody>
                 </PostWrapper>
-                <CheckoutFooter product={product} productImage={home.hero_background.url} shipping={shipping} />
+                <CheckoutFooter productImage={home.hero_background.url} />
             </Layout>
         </>
     )
@@ -141,12 +141,10 @@ const Post = ({ post, meta, product, home, shipping }) => {
 export default ({ data }) => {
     const postContent = data.prismic.allPosts.edges[0].node;
     const meta = data.site.siteMetadata;
-    const product = data.allStripeSku.edges;
-    const shipping = data.allStripePrice.edges;
     const home = data.prismic.allHomepages.edges.slice(0, 1).pop();
 
     return (
-        <Post post={postContent} meta={meta} product={product} home={home.node} shipping={shipping}/>
+        <Post post={postContent} meta={meta} home={home.node}/>
     )
 }
 
@@ -154,7 +152,6 @@ Post.propTypes = {
     post: PropTypes.object.isRequired,
     meta: PropTypes.object.isRequired,
     home: PropTypes.object.isRequired,
-    product: PropTypes.array.isRequired,
 };
 
 export const query = graphql`
@@ -190,30 +187,6 @@ export const query = graphql`
                 title
                 description
                 author
-            }
-        }
-        allStripeSku(filter: {product: {id: {eq: "prod_GVN1SL4dCamlJA"}}}) {
-            edges {
-                node {
-                    id
-                    price
-                    currency
-                    product {
-                        name
-                        metadata {
-                            description
-                        }
-                    }
-                }
-            }
-        }
-        allStripePrice {
-            edges {
-                node {
-                    currency
-                    unit_amount
-                    id
-                }
             }
         }
     }

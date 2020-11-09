@@ -1,7 +1,7 @@
 import React from "react"
 import styled from "@emotion/styled"
 
-import BuyModal from "./BuyModal"
+import BuyNowButton from "./BuyNowButton"
 
 const CheckoutFooterContainer = styled("section")`
   color: #fff;
@@ -68,7 +68,8 @@ const CheckoutFooter = (props) => (
     </svg>
     <CheckoutFooterInfoWrapper>
         <h3>Read our stories inspired by first-generation Tibetans</h3>
-        <BuyModal buttonText="Buy Now" product={props.product} productImage={props.productImage} shipping={props.shipping} />    </CheckoutFooterInfoWrapper>
+        <BuyNowButton>Add to Cart</BuyNowButton>
+    </CheckoutFooterInfoWrapper>
   </CheckoutFooterContainer>
 )
 export default CheckoutFooter;

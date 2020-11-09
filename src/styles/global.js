@@ -32,6 +32,10 @@ const globalStyles = css`
         }
     }
 
+    #snipcart .snipcart-modal__container {
+        z-index: 1000;
+    }
+
     /*
     A workaround for forcing accessibility wrappers
     to have a 100% height.

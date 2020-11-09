@@ -18,14 +18,11 @@ module.exports = {
     `gatsby-plugin-resolve-src`,
     `gatsby-plugin-remove-trailing-slashes`,
     `gatsby-plugin-emotion`,
-    `gatsby-plugin-stripe`,
     {
-      resolve: `gatsby-source-stripe`,
+      resolve: `gatsby-plugin-snipcartv3`,
       options: {
-        objects: ['Product', 'Sku', 'Price'],
-        secretKey: process.env.STRIPE_SECRET_KEY,
-        downloadFiles: true
-      },
+        apiKey: process.env.SNIPCART_API_KEY
+      }
     },
     {
       resolve: `gatsby-source-filesystem`,

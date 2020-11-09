@@ -28,7 +28,7 @@ const ImageGalleryContainer = styled('div')`
     }
 `
 
-const Gallery = ({ images, meta, product, home, shipping }) => (
+const Gallery = ({ images, meta, home }) => (
     <>
         <Helmet
             title={`Gallery | Prist, Gatsby & Prismic Starter`}
@@ -68,7 +68,7 @@ const Gallery = ({ images, meta, product, home, shipping }) => (
                 },
             ].concat(meta)}
         />
-        <Layout product={product} productImage={home.hero_background.url} shipping={shipping}>
+        <Layout productImage={home.hero_background.url}>
             <ImageGalleryContainer>
                 <ImageGallery items={images} showFullscreenButton={false} showPlayButton={false} showIndex={true} />
             </ImageGalleryContainer>
@@ -79,8 +79,6 @@ const Gallery = ({ images, meta, product, home, shipping }) => (
 export default ({ data }) => {
     const gallerys = data.prismic.allGallerys.edges;
     const meta = data.site.siteMetadata;
-    const product = data.allStripeSku.edges;
-    const shipping = data.allStripePrice.edges
     const home = data.prismic.allHomepages.edges.slice(0, 1).pop();
 
     if (!gallerys) return null;
@@ -95,7 +93,7 @@ export default ({ data }) => {
     });
 
     return (
-        <Gallery images={images} meta={meta} product={product} home={home.node} shipping={shipping} />
+        <Gallery images={images} meta={meta} home={home.node} />
     )
 }
 
@@ -134,30 +132,6 @@ export const query = graphql`
                 title
                 description
                 author
-            }
-        }
-        allStripeSku(filter: {product: {id: {eq: "prod_GVN1SL4dCamlJA"}}}) {
-            edges {
-                node {
-                    id
-                    price
-                    currency
-                    product {
-                        name
-                        metadata {
-                            description
-                        }
-                    }
-                }
-            }
-        }
-        allStripePrice {
-            edges {
-                node {
-                    currency
-                    unit_amount
-                    id
-                }
             }
         }
     }

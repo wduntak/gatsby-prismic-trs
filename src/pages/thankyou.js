@@ -85,7 +85,7 @@ const SuccessBodySection = styled("div")`
   }
 `
 
-const Success = ({ meta, home, product, shipping }) => (
+const Success = ({ meta, home }) => (
     <>
         <Helmet
             title={`Success | Tibetan Resettlement Stories`}
@@ -125,7 +125,7 @@ const Success = ({ meta, home, product, shipping }) => (
                 },
             ].concat(meta)}
         />
-        <Layout product={product} productImage={home.hero_background.url} shipping={shipping}>
+        <Layout productImage={home.hero_background.url}>
             <SuccessContainer>
                 <SuccessHeroSection>
                     <SuccessHeroInner>Thank You</SuccessHeroInner>
@@ -141,16 +141,13 @@ const Success = ({ meta, home, product, shipping }) => (
 export default ({ data }) => {
     const meta = data.site.siteMetadata
     const home = data.prismic.allHomepages.edges.slice(0, 1).pop()
-    const product = data.allStripeSku.edges
-    const shipping = data.allStripePrice.edges
     return (
-        <Success meta={meta} home={home.node} product={product} shipping={shipping}/>
+        <Success meta={meta} home={home.node}/>
     )
 }
 
 Success.propTypes = {
     home: PropTypes.object.isRequired,
-    product: PropTypes.array.isRequired,
 }
 
 export const query = graphql`
@@ -170,30 +167,6 @@ export const query = graphql`
         description
         author
       }
-    }
-    allStripeSku(filter: { product: { id: { eq: "prod_GVN1SL4dCamlJA" } } }) {
-      edges {
-        node {
-          id
-          price
-          currency
-          product {
-            name
-            metadata {
-              description
-            }
-          }
-        }
-      }
-    }
-    allStripePrice {
-        edges {
-            node {
-                currency
-                unit_amount
-                id
-            }
-        }
     }
   }
 `

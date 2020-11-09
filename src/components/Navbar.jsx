@@ -4,7 +4,8 @@ import styled from "@emotion/styled"
 import dimensions from "styles/dimensions"
 import Logo from "components/_ui/Logo"
 
-import BuyModal from "./BuyModal";
+import CartButton from "./CartButton"
+import BuyNowButton from "./BuyNowButton"
 
 const NavbarContainer = styled("nav")`
     padding: 10px 20px;
@@ -119,6 +120,13 @@ const NavbarBrand = styled("div")`
             display: block;
         }
     }
+    .navbar-cart-mobile-container {
+        display: none;
+        @media(max-width: ${dimensions.maxwidthTablet}px) {
+            display: block;
+        }
+
+    }
     @media(max-width: ${dimensions.maxwidthTablet}px) {
         width: 100%;
     }
@@ -144,11 +152,16 @@ const NavbarMenu = styled("div")`
             font-size: 1.2rem;
             font-weight: 500;
             flex: 0 0 auto;
-            margin: 0 15px;
+            margin: 0 10px;
             list-style-type: none;
             text-align: center;
             display: flex;
             align-items: center;
+            &.purchase-options-container {
+                div:last-child {
+                    margin-left: 10px;
+                }
+            }
             @media (max-width: ${dimensions.maxwidthTablet}px) {
                 border: none;
                 margin: 10px 0;
@@ -230,6 +243,9 @@ const Navbar = class extends React.Component {
                             <span />
                             <span />
                         </div>
+                        <div className="navbar-cart-mobile-container">
+                            <CartButton />
+                        </div>
                     </NavbarBrand>
                     <NavbarMenu className={`${this.state.navbarActiveClass}`}>
                         <ul>
@@ -276,8 +292,9 @@ const Navbar = class extends React.Component {
                                     Donate
                                 </Link>
                             </li>
-                            <li>
-                                <BuyModal buttonText="Buy Now" product={this.props.product} productImage={this.props.productImage} shipping={this.props.shipping}/>
+                            <li className="purchase-options-container">
+                                <BuyNowButton>Buy Now</BuyNowButton>
+                                <CartButton />
                             </li>
                         </ul>
                     </NavbarMenu>

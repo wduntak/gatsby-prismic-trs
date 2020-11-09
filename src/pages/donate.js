@@ -86,7 +86,7 @@ const DonateBodySection = styled("div")`
   }
 `
 
-const Donate = ({ donates, meta, home, product, shipping }) => (
+const Donate = ({ donates, meta, home }) => (
   <>
     <Helmet
       title={`Donate | Tibetan Resettlement Stories`}
@@ -126,7 +126,7 @@ const Donate = ({ donates, meta, home, product, shipping }) => (
         },
       ].concat(meta)}
     />
-    <Layout product={product} productImage={home.hero_background.url} shipping={shipping}>
+    <Layout productImage={home.hero_background.url}>
       <DonateContainer>
         <DonateHeroSection
           style={{
@@ -147,20 +147,17 @@ export default ({ data }) => {
   const donates = data.prismic.allDonates.edges[0].node
   const meta = data.site.siteMetadata
   const home = data.prismic.allHomepages.edges.slice(0, 1).pop()
-  const product = data.allStripeSku.edges
-  const shipping = data.allStripePrice.edges
 
   if (!donates) return null
 
   return (
-    <Donate donates={donates} meta={meta} home={home.node} product={product} shipping={shipping} />
+    <Donate donates={donates} meta={meta} home={home.node} />
   )
 }
 
 Donate.propTypes = {
   donates: PropTypes.object.isRequired,
   home: PropTypes.object.isRequired,
-  product: PropTypes.array.isRequired,
 }
 
 export const query = graphql`
@@ -189,30 +186,6 @@ export const query = graphql`
         description
         author
       }
-    }
-    allStripeSku(filter: { product: { id: { eq: "prod_GVN1SL4dCamlJA" } } }) {
-      edges {
-        node {
-          id
-          price
-          currency
-          product {
-            name
-            metadata {
-              description
-            }
-          }
-        }
-      }
-    }
-    allStripePrice {
-        edges {
-            node {
-                currency
-                unit_amount
-                id
-            }
-        }
     }
   }
 `
