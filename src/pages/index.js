@@ -557,13 +557,14 @@ export default ({ data }) => {
     const reviews = data.prismic.allReviews.edges;
     const previews = data.prismic.allPreviewbookpages.edges;
     const banner = data.prismic.allSkinnybanners.edges;
+    const modal = data.prismic.allModals.edges;
 
-    if (!doc || !reviews|| !posts || !previews || !banner) return null;
+    if (!doc || !reviews|| !posts || !previews || !banner || !modal) return null;
 
     const previewLink = previews[0].node.previewbooklink.url;
     
     return (
-        <Layout productImage={doc.node.hero_background.url} banner={banner}>
+        <Layout productImage={doc.node.hero_background.url} banner={banner} modal={modal}>
             <RenderBody home={doc.node} meta={meta} reviews={reviews} posts={posts} previewLink={previewLink}/>
         </Layout>
     )
@@ -593,7 +594,6 @@ export const query = graphql`
                                 url
                             }
                         }
-                        content
                         highlight_1 {
                             highlight_image_1
                             highlight_text_1
@@ -601,11 +601,6 @@ export const query = graphql`
                         highlight_2 {
                             highlight_image_2
                             highlight_text_2
-                        }
-                        about_title
-                        about_bio
-                        about_links {
-                            about_link
                         }
                     }
                 }
@@ -649,6 +644,14 @@ export const query = graphql`
                     node {
                         banner_message
                         enable_banner
+                    }
+                }
+            }
+            allModals {
+                edges {
+                    node {
+                        modal_content
+                        modal_enabled
                     }
                 }
             }

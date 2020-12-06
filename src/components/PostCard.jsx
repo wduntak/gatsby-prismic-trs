@@ -12,6 +12,7 @@ const PostCardContainer = styled("article")`
     border: 1px solid #eee;
     display: inline-block;
     vertical-align: top;
+    width: 100%;
 `
 const PostImage = styled("img")`
     max-width: 350px;

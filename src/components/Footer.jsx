@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "gatsby";
+import { usePrismicSocialLinksData } from "../hooks/use-prismic-social-links-data"
 import styled from "@emotion/styled";
 import dimensions from "styles/dimensions";
 import Logo from "components/_ui/Logo";
@@ -68,35 +69,37 @@ const FooterColumn = styled("div")`
     }
 `
 
-const Footer = () => (
-    <FooterContainer>
-        <FooterColumns>
-            <FooterColumn>
-                <Link to="/">
-                    <Logo />
-                </Link>
-            </FooterColumn>
-            <FooterColumn></FooterColumn>
-            <FooterColumn>
-                <h3>About</h3>
-                <ul>
-                    <li><Link to="/">Home</Link></li>
-                    <li><Link to="/">About Us</Link></li>
-                    <li><Link to="/">Gallery</Link></li>
-                    <li><Link to="/">Blog</Link></li>
-                </ul>
-            </FooterColumn>
-            <FooterColumn>
-                <h3>Social</h3>
-                <ul>
-                    <li><Link to="/"><img className="social-icon" src="./icons/twitter.svg" alt="Twitter Icon" /><span>| Twitter</span></Link></li>
-                    <li><Link to="/"><img className="social-icon" src="./icons/facebook.svg" alt="Facebook Icon" /><span>| Facebook</span></Link></li>
-                    <li><Link to="/"><img className="social-icon" src="./icons/instagram.svg" alt="Instagram Icon" /><span>| Instagram</span></Link></li>
-                    <li><Link to="/"><img className="social-icon" src="./icons/youtube.svg" alt="Youtube Icon" /><span>| Youtube</span></Link></li>
-                </ul>
-            </FooterColumn>
-        </FooterColumns>
-    </FooterContainer>
-)
+const Footer = () => {
+    const social_links = usePrismicSocialLinksData();
+    return (
+        <FooterContainer>
+            <FooterColumns>
+                <FooterColumn>
+                    <Link to="/">
+                        <Logo />
+                    </Link>
+                </FooterColumn>
+                <FooterColumn></FooterColumn>
+                <FooterColumn>
+                    <h3>About</h3>
+                    <ul>
+                        <li><Link to="/">Home</Link></li>
+                        <li><Link to="/">About Us</Link></li>
+                        <li><Link to="/">Gallery</Link></li>
+                        <li><Link to="/">Blog</Link></li>
+                    </ul>
+                </FooterColumn>
+                <FooterColumn>
+                    <h3>Social</h3>
+                    <ul>
+                        {social_links.map((link, i) => (
+                            <li key={i}><a href={link.social_link_url[0].text}><span>{link.social_link_name[0].text}</span></a></li>
+                        ))}
+                    </ul>
+                </FooterColumn>
+            </FooterColumns>
+        </FooterContainer>
+    );
+}
 
 export default Footer;

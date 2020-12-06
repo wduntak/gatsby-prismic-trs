@@ -8,6 +8,7 @@ import typeStyles from 'styles/typography';
 import dimensions from "styles/dimensions";
 import Footer from "components/Footer";
 import Navbar from "components/Navbar";
+import Popup from "components/Popup";
 import 'styles/fonts.scss';
 
 const LayoutContainer = styled.div`
@@ -56,6 +57,7 @@ const Layout = ({ children, productImage, banner }) => {
         </main>
         <Footer />
       </div>
+      <Popup />
     </LayoutContainer>
   );  
 }
