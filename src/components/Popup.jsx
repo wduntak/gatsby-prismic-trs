@@ -19,12 +19,15 @@ function Popup(props) {
 
     const handleClose = () => setShow(false);
     const modalData = usePrismicModalData();
-    console.log(modalData);
 
-    if (localStorage.getItem('popupShown') !== modalData._meta.lastPublicationDate &&
-        modalData.modal_enabled) {
-        setShow(true);
-        localStorage.setItem('popupShown', modalData._meta.lastPublicationDate);
+    if (typeof window !== 'undefined') {
+        if (localStorage.getItem('popupShown') !== modalData._meta.lastPublicationDate &&
+            modalData.modal_enabled) {
+            setShow(true);
+            localStorage.setItem('popupShown', modalData._meta.lastPublicationDate);
+        }
+    } else {
+        console.log('Runing on server, localStorage not available');
     }
 
     return (
