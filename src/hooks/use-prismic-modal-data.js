@@ -1,25 +1,26 @@
 import { useStaticQuery, graphql } from "gatsby"
 
 export const usePrismicModalData = () => {
-    const { prismic } = useStaticQuery(
-        graphql`
-            query ModalQuery {
-                prismic {
-                    allModals {
-                        edges {
-                            node {
-                                modal_content
-                                modal_enabled
-                                _meta {
-                                    id
-                                    lastPublicationDate
-                                }
-                            }
-                        }
-                    }
+    const { allPrismicModal } = useStaticQuery(
+      graphql`
+        query ModalQuery {
+          allPrismicModal {
+            edges {
+              node {
+                data {
+                  modal_content {
+                    html
+                    text
+                    raw
+                  }
+                  modal_enabled
                 }
+                last_publication_date
+              }
             }
-        `
+          }
+        }
+      `
     )
-    return prismic.allModals.edges[0].node;
+    return allPrismicModal.edges[0].node;
 }

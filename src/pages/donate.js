@@ -133,10 +133,10 @@ const Donate = ({ donates, meta, home }) => (
             backgroundImage: "url(" + donates.donate_title_background.url + ")",
           }}
         >
-          <DonateHeroInner>{RichText.render(donates.donate_title)}</DonateHeroInner>
+          <DonateHeroInner>{RichText.render(donates.donate_title.raw)}</DonateHeroInner>
         </DonateHeroSection>
         <DonateBodySection>
-          {RichText.render(donates.donate_body)}
+          {RichText.render(donates.donate_body.raw)}
         </DonateBodySection>
       </DonateContainer>
     </Layout>
@@ -144,14 +144,14 @@ const Donate = ({ donates, meta, home }) => (
 )
 
 export default ({ data }) => {
-  const donates = data.prismic.allDonates.edges[0].node
+  const donates = data.allPrismicDonate.edges[0].node.data;
   const meta = data.site.siteMetadata
-  const home = data.prismic.allHomepages.edges.slice(0, 1).pop()
+  const home = data.allPrismicHomepage.nodes.slice(0, 1).pop()
 
   if (!donates) return null
 
   return (
-    <Donate donates={donates} meta={meta} home={home.node} />
+    <Donate donates={donates} meta={meta} home={home.data} />
   )
 }
 
@@ -162,20 +162,34 @@ Donate.propTypes = {
 
 export const query = graphql`
   {
-    prismic {
-      allHomepages {
-        edges {
-          node {
-            hero_background
+    allPrismicHomepage {
+      nodes {
+        data {
+          hero_background {
+            url
           }
         }
       }
-      allDonates {
-        edges {
-          node {
-            donate_title
-            donate_title_background
-            donate_body
+    }
+    allPrismicDonate {
+      edges {
+        node {
+          data {
+            donate_body {
+              html
+              text
+              raw
+            }
+            donate_title {
+              html
+              text
+              raw
+            }
+            donate_title_background {
+              alt
+              copyright
+              url
+            }
           }
         }
       }

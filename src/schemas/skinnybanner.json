@@ -1,0 +1,20 @@
+{
+    "Main": {
+        "banner_message": {
+            "type": "StructuredText",
+            "config": {
+                "multi": "paragraph, strong, em, hyperlink",
+                "label": "Banner Message"
+            }
+        },
+        "enable_banner": {
+            "type": "Boolean",
+            "config": {
+                "placeholder_false": "Disable",
+                "placeholder_true": "Enable",
+                "default_value": false,
+                "label": "enable banner"
+            }
+        }
+    }
+}

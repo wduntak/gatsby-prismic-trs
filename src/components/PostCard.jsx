@@ -71,8 +71,8 @@ const PostCardAction = styled("div")`
 
 const PostCard = ({ category, date, title, description, uid, thumbnail}) => (
     <PostCardContainer className="NewsPostCard">
-        <PostImage src={thumbnail.thumbnail.url} />
-        <PostTitle to={`/news/${uid}`}><h3>{title[0].text}</h3></PostTitle>
+        <PostImage src={thumbnail} />
+        <PostTitle to={`/news/${uid}`}><h3>{title}</h3></PostTitle>
         <PostDate>
             <Moment format="MMMM D, YYYY">{date}</Moment>
         </PostDate>
@@ -89,9 +89,9 @@ export default PostCard;
 
 PostCard.propTypes = {
     // author: PropTypes.string.isRequired,
-    category: PropTypes.array.isRequired,
+    // category: PropTypes.array.isRequired,
     date: PropTypes.string.isRequired,
-    title: PropTypes.array.isRequired,
+    title: PropTypes.string.isRequired,
     description: PropTypes.array.isRequired,
     uid: PropTypes.string.isRequired
 }

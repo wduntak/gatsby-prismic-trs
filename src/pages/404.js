@@ -16,11 +16,11 @@ const NotFoundPage = ({ home }) => (
 )
 
 export default ({ data }) => {
-    const home = data.prismic.allHomepages.edges.slice(0, 1).pop();
+    const home = data.allPrismicHomepage.nodes.slice(0, 1).pop()
     if (!home) return null;
 
     return (
-        <NotFoundPage home={home.node} />
+        <NotFoundPage home={home.data} />
     )
 }
 
@@ -30,14 +30,14 @@ NotFoundPage.propTypes = {
 
 export const query = graphql`
     {
-    prismic {
-        allHomepages {
-            edges {
-                node {
-                    hero_background
+        allPrismicHomepage {
+            nodes {
+                data {
+                    hero_background {
+                        url
+                    }
                 }
             }
         }
-    }
     }
 `

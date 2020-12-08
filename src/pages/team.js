@@ -139,21 +139,21 @@ const Team = ({ teams, meta, home }) => (
             <TeamContainer>
                 <TeamHeroSection style={{backgroundImage: "url(" + teams.team_title_background.url + ")"}}>
                     <TeamHeroInner>
-                        {RichText.render(teams.team_title)}
+                        {RichText.render(teams.team_title.raw)}
                     </TeamHeroInner>
                 </TeamHeroSection>
                 <TeamBodySection>
-                    {RichText.render(teams.team_body)}
+                    {RichText.render(teams.team_body.raw)}
                 </TeamBodySection>
                 <TeamMemberSection>
                     {teams.team_member.map((member, i) => (
                         <TeamMemberCard key={i}>
                             <Img 
                                 key={i}
-                                fixed={member.team_member_pictureSharp.childImageSharp.fixed}        
+                                fixed={member.team_member_picture.url}        
                             />
-                            <strong>{RichText.render(member.team_member_name)}</strong>
-                            {RichText.render(member.team_memeber_description)}
+                            <strong>{RichText.render(member.team_member_name.raw)}</strong>
+                            {RichText.render(member.team_memeber_description.raw)}
                         </TeamMemberCard>
                     ))}
                 </TeamMemberSection>
@@ -163,14 +163,14 @@ const Team = ({ teams, meta, home }) => (
 );
 
 export default ({ data }) => {
-    const teams = data.prismic.allTeams.edges[0].node;
+    const teams = data.allPrismicTeam.edges[0].node.data;
     const meta = data.site.siteMetadata;
-    const home = data.prismic.allHomepages.edges.slice(0, 1).pop()
+    const home = data.allPrismicHomepage.nodes.slice(0, 1).pop()
 
     if (!teams) return null;
 
     return (
-        <Team teams={teams} meta={meta} home={home.node} />
+        <Team teams={teams} meta={meta} home={home.data} />
     )
 }
 
@@ -180,34 +180,53 @@ Team.propTypes = {
 
 export const query = graphql`
     {
-        prismic {
-            allHomepages {
-                edges {
-                    node {
-                        hero_background
-                    }
+        allPrismicHomepage {
+            nodes {
+            data {
+                hero_background {
+                url
                 }
             }
-            allTeams {
-                edges {
-                    node {
-                        team_title
-                        team_body
-                        team_title_background
-                        team_member {
-                            team_member_picture
-                            team_member_name
-                            team_memeber_description
-                            team_member_pictureSharp {
-                                childImageSharp {
-                                    fixed(width: 250, height: 250) {
-                                        ...GatsbyImageSharpFixed
-                                    }
-                                }
-                            }
-                        }
+            }
+        }
+        allPrismicTeam {
+            edges {
+            node {
+                data {
+                team_body {
+                    html
+                    text
+                    raw
+                }
+                team_member {
+                    team_member_name {
+                    html
+                    text
+                    raw
+                    }
+                    team_member_picture {
+                    alt
+                    copyright
+                    url
+                    }
+                    team_memeber_description {
+                    html
+                    text
+                    raw
                     }
                 }
+                team_title {
+                    html
+                    text
+                    raw
+                }
+                team_title_background {
+                    alt
+                    copyright
+                    url
+                }
+                }
+            }
             }
         }
         site {

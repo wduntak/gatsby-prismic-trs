@@ -1,0 +1,18 @@
+{
+    "Main": {
+        "review_copy": {
+            "type": "StructuredText",
+            "config": {
+                "multi": "paragraph",
+                "label": "review_copy"
+            }
+        },
+        "reviewer_name": {
+            "type": "StructuredText",
+            "config": {
+                "multi": "paragraph",
+                "label": "reviewer_name"
+            }
+        }
+    }
+}

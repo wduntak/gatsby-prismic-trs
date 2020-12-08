@@ -1,23 +1,31 @@
 import { useStaticQuery, graphql } from "gatsby"
 
 export const usePrismicSocialLinksData = () => {
-    const { prismic } = useStaticQuery(
-        graphql`
-            query MyQuery {
-                prismic {
-                    allSocial_media_linkss {
-                    edges {
-                        node {
-                        social_links {
-                            social_link_name
-                            social_link_url
-                        }
-                        }
+    const { allPrismicSocialMediaLinks } = useStaticQuery(
+      graphql`
+        query SocialLinkQuery {
+          allPrismicSocialMediaLinks {
+            edges {
+              node {
+                data {
+                  social_links {
+                    social_link_name {
+                      html
+                      text
+                      raw
                     }
+                    social_link_url {
+                      html
+                      text
+                      raw
                     }
+                  }
                 }
+              }
             }
-        `
+          }
+        }
+      `
     )
-    return prismic.allSocial_media_linkss.edges[0].node.social_links;
+    return allPrismicSocialMediaLinks.edges[0].node.data;
 }

@@ -73,7 +73,7 @@ const Post = ({ post, meta, home }) => {
     return (
         <>
             <Helmet
-                title={`${post.post_title[0].text} | Prist, Gatsby & Prismic Starter`}
+                title={`${post.post_title.text} | Prist, Gatsby & Prismic Starter`}
                 titleTemplate={`%s | ${meta.title}`}
                 meta={[
                     {
@@ -82,7 +82,7 @@ const Post = ({ post, meta, home }) => {
                     },
                     {
                         property: `og:title`,
-                        content: `${post.post_title[0].text} | Prist, Gatsby & Prismic Starter`,
+                        content: `${post.post_title.text} | Prist, Gatsby & Prismic Starter`,
                     },
                     {
                         property: `og:description`,
@@ -113,7 +113,7 @@ const Post = ({ post, meta, home }) => {
             <Layout>
                 <PostWrapper>
                     <PostTitle>
-                        {RichText.render(post.post_title)}
+                        {RichText.render(post.post_title.raw)}
                     </PostTitle>
                     <PostMetas>
                         <PostAuthor>
@@ -129,7 +129,7 @@ const Post = ({ post, meta, home }) => {
                         </PostHeroContainer>
                     )}
                     <PostBody>
-                        {RichText.render(post.post_body)}
+                        {RichText.render(post.post_body.raw)}
                     </PostBody>
                 </PostWrapper>
                 <CheckoutFooter productImage={home.hero_background.url} />
@@ -139,12 +139,12 @@ const Post = ({ post, meta, home }) => {
 }
 
 export default ({ data }) => {
-    const postContent = data.prismic.allPosts.edges[0].node;
+    const postContent = data.prismicPost.data;
     const meta = data.site.siteMetadata;
-    const home = data.prismic.allHomepages.edges.slice(0, 1).pop();
+    const home = data.allPrismicHomepage.nodes.slice(0, 1).pop()
 
     return (
-        <Post post={postContent} meta={meta} home={home.node}/>
+        <Post post={postContent} meta={meta} home={home.data}/>
     )
 }
 
@@ -155,32 +155,52 @@ Post.propTypes = {
 };
 
 export const query = graphql`
-    query PostQuery($uid: String) {
-        prismic {
-            allHomepages {
-                edges {
-                    node {
-                        hero_background
-                    }
+    query postBySlugQuery($uid: String!) {
+        allPrismicHomepage {
+            nodes {
+            data {
+                hero_background {
+                url
                 }
             }
-            allPosts(uid: $uid) {
-                edges {
-                    node {
-                        post_title
-                        post_hero_image
-                        post_hero_annotation
-                        post_date
-                        post_category
-                        post_body
-                        post_author
-                        post_preview_description
-                        _meta {
-                            uid
-                        }
-                    }
+            }
+        }
+        prismicPost(uid: { eq: $uid }) {
+            data {
+                post_title {
+                    html
+                    text
+                    raw
+                }
+                post_preview_description {
+                    html
+                    text
+                    raw
+                }
+                post_hero_image {
+                    alt
+                    copyright
+                    url
+                }
+                post_date
+                post_category {
+                    html
+                    text
+                    raw
+                }
+                post_author
+                post_body {
+                    html
+                    text
+                    raw
+                }
+                post_hero_annotation {
+                    html
+                    text
+                    raw
                 }
             }
+            uid
         }
         site {
             siteMetadata {

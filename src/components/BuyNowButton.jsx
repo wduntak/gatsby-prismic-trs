@@ -25,22 +25,22 @@ const BuyNowContainer = styled("div")`
 `
 
 const BuyNowButton = ({ children }) => {
-    const { book_description, book_price, book_name, book_image, _meta } = usePrismicBookData()
+    const bookData = usePrismicBookData();
     return (
-        <BuyNowContainer>
-            <button
-                className="snipcart-add-item"
-                data-item-id={_meta.uid}
-                data-item-price={book_price}
-                data-item-url="/"
-                data-item-description={book_description[0].text}
-                data-item-image={book_image.url}
-                data-item-name={book_name[0].text}
-                >
-                {children}
-            </button>
-        </BuyNowContainer>
-    );
+      <BuyNowContainer>
+        <button
+          className="snipcart-add-item"
+          data-item-id={bookData.uid}
+          data-item-price={bookData.data.book_price}
+          data-item-url="/"
+          data-item-description={bookData.data.book_description.text}
+          data-item-image={bookData.data.book_image.url}
+          data-item-name={bookData.data.book_name.text}
+        >
+          {children}
+        </button>
+      </BuyNowContainer>
+    )
 }
 
 export default BuyNowButton;

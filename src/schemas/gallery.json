@@ -1,0 +1,60 @@
+{
+    "Main": {
+        "gallery_title": {
+            "type": "StructuredText",
+            "config": {
+                "single": "heading1, heading2, heading3, heading4, heading5, heading6",
+                "label": "Gallery Title"
+            }
+        },
+        "body": {
+            "type": "Slices",
+            "fieldset": "Slice zone",
+            "config": {
+                "labels": {
+                    "image_gallery": []
+                },
+                "choices": {
+                    "image_gallery": {
+                        "type": "Slice",
+                        "fieldset": "Image Gallery",
+                        "description": "An image gallery section",
+                        "icon": "image",
+                        "display": "grid",
+                        "non-repeat": {},
+                        "repeat": {
+                            "gallery_image": {
+                                "type": "Image",
+                                "config": {
+                                    "constraint": {},
+                                    "thumbnails": [
+                                        {
+                                            "name": "Thumbnail",
+                                            "width": 200,
+                                            "height": 200
+                                        }
+                                    ],
+                                    "label": "Gallery Image"
+                                }
+                            },
+                            "alt_text": {
+                                "type": "StructuredText",
+                                "config": {
+                                    "multi": "paragraph",
+                                    "label": "Alt Text"
+                                }
+                            },
+                            "caption": {
+                                "type": "StructuredText",
+                                "config": {
+                                    "multi": "paragraph",
+                                    "label": "Caption"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

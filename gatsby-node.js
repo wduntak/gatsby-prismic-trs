@@ -1,64 +1,75 @@
-const path = require('path');
-const fs = require("fs")
+const path = require("path");
 
-const dir = "./.cache/caches/gatsby-source-prismic-graphql"
+exports.createPages = async({ graphql, actions, reporter }) => {
+    const { createPage } = actions
 
-const wrapper = promise =>
-    promise.then(result => {
-        if (result.errors) {
-            throw result.errors
-        }
-        return result
-    });
-
-exports.createPages = async ({ graphql, actions }) => {
-    const { createPage } = actions;
-
-    const result = await wrapper(
-        graphql(`
-        {
-            prismic {
-                allPosts {
-                    edges {
-                        node {
-                            post_title
-                            post_hero_image
-                            post_hero_annotation
-                            post_date
-                            post_category
-                            post_body
-                            post_preview_description
-                            post_author
-                            _meta {
-                                uid
-                            }
+    const pages = await graphql(
+        `
+            {
+                allPrismicPost {
+                edges {
+                node {
+                    data {
+                    post_title {
+                        html
+                        text
+                        raw
+                    }
+                    post_preview_description {
+                        html
+                        text
+                        raw
+                    }
+                    post_hero_image {
+                        alt
+                        copyright
+                        url
+                        thumbnails {
+                        Thumbnail {
+                            url
+                        }
                         }
                     }
+                    post_date
+                    post_category {
+                        html
+                        text
+                        raw
+                    }
+                    post_author
+                    post_body {
+                        html
+                        text
+                        raw
+                    }
+                    post_hero_annotation {
+                        html
+                        text
+                        raw
+                    }
+                    }
+                    uid
                 }
+                }
+            }                
             }
-        }
-    `)
+        `
     )
 
-    const postsList = result.data.prismic.allPosts.edges;
+    if (pages.errors) {
+        reporter.panicOnBuild(`Error while running GraphQL query.`)
+        return
+    }
 
-    const postTemplate = require.resolve('./src/templates/post.jsx');
-
-    postsList.forEach(edge => {
+    const template = path.resolve(`./src/templates/post.jsx`)
+    pages.data.allPrismicPost.edges.forEach(edge => {
         createPage({
-            type: 'Post',
-            match: '/news/:uid',
-            path: `/news/${edge.node._meta.uid}`,
-            component: postTemplate,
+            path: `/news/${edge.node.uid}`,
+            component: template,
             context: {
-                uid: edge.node._meta.uid,
-            },
+                uid: edge.node.uid
+            }
         })
-    })
-}
+    });
 
-exports.onPreBootstrap = () => {
-  if (!fs.existsSync(dir)) {
-    fs.mkdirSync(dir)
-  }
 }

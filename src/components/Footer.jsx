@@ -92,9 +92,9 @@ const Footer = () => {
                 <FooterColumn>
                     <h3>Social</h3>
                     <ul>
-                        {social_links.map((link, i) => (
-                            <li key={i}><a href={link.social_link_url[0].text}><span>{link.social_link_name[0].text}</span></a></li>
-                        ))}
+                        {/* {social_links.map((link, i) => (
+                            <li key={i}><a href={link.social_link_url.text}><span>{link.social_link_name.text}</span></a></li>
+                        ))} */}
                     </ul>
                 </FooterColumn>
             </FooterColumns>

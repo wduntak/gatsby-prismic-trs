@@ -21,8 +21,8 @@ module.exports = {
     {
       resolve: `gatsby-plugin-snipcartv3`,
       options: {
-        apiKey: process.env.SNIPCART_API_KEY
-      }
+        apiKey: process.env.SNIPCART_API_KEY,
+      },
     },
     {
       resolve: `gatsby-source-filesystem`,
@@ -34,12 +34,26 @@ module.exports = {
     `gatsby-transformer-sharp`,
     `gatsby-plugin-sharp`,
     {
-        resolve: 'gatsby-source-prismic-graphql',
-        options: {
-          repositoryName: process.env.PRISMIC_REPOSITORY_NAME,
-          accessToken: process.env.PRISMIC_ACCESS_TOKEN,
-          linkResolver: () => post => `/${post.uid}`,
-        }
+      resolve: `gatsby-source-prismic`,
+      options: {
+        repositoryName: process.env.PRISMIC_REPOSITORY_NAME,
+        accessToken: process.env.PRISMIC_ACCESS_TOKEN,
+        linkResolver: () => post => `/${post.uid}`,
+        schemas: {
+          post: require("./src/schemas/post.json"),
+          about: require("./src/schemas/about.json"),
+          book_product: require("./src/schemas/book_product.json"),
+          donate: require("./src/schemas/donate.json"),
+          gallery: require("./src/schemas/gallery.json"),
+          homepage: require("./src/schemas/homepage.json"),
+          modal: require("./src/schemas/modal.json"),
+          previewbookpage: require("./src/schemas/previewbookpage.json"),
+          review: require("./src/schemas/review.json"),
+          skinnybanner: require("./src/schemas/skinnybanner.json"),
+          social_media_links: require("./src/schemas/social_media_links.json"),
+          team: require("./src/schemas/team.json"),
+        },
+      },
     },
     {
       resolve: `gatsby-plugin-manifest`,
@@ -56,19 +70,16 @@ module.exports = {
     {
       resolve: `gatsby-plugin-google-fonts`,
       options: {
-        fonts: [
-          `gelasio\:300,400,500,700`,
-          `roboto`
-        ],
-        display: 'swap'
-      }
+        fonts: [`gelasio\:300,400,500,700`, `roboto`],
+        display: "swap",
+      },
     },
     {
-        resolve: `gatsby-plugin-google-analytics`,
-        options: {
-            trackingId: "YOUR_GOOGLE_ANALYTICS_TRACKING_ID",
-            head: true,
-        },
+      resolve: `gatsby-plugin-google-analytics`,
+      options: {
+        trackingId: "YOUR_GOOGLE_ANALYTICS_TRACKING_ID",
+        head: true,
+      },
     },
     // this (optional) plugin enables Progressive Web App + Offline functionality
     // To learn more, visit: https://gatsby.dev/offline

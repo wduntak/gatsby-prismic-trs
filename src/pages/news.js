@@ -84,13 +84,13 @@ const News = ({ posts, meta, home }) => (
                     {posts.map((post, i) => (
                         <PostCard
                             key={i}
-                            author={post.node.post_author}
-                            category={post.node.post_category}
-                            title={post.node.post_title}
-                            date={post.node.post_date}
-                            description={post.node.post_preview_description}
-                            uid={post.node._meta.uid}
-                            thumbnail={post.node.post_hero_image}
+                            author={post.node.data.post_author}
+                            category={post.node.data.post_category.text}
+                            title={post.node.data.post_title.text}
+                            date={post.node.data.post_date}
+                            description={post.node.data.post_preview_description.raw}
+                            uid={post.node.uid}
+                            thumbnail={post.node.data.post_hero_image.url}
                         />
                     ))}
                 </NewsGrid>
@@ -100,14 +100,14 @@ const News = ({ posts, meta, home }) => (
 );
 
 export default ({ data }) => {
-    const posts = data.prismic.allPosts.edges;
+    const posts = data.allPrismicPost.edges;
     const meta = data.site.siteMetadata;
-    const home = data.prismic.allHomepages.edges.slice(0, 1).pop();
+    const home = data.allPrismicHomepage.nodes.slice(0, 1).pop()
 
     if (!posts) return null;
 
     return (
-        <News posts={posts} meta={meta} home={home.node}/>
+        <News posts={posts} meta={meta} home={home.data}/>
     )
 }
 
@@ -119,28 +119,44 @@ News.propTypes = {
 
 export const query = graphql`
     {
-        prismic {
-            allHomepages {
-                edges {
-                    node {
-                        hero_background
-                    }
+        allPrismicHomepage {
+            nodes {
+            data {
+                hero_background {
+                url
                 }
-            }  
-            allPosts(sortBy: post_date_DESC) {
-                edges {
-                    node {
-                        post_title
-                        post_date
-                        post_category
-                        post_preview_description
-                        post_author
-                        post_hero_image
-                        _meta {
-                            uid
-                        }
-                    }
+            }
+            }
+        }
+        allPrismicPost {
+            edges {
+            node {
+                data {
+                post_title {
+                    html
+                    text
+                    raw
                 }
+                post_preview_description {
+                    html
+                    text
+                    raw
+                }
+                post_hero_image {
+                    alt
+                    copyright
+                    url
+                }
+                post_date
+                post_category {
+                    html
+                    text
+                    raw
+                }
+                post_author
+                }
+                uid
+            }
             }
         }
         site {

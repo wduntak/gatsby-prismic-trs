@@ -6,6 +6,7 @@ import { usePrismicModalData } from "../hooks/use-prismic-modal-data"
 
 const PopupContainer = styled("div")`
   display: block;
+  
   .trs-modal-container p, .trs-modal-container  img {
       text-align: center;
       display: block;
@@ -21,13 +22,13 @@ function Popup(props) {
     const modalData = usePrismicModalData();
 
     if (typeof window !== 'undefined') {
-        if (localStorage.getItem('popupShown') !== modalData._meta.lastPublicationDate &&
-            modalData.modal_enabled) {
+        if (localStorage.getItem('popupShown') !== modalData.lastPublicationDate &&
+            modalData.data.modal_enabled) {
             setShow(true);
-            localStorage.setItem('popupShown', modalData._meta.lastPublicationDate);
+            localStorage.setItem('popupShown', modalData.lastPublicationDate);
         }
     } else {
-        console.log('Runing on server, localStorage not available');
+        console.log('Running on server, localStorage not available');
     }
 
     return (
@@ -41,7 +42,7 @@ function Popup(props) {
                 <Modal.Header closeButton>
                     {/* <Modal.Title>Modal Heading</Modal.Title> */}
                 </Modal.Header>
-                <Modal.Body>{RichText.render(modalData.modal_content)}</Modal.Body>
+                <Modal.Body>{RichText.render(modalData.data.modal_content)}</Modal.Body>
                 <Modal.Footer>
                     <Button variant="primary" onClick={handleClose}>Close</Button>
                 </Modal.Footer>

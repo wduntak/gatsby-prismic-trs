@@ -1,0 +1,11 @@
+{
+    "Main": {
+        "previewbooklink": {
+            "type": "Link",
+            "config": {
+                "select": "media",
+                "label": "previewBookLink"
+            }
+        }
+    }
+}

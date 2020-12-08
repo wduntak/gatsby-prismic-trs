@@ -133,11 +133,11 @@ const About = ({ abouts, meta, home }) => (
             <AboutContainer>
                 <AboutHeroSection style={{backgroundImage: "url(" + abouts.about_title_background.url + ")"}}>
                     <AboutHeroInner>
-                        {RichText.render(abouts.about_title)}
+                        {RichText.render(abouts.about_title.raw)}
                     </AboutHeroInner>
                 </AboutHeroSection>
                 <AboutBodySection>
-                    {RichText.render(abouts.about_body)}
+                    {RichText.render(abouts.about_body.raw)}
                 </AboutBodySection>
             </AboutContainer>
         </Layout>
@@ -145,14 +145,15 @@ const About = ({ abouts, meta, home }) => (
 );
 
 export default ({ data }) => {
-    const abouts = data.prismic.allAbouts.edges[0].node;
+    const abouts = data.allPrismicAbout.edges[0].node.data;
     const meta = data.site.siteMetadata;
-    const home = data.prismic.allHomepages.edges.slice(0, 1).pop();
+    const home = data.allPrismicHomepage.nodes.slice(0, 1).pop();
+    console.log('home', home);
 
     if (!abouts) return null;
 
     return (
-        <About abouts={abouts} meta={meta} home={home.node} />
+        <About abouts={abouts} meta={meta} home={home.data} />
     )
 }
 
@@ -163,20 +164,34 @@ About.propTypes = {
 
 export const query = graphql`
 {
-    prismic {
-    allHomepages {
-        edges {
-            node {
-                hero_background
+    allPrismicHomepage {
+        nodes {
+        data {
+            hero_background {
+            url
             }
         }
+        }
     }
-        allAbouts {
+    allPrismicAbout {
         edges {
-            node {
-            about_title
-            about_title_background
-            about_body
+        node {
+            data {
+            about_body {
+                html
+                text
+                raw
+            }
+            about_title {
+                html
+                text
+                raw
+            }
+            about_title_background {
+                alt
+                copyright
+                url
+            }
             }
         }
         }

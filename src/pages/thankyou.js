@@ -140,9 +140,9 @@ const Success = ({ meta, home }) => (
 
 export default ({ data }) => {
     const meta = data.site.siteMetadata
-    const home = data.prismic.allHomepages.edges.slice(0, 1).pop()
+    const home = data.allPrismicHomepage.nodes.slice(0, 1).pop()
     return (
-        <Success meta={meta} home={home.node}/>
+        <Success meta={meta} home={home.data}/>
     )
 }
 
@@ -152,11 +152,11 @@ Success.propTypes = {
 
 export const query = graphql`
   {
-    prismic {
-      allHomepages {
-        edges {
-          node {
-            hero_background
+    allPrismicHomepage {
+      nodes {
+        data {
+          hero_background {
+            url
           }
         }
       }

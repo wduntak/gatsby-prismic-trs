@@ -77,23 +77,23 @@ const Gallery = ({ images, meta, home }) => (
 );
 
 export default ({ data }) => {
-    const gallerys = data.prismic.allGallerys.edges;
+    const gallerys = data.allPrismicGalleryBodyImageGallery.edges
     const meta = data.site.siteMetadata;
-    const home = data.prismic.allHomepages.edges.slice(0, 1).pop();
+    const home = data.allPrismicHomepage.nodes.slice(0, 1).pop()
 
     if (!gallerys) return null;
 
-    const images = gallerys[0].node.body[0].fields.map((image, i) => {
+    const images = gallerys[0].node.items.map((image, i) => {
         return {
             original: image.gallery_image.url,
-            thumbnail: image.gallery_image.Thumbnail.url,
-            description: image.caption[0].text,
-            originalAlt: image.alt_text[0].text
+            thumbnail: image.gallery_image.thumbnails.Thumbnail.url,
+            description: image.caption.text,
+            originalAlt: image.alt_text.text
         };
     });
 
     return (
-        <Gallery images={images} meta={meta} home={home.node} />
+        <Gallery images={images} meta={meta} home={home.data} />
     )
 }
 
@@ -103,28 +103,41 @@ Gallery.propTypes = {
 
 export const query = graphql`
     {
-        prismic {
-            allHomepages {
-                edges {
-                    node {
-                        hero_background
-                    }
+        allPrismicHomepage {
+            nodes {
+            data {
+                hero_background {
+                url
                 }
-            }            
-            allGallerys {
-                edges {
-                    node {
-                        body {
-                            ... on PRISMIC_GalleryBodyImage_gallery {
-                                fields {
-                                    gallery_image
-                                    alt_text
-                                    caption
-                                }
-                            }
+            }
+            }
+        }
+        allPrismicGalleryBodyImageGallery {
+            edges {
+            node {
+                items {
+                alt_text {
+                    html
+                    text
+                    raw
+                }
+                gallery_image {
+                    alt
+                    copyright
+                    url
+                    thumbnails {
+                        Thumbnail {
+                            url
                         }
                     }
                 }
+                caption {
+                    html
+                    text
+                    raw
+                }
+                }
+            }
             }
         }
         site {

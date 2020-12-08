@@ -1,0 +1,105 @@
+{
+    "Main": {
+        "uid": {
+            "type": "UID",
+            "config": {
+                "label": "homepage"
+            }
+        },
+        "hero_title": {
+            "type": "StructuredText",
+            "config": {
+                "multi": "heading1, hyperlink",
+                "allowTargetBlank": true,
+                "label": "hero title",
+                "placeholder": "Hello world"
+            }
+        },
+        "hero_subtitle": {
+            "type": "StructuredText",
+            "config": {
+                "multi": "paragraph",
+                "label": "hero_subtitle"
+            }
+        },
+        "hero_background": {
+            "type": "Image",
+            "config": {
+                "constraint": {
+                    "width": 1500,
+                    "height": 1125
+                },
+                "thumbnails": [],
+                "label": "hero background"
+            }
+        },
+        "hero_button_text": {
+            "type": "StructuredText",
+            "config": {
+                "multi": "hyperlink",
+                "label": "hero button text",
+                "placeholder": "Click me!"
+            }
+        },
+        "hero_button_link": {
+            "type": "Link",
+            "config": {
+                "allowTargetBlank": true,
+                "label": "hero button link",
+                "placeholder": "Click me!"
+            }
+        },
+        "highlight_1": {
+            "type": "Group",
+            "config": {
+                "fields": {
+                    "highlight_image_1": {
+                        "type": "Image",
+                        "config": {
+                            "constraint": {
+                                "width": 570,
+                                "height": 430
+                            },
+                            "thumbnails": [],
+                            "label": "highlight_image_1"
+                        }
+                    },
+                    "highlight_text_1": {
+                        "type": "StructuredText",
+                        "config": {
+                            "multi": "paragraph, heading3, strong, em",
+                            "label": "highlight_text_1"
+                        }
+                    }
+                },
+                "label": "Highlight 1"
+            }
+        },
+        "highlight_2": {
+            "type": "Group",
+            "config": {
+                "fields": {
+                    "highlight_image_2": {
+                        "type": "Image",
+                        "config": {
+                            "constraint": {
+                                "width": 570,
+                                "height": 430
+                            },
+                            "thumbnails": [],
+                            "label": "highlight_image_2"
+                        }
+                    },
+                    "highlight_text_2": {
+                        "type": "StructuredText",
+                        "config": {
+                            "multi": "paragraph, heading3, strong, em",
+                            "label": "highlight_text_2"
+                        }
+                    }
+                },
+                "label": "Highlight 2"
+            }
+        }
+    }
+}

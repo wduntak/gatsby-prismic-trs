@@ -466,8 +466,8 @@ const RenderBody = ({ home, posts, meta, reviews, previewLink, banner }) => (
                 </HeroImageContainer>
                 <HeroDetailContainer>
                     <>
-                        {RichText.render(home.hero_title)}
-                        {RichText.render(home.hero_subtitle)}
+                        {RichText.render(home.hero_title.raw)}
+                        {RichText.render(home.hero_subtitle.raw)}
                     </>
                     <HeroLinkContainer>
                         <BuyNowButton>Add to Cart</BuyNowButton>
@@ -489,7 +489,7 @@ const RenderBody = ({ home, posts, meta, reviews, previewLink, banner }) => (
                 </HighlightImageContainer>
                 <HighlightTextContainer>
                     <HighlightTextWrapper className="text-right">
-                        {RichText.render(home.highlight_1[0].highlight_text_1)}
+                        {RichText.render(home.highlight_1[0].highlight_text_1.raw)}
                     </HighlightTextWrapper>
                 </HighlightTextContainer>
             </HighlightWrapper>
@@ -498,7 +498,7 @@ const RenderBody = ({ home, posts, meta, reviews, previewLink, banner }) => (
             <HighlightWrapper>
                 <HighlightTextContainer>
                     <HighlightTextWrapper className="text-left">
-                        {RichText.render(home.highlight_2[0].highlight_text_2)}
+                        {RichText.render(home.highlight_2[0].highlight_text_2.raw)}
                     </HighlightTextWrapper>
                 </HighlightTextContainer>
                 <HighlightImageContainer className="image-right">
@@ -517,8 +517,8 @@ const RenderBody = ({ home, posts, meta, reviews, previewLink, banner }) => (
                 {reviews.map((review, i) => {
                     return (
                         <Carousel.Item key={i}>
-                            <TestimonialQuote>"{review.node.review_copy[0].text}"</TestimonialQuote>
-                            <TestimonialAuthor>- {review.node.reviewer_name[0].text}</TestimonialAuthor>
+                            <TestimonialQuote>"{review.node.data.review_copy.text}"</TestimonialQuote>
+                            <TestimonialAuthor>- {review.node.data.reviewer_name.text}</TestimonialAuthor>
                         </Carousel.Item>
                     );                
                 })}
@@ -530,12 +530,12 @@ const RenderBody = ({ home, posts, meta, reviews, previewLink, banner }) => (
                 {posts.slice(0).reverse().map((post, i) => (
                     <PostCard 
                         key={i}
-                        category={post.node.post_category}
-                        title={post.node.post_title}
-                        description={post.node.post_preview_description}
-                        thumbnail={post.node.post_hero_image}
-                        uid={post.node._meta.uid}        
-                        date={post.node.post_date}          
+                        category={post.node.data.post_category}
+                        title={post.node.data.post_title.text}
+                        description={post.node.data.post_preview_description.raw}
+                        thumbnail={post.node.data.post_hero_image.url}
+                        uid={post.node.uid}        
+                        date={post.node.data.post_date}          
                     />
                 ))}
             </NewsPostsWrapper>
@@ -551,21 +551,20 @@ const RenderBody = ({ home, posts, meta, reviews, previewLink, banner }) => (
 
 export default ({ data }) => {
     //Required check for no data being returned
-    const doc = data.prismic.allHomepages.edges.slice(0, 1).pop();
-    const posts = data.prismic.allPosts.edges;
+    const doc = data.allPrismicHomepage.edges.slice(0, 1).pop()
+    const posts = data.allPrismicPost.edges
     const meta = data.site.siteMetadata;
-    const reviews = data.prismic.allReviews.edges;
-    const previews = data.prismic.allPreviewbookpages.edges;
-    const banner = data.prismic.allSkinnybanners.edges;
-    const modal = data.prismic.allModals.edges;
+    const reviews = data.allPrismicReview.edges
+    const previews = data.allPrismicPreviewbookpage.edges
+    const banner = data.allPrismicSkinnybanner.edges
 
-    if (!doc || !reviews|| !posts || !previews || !banner || !modal) return null;
+    if (!doc || !reviews|| !posts || !previews || !banner) return null;
 
-    const previewLink = previews[0].node.previewbooklink.url;
+    const previewLink = previews[0].node.data.previewbooklink.url;
     
     return (
-        <Layout productImage={doc.node.hero_background.url} banner={banner} modal={modal}>
-            <RenderBody home={doc.node} meta={meta} reviews={reviews} posts={posts} previewLink={previewLink}/>
+        <Layout productImage={doc.node.data.hero_background.url} banner={banner}>
+            <RenderBody home={doc.node.data} meta={meta} reviews={reviews} posts={posts} previewLink={previewLink}/>
         </Layout>
     )
 }
@@ -579,89 +578,135 @@ RenderBody.propTypes = {
 };
 
 export const query = graphql`
-    {
-        prismic {
-            allHomepages {
-                edges {
-                    node {
-                        hero_title
-                        hero_subtitle
-                        hero_button_text
-                        hero_background
-                        hero_button_link {
-                            ... on PRISMIC__ExternalLink {
-                                _linkType
-                                url
-                            }
-                        }
-                        highlight_1 {
-                            highlight_image_1
-                            highlight_text_1
-                        }
-                        highlight_2 {
-                            highlight_image_2
-                            highlight_text_2
-                        }
-                    }
-                }
-            }
-            allReviews(last: 3) {
-                edges {
-                    node {
-                        review_copy
-                        reviewer_name
-                    }
-                }
-            }
-            allPosts(last: 6) {
-                edges {
-                    node {
-                        post_title
-                        post_preview_description
-                        post_hero_image
-                        post_category
-                        post_date
-                        _meta {
-                            uid
-                        }
-                    }
-                }
-            }
-            allPreviewbookpages {
-                edges {
-                    node {
-                        previewbooklink {
-                            ... on PRISMIC__FileLink {
-                            url
-                            _linkType
-                            }
-                        }
-                    }
-                }
-            }
-            allSkinnybanners {
-                edges {
-                    node {
-                        banner_message
-                        enable_banner
-                    }
-                }
-            }
-            allModals {
-                edges {
-                    node {
-                        modal_content
-                        modal_enabled
-                    }
-                }
-            }
-        }
-        site {
-            siteMetadata {
-                title
-                description
-                author
-            }
-        }
-    }
-`
+         {
+           allPrismicHomepage {
+             edges {
+               node {
+                 data {
+                   hero_background {
+                     url
+                   }
+                   hero_button_link {
+                     url
+                   }
+                   hero_button_text {
+                     html
+                     text
+                     raw
+                   }
+                   hero_subtitle {
+                     raw
+                   }
+                   hero_title {
+                     raw
+                   }
+                   highlight_1 {
+                     highlight_image_1 {
+                       alt
+                       copyright
+                       url
+                     }
+                     highlight_text_1 {
+                       html
+                       text
+                       raw
+                     }
+                   }
+                   highlight_2 {
+                     highlight_image_2 {
+                       alt
+                       copyright
+                       url
+                     }
+                     highlight_text_2 {
+                       html
+                       text
+                       raw
+                     }
+                   }
+                 }
+               }
+             }
+           }
+           allPrismicReview {
+             edges {
+               node {
+                 data {
+                   review_copy {
+                     html
+                     text
+                     raw
+                   }
+                   reviewer_name {
+                     html
+                     text
+                     raw
+                   }
+                 }
+               }
+             }
+           }
+           allPrismicPost {
+             edges {
+               node {
+                 data {
+                   post_title {
+                     html
+                     text
+                     raw
+                   }
+                   post_preview_description {
+                     html
+                     text
+                     raw
+                   }
+                   post_hero_image {
+                     alt
+                     copyright
+                     url
+                   }
+                   post_category {
+                     html
+                     text
+                     raw
+                   }
+                   post_date
+                 }
+                 uid
+               }
+             }
+           }
+           allPrismicPreviewbookpage {
+             edges {
+               node {
+                 data {
+                   previewbooklink {
+                     url
+                   }
+                 }
+               }
+             }
+           }
+           allPrismicSkinnybanner {
+             edges {
+               node {
+                 data {
+                   banner_message {
+                     html
+                     text
+                     raw
+                   }
+                   enable_banner
+                 }
+               }
+             }
+           }
+           site {
+             siteMetadata {
+               author
+               description
+               title
+             }
+           }
+         }
+       `

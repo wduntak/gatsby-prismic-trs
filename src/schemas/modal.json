@@ -1,0 +1,20 @@
+{
+    "Main": {
+        "modal_content": {
+            "type": "StructuredText",
+            "config": {
+                "multi": "paragraph, preformatted, heading1, heading2, heading3, heading4, heading5, heading6, strong, em, hyperlink, image, embed, list-item, o-list-item, rtl",
+                "label": "modal content"
+            }
+        },
+        "modal_enabled": {
+            "type": "Boolean",
+            "config": {
+                "placeholder_false": "Disabled",
+                "placeholder_true": "Enabled",
+                "default_value": true,
+                "label": "modal enabled"
+            }
+        }
+    }
+}
