@@ -527,7 +527,7 @@ const RenderBody = ({ home, posts, meta, reviews, previewLink, banner }) => (
         <Section className="news-section">
             <NewsPostsTitle>News</NewsPostsTitle>
             <NewsPostsWrapper>
-                {posts.slice(0).reverse().map((post, i) => (
+                {posts.slice(0).map((post, i) => (
                     <PostCard 
                         key={i}
                         category={post.node.data.post_category}
@@ -646,7 +646,7 @@ export const query = graphql`
                }
              }
            }
-           allPrismicPost {
+           allPrismicPost(limit: 6, sort: {fields: last_publication_date, order: DESC}) {
              edges {
                node {
                  data {
