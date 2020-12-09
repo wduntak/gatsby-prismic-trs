@@ -1,6 +1,5 @@
 import React from "react";
-import { Link } from "gatsby";
-import { usePrismicSocialLinksData } from "../hooks/use-prismic-social-links-data"
+import { Link, useStaticQuery, graphql } from "gatsby";
 import styled from "@emotion/styled";
 import dimensions from "styles/dimensions";
 import Logo from "components/_ui/Logo";
@@ -70,7 +69,33 @@ const FooterColumn = styled("div")`
 `
 
 const Footer = () => {
-    const social_links = usePrismicSocialLinksData();
+    const data = useStaticQuery(graphql`
+        query SocialLinkTestQuery {
+          allPrismicSocialMediaLinks {
+            edges {
+              node {
+                data {
+                  social_links {
+                    social_link_name {
+                      html
+                      text
+                      raw
+                    }
+                    social_link_url {
+                      html
+                      text
+                      raw
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }    
+    `);
+
+    console.log(data);
+
     return (
         <FooterContainer>
             <FooterColumns>
@@ -92,9 +117,9 @@ const Footer = () => {
                 <FooterColumn>
                     <h3>Social</h3>
                     <ul>
-                        {/* {social_links.map((link, i) => (
+                        {data.allPrismicSocialMediaLinks.edges[0].node.data.social_links.map((link, i) => (
                             <li key={i}><a href={link.social_link_url.text}><span>{link.social_link_name.text}</span></a></li>
-                        ))} */}
+                        ))}
                     </ul>
                 </FooterColumn>
             </FooterColumns>

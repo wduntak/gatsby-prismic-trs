@@ -33,7 +33,7 @@ function Popup() {
         } else {
             console.log('Running on server, localStorage not available');
         }
-    })
+    }, [])
 
     return (
         <PopupContainer>
