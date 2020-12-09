@@ -94,8 +94,6 @@ const Footer = () => {
         }    
     `);
 
-    console.log(data);
-
     return (
         <FooterContainer>
             <FooterColumns>

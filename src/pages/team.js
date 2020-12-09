@@ -85,12 +85,15 @@ const TeamMemberSection = styled('div')`
 const TeamMemberCard = styled('div')`
     font-family: 'Gelasio', serif;
     margin-bottom: 40px; 
-    .gatsby-image-wrapper {
+    img {
         float: left;
         margin-right: 20px;
         margin-bottom: 10px;
         max-width: 160px;
         max-height: 160px;
+    }
+    .member-description {
+        min-height: 150px;
     }
 
 `
@@ -148,12 +151,11 @@ const Team = ({ teams, meta, home }) => (
                 <TeamMemberSection>
                     {teams.team_member.map((member, i) => (
                         <TeamMemberCard key={i}>
-                            <Img 
-                                key={i}
-                                fixed={member.team_member_picture.url}        
+                            <img 
+                                src={member.team_member_picture.url}        
                             />
                             <strong>{RichText.render(member.team_member_name.raw)}</strong>
-                            {RichText.render(member.team_memeber_description.raw)}
+                            <div className="member-description">{RichText.render(member.team_memeber_description.raw)}</div>
                         </TeamMemberCard>
                     ))}
                 </TeamMemberSection>
@@ -207,7 +209,7 @@ export const query = graphql`
                     team_member_picture {
                     alt
                     copyright
-                    url
+                    url(imgixParams: {maxWidth: 50, maxHeight: 50})
                     }
                     team_memeber_description {
                     html
