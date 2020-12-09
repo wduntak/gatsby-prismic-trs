@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import styled from "@emotion/styled"
 import { RichText } from "prismic-reactjs"
 import { Modal, Button } from "react-bootstrap"
@@ -15,21 +15,25 @@ const PopupContainer = styled("div")`
   }
 `
 
-function Popup(props) {
+function Popup() {
     const [show, setShow] = useState(false);
 
     const handleClose = () => setShow(false);
+    
+    
     const modalData = usePrismicModalData();
 
-    if (typeof window !== 'undefined') {
-        if (localStorage.getItem('popupShown') !== modalData.lastPublicationDate &&
-            modalData.data.modal_enabled) {
-            setShow(true);
-            localStorage.setItem('popupShown', modalData.lastPublicationDate);
+    useEffect(() => {
+        if (typeof window !== 'undefined') {
+            if (localStorage.getItem('popupShown') !== modalData.last_publication_date &&
+                modalData.data.modal_enabled) {
+                setShow(true);
+                localStorage.setItem('popupShown', modalData.last_publication_date);
+            }
+        } else {
+            console.log('Running on server, localStorage not available');
         }
-    } else {
-        console.log('Running on server, localStorage not available');
-    }
+    })
 
     return (
         <PopupContainer>
@@ -42,7 +46,7 @@ function Popup(props) {
                 <Modal.Header closeButton>
                     {/* <Modal.Title>Modal Heading</Modal.Title> */}
                 </Modal.Header>
-                <Modal.Body>{RichText.render(modalData.data.modal_content)}</Modal.Body>
+                <Modal.Body>{RichText.render(modalData.data.modal_content.raw)}</Modal.Body>
                 <Modal.Footer>
                     <Button variant="primary" onClick={handleClose}>Close</Button>
                 </Modal.Footer>

@@ -57,7 +57,7 @@ const Layout = ({ children, productImage, banner }) => {
         </main>
         <Footer />
       </div>
-      {/* <Popup /> */}
+      <Popup />
     </LayoutContainer>
   );  
 }
