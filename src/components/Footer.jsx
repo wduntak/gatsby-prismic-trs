@@ -5,7 +5,7 @@ import dimensions from "styles/dimensions";
 import Logo from "components/_ui/Logo";
 
 const FooterContainer = styled("footer")`
-    padding: 75px 30px 45px 30px;
+    padding: 75px 30px 30px 30px;
     flex: 0 0 auto;
     position: relative;
     background-color: #e8ece9;
@@ -68,6 +68,12 @@ const FooterColumn = styled("div")`
     }
 `
 
+const LegalContainer = styled('div')`
+        text-align: center;
+        font-size: 0.8rem;
+        margin-top: 20px;
+`
+
 const Footer = () => {
     const data = useStaticQuery(graphql`
         query SocialLinkTestQuery {
@@ -121,6 +127,9 @@ const Footer = () => {
                     </ul>
                 </FooterColumn>
             </FooterColumns>
+            <LegalContainer>
+                <p>© 2020 Tibetan Resettlement Stories</p>
+            </LegalContainer>
         </FooterContainer>
     );
 }
