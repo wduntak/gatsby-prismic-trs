@@ -13,6 +13,10 @@ const PostCardContainer = styled("article")`
     display: inline-block;
     vertical-align: top;
     width: 100%;
+    min-height: 560px;
+    @media(max-width: ${dimensions.maxwidthMobile}px) {
+        min-height: auto;
+    }
 `
 const PostImage = styled("img")`
     max-width: 350px;
@@ -22,6 +26,7 @@ const PostImage = styled("img")`
     background-color: #eee;
     @media(max-width: ${dimensions.maxwidthMobile}px) {
         max-width: 100%;
+        max-height: 250px;
     }
 `
 
