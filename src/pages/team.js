@@ -28,9 +28,9 @@ const TeamHeroSection = styled('header')`
 const TeamHeroInner = styled('div')`
     max-width: 800px;
     width: 100%;
-    max-height: 300px;
+    max-height: 250px;
     height: 100%;
-    background-color: rgba(255,255,255,0.97);
+    background-color: rgba(255,255,255,0.90);
     margin: 0 40px;
     display: flex;
     justify-content: center;

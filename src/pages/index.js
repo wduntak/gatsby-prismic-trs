@@ -11,7 +11,6 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Layout from "components/Layout";
 import BuyNowButton from "components/BuyNowButton";
 import PostCard from "components/PostCard";
-import ContactUs from "components/ContactUs";
 
 const HeroSection = styled("section")`
   padding: 4rem 0;
@@ -204,12 +203,6 @@ const Section = styled("section")`
             display: block;
             text-align: center;
         }
-    }
-    &.contact-section {
-        padding-top: 6em;
-        margin-bottom: 8rem;
-        display: flex;
-        align-items: center;
     }
 `
 const HighlightWrapper = styled("div")`
@@ -542,9 +535,6 @@ const RenderBody = ({ home, posts, meta, reviews, previewLink, banner }) => (
             <WorkAction to={"/news"}>
                 See all posts
             </WorkAction>
-        </Section>
-        <Section className="contact-section" id="contact">
-            <ContactUs />
         </Section>
     </>
 );

@@ -281,7 +281,7 @@ const Navbar = class extends React.Component {
                             <li>
                                 <Link
                                     activeClassName="Link--is-active"
-                                    to="/#contact">
+                                    to="/contact">
                                     Contact
                                 </Link>
                             </li>
