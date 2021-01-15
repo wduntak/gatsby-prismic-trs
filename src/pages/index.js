@@ -412,132 +412,142 @@ const WorkAction = styled(Link)`
     }
 `
 
-const RenderBody = ({ home, posts, meta, reviews, previewLink, banner }) => (
-    <>
-        <Helmet
-            title={meta.title}
-            titleTemplate={`%s | ${meta.title}`}
-            meta={[
-                {
-                    name: `description`,
-                    content: meta.description,
-                },
-                {
-                    property: `og:title`,
-                    content: meta.title,
-                },
-                {
-                    property: `og:description`,
-                    content: meta.description,
-                },
-                {
-                    property: `og:type`,
-                    content: `website`,
-                },
-                {
-                    name: `twitter:card`,
-                    content: `summary`,
-                },
-                {
-                    name: `twitter:creator`,
-                    content: meta.author,
-                },
-                {
-                    name: `twitter:title`,
-                    content: meta.title,
-                },
-                {
-                    name: `twitter:description`,
-                    content: meta.description,
-                },
-            ].concat(meta)}
-        />
-        <HeroSection>
-            <HeroWrapper>
-                <HeroImageContainer>
-                    <img src={home.hero_background.url} alt="Book Cover"></img>
-                </HeroImageContainer>
-                <HeroDetailContainer>
-                    <>
-                        {RichText.render(home.hero_title.raw)}
-                        {RichText.render(home.hero_subtitle.raw)}
-                    </>
-                    <HeroLinkContainer>
-                        <BuyNowButton>Add to Cart</BuyNowButton>
-                        <PreviewLink href={previewLink} alt="Read book preview">Read Preview</PreviewLink>
-                    </HeroLinkContainer>
-                </HeroDetailContainer>
-            </HeroWrapper>
-            <HeroBackground />
-        </HeroSection>
-        <Section className="highlight-section">
-            <HighlightWrapper>
-                <HighlightImageContainer className="image-left">
-                    <img src={home.highlight_1[0].highlight_image_1.url} className="highlight-photo" alt={home.highlight_1[0].highlight_image_1.alt} />
-                    <figure className="max-w-15rem w-100 position-absolute bg-swatch right">
-                        <div className="swatch-wrapper">
-                            <img className="img-fluid" src="./swatch-1.svg" alt="Green Splash"/>
-                        </div>
-                    </figure>
-                </HighlightImageContainer>
-                <HighlightTextContainer>
-                    <HighlightTextWrapper className="text-right">
-                        {RichText.render(home.highlight_1[0].highlight_text_1.raw)}
-                    </HighlightTextWrapper>
-                </HighlightTextContainer>
-            </HighlightWrapper>
-        </Section>   
-        <Section className="highlight-section">
-            <HighlightWrapper>
-                <HighlightTextContainer>
-                    <HighlightTextWrapper className="text-left">
-                        {RichText.render(home.highlight_2[0].highlight_text_2.raw)}
-                    </HighlightTextWrapper>
-                </HighlightTextContainer>
-                <HighlightImageContainer className="image-right">
-                    <img src={home.highlight_2[0].highlight_image_2.url} className="highlight-photo" alt={home.highlight_2[0].highlight_image_2.alt}/>
-                    <figure className="max-w-15rem w-100 position-absolute bg-swatch left">
-                        <div className="swatch-wrapper">
-                            <img className="img-fluid" src="./swatch-1.svg" alt="Green Splash" />
-                        </div>
-                    </figure>
-                </HighlightImageContainer>
-            </HighlightWrapper>
-        </Section>             
-        <Section className="testimonial-section">
-            <TestimonialTitle>Testimonials</TestimonialTitle>
-            <Carousel controls={false}>
-                {reviews.map((review, i) => {
-                    return (
-                        <Carousel.Item key={i}>
-                            <TestimonialQuote>"{review.node.data.review_copy.text}"</TestimonialQuote>
-                            <TestimonialAuthor>- {review.node.data.reviewer_name.text}</TestimonialAuthor>
-                        </Carousel.Item>
-                    );                
-                })}
-            </Carousel>
-        </Section>
+const RenderBody = ({ home, posts, meta, reviews, previewLink, banner }) => {
+  console.log(posts);
+  const displayPosts = posts.length === 0 
+    ? <></> 
+    : (
         <Section className="news-section">
-            <NewsPostsTitle>News</NewsPostsTitle>
-            <NewsPostsWrapper>
-                {posts.slice(0).map((post, i) => (
-                    <PostCard 
-                        key={i}
-                        category={post.node.data.post_category}
-                        title={post.node.data.post_title.text}
-                        description={post.node.data.post_preview_description.raw}
-                        thumbnail={post.node.data.post_hero_image.url}
-                        uid={post.node.uid}        
-                        date={post.node.data.post_date}          
-                    />
-                ))}
-            </NewsPostsWrapper>
-            <WorkAction to={"/news"}>
-                See all posts
-            </WorkAction>
+          <NewsPostsTitle>News</NewsPostsTitle>
+          <NewsPostsWrapper>
+            {
+              posts.slice(0).map((post, i) => (
+                <PostCard
+                  key={i}
+                  category={post.node.data.post_category}
+                  title={post.node.data.post_title.text}
+                  description={post.node.data.post_preview_description.raw}
+                  thumbnail={post.node.data.post_hero_image.url}
+                  uid={post.node.uid}
+                  date={post.node.data.post_date}
+                />
+              ))
+            }
+          </NewsPostsWrapper>
+          <WorkAction to={"/news"}>
+            See all posts
+          </WorkAction>
         </Section>
+      )
+  return (
+    <>
+      <Helmet
+        title={meta.title}
+        titleTemplate={`%s | ${meta.title}`}
+        meta={[
+          {
+            name: `description`,
+            content: meta.description,
+          },
+          {
+            property: `og:title`,
+            content: meta.title,
+          },
+          {
+            property: `og:description`,
+            content: meta.description,
+          },
+          {
+            property: `og:type`,
+            content: `website`,
+          },
+          {
+            name: `twitter:card`,
+            content: `summary`,
+          },
+          {
+            name: `twitter:creator`,
+            content: meta.author,
+          },
+          {
+            name: `twitter:title`,
+            content: meta.title,
+          },
+          {
+            name: `twitter:description`,
+            content: meta.description,
+          },
+        ].concat(meta)}
+      />
+      <HeroSection>
+        <HeroWrapper>
+          <HeroImageContainer>
+            <img src={home.hero_background.url} alt="Book Cover"></img>
+          </HeroImageContainer>
+          <HeroDetailContainer>
+            <>
+              {RichText.render(home.hero_title.raw)}
+              {RichText.render(home.hero_subtitle.raw)}
+            </>
+            <HeroLinkContainer>
+              <BuyNowButton>Add to Cart</BuyNowButton>
+              <PreviewLink href={previewLink} alt="Read book preview">Read Preview</PreviewLink>
+            </HeroLinkContainer>
+          </HeroDetailContainer>
+        </HeroWrapper>
+        <HeroBackground />
+      </HeroSection>
+      <Section className="highlight-section">
+        <HighlightWrapper>
+          <HighlightImageContainer className="image-left">
+            <img src={home.highlight_1[0].highlight_image_1.url} className="highlight-photo" alt={home.highlight_1[0].highlight_image_1.alt} />
+            <figure className="max-w-15rem w-100 position-absolute bg-swatch right">
+              <div className="swatch-wrapper">
+                <img className="img-fluid" src="./swatch-1.svg" alt="Green Splash" />
+              </div>
+            </figure>
+          </HighlightImageContainer>
+          <HighlightTextContainer>
+            <HighlightTextWrapper className="text-right">
+              {RichText.render(home.highlight_1[0].highlight_text_1.raw)}
+            </HighlightTextWrapper>
+          </HighlightTextContainer>
+        </HighlightWrapper>
+      </Section>
+      <Section className="highlight-section">
+        <HighlightWrapper>
+          <HighlightTextContainer>
+            <HighlightTextWrapper className="text-left">
+              {RichText.render(home.highlight_2[0].highlight_text_2.raw)}
+            </HighlightTextWrapper>
+          </HighlightTextContainer>
+          <HighlightImageContainer className="image-right">
+            <img src={home.highlight_2[0].highlight_image_2.url} className="highlight-photo" alt={home.highlight_2[0].highlight_image_2.alt} />
+            <figure className="max-w-15rem w-100 position-absolute bg-swatch left">
+              <div className="swatch-wrapper">
+                <img className="img-fluid" src="./swatch-1.svg" alt="Green Splash" />
+              </div>
+            </figure>
+          </HighlightImageContainer>
+        </HighlightWrapper>
+      </Section>
+      <Section className="testimonial-section">
+        <TestimonialTitle>Testimonials</TestimonialTitle>
+        <Carousel controls={false}>
+          {reviews.map((review, i) => {
+            return (
+              <Carousel.Item key={i}>
+                <TestimonialQuote>"{review.node.data.review_copy.text}"</TestimonialQuote>
+                <TestimonialAuthor>- {review.node.data.reviewer_name.text}</TestimonialAuthor>
+              </Carousel.Item>
+            );
+          })}
+        </Carousel>
+      </Section>
+      { displayPosts }
     </>
-);
+  );
+}
 
 export default ({ data }) => {
     //Required check for no data being returned

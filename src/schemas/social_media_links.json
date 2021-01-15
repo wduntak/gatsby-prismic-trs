@@ -17,6 +17,17 @@
                             "multi": "paragraph",
                             "label": "social link url"
                         }
+                    },
+                    "social_link_icon": {
+                        "type": "Image",
+                        "config": {
+                            "constraint": {
+                                "width": 50,
+                                "height": 50
+                            },
+                            "thumbnails": [],
+                            "label": "social icon"
+                        }
                     }
                 },
                 "label": "social_links"

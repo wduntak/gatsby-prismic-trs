@@ -7,12 +7,18 @@ import { usePrismicModalData } from "../hooks/use-prismic-modal-data"
 const PopupContainer = styled("div")`
   display: block;
   
-  .trs-modal-container p, .trs-modal-container  img {
+  .trs-modal-container p, .trs-modal-container img {
       text-align: center;
       display: block;
       margin: 0 auto;
       max-width: 100%;
   }
+`
+
+const ModalStyles = styled(Modal)`
+    img {
+        width: 100%;
+    }
 `
 
 function Popup() {
@@ -37,7 +43,7 @@ function Popup() {
 
     return (
         <PopupContainer>
-            <Modal 
+            <ModalStyles 
                 show={show} 
                 onHide={handleClose}
                 size="lg"
@@ -50,7 +56,7 @@ function Popup() {
                 <Modal.Footer>
                     <Button variant="primary" onClick={handleClose}>Close</Button>
                 </Modal.Footer>
-            </Modal>
+            </ModalStyles>
         </PopupContainer>
     )
 }

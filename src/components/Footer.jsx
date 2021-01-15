@@ -32,6 +32,11 @@ const FooterColumn = styled("div")`
     margin-top: 0;
     padding-top: 0;
     flex-grow: 1;
+    &:nth-of-type(1) {
+        svg {
+            max-width: 240px;
+        }
+    }   
     @media(max-width: ${dimensions.maxwidthMobile}px) {
         &:nth-of-type(1) {
             order: 3;
@@ -48,7 +53,8 @@ const FooterColumn = styled("div")`
         }
     }
     h3 {
-        font-size: 16px;
+        font-size: 14px;
+        text-decoration: underline;
     }
     ul {
         list-style: none;
@@ -92,6 +98,11 @@ const Footer = () => {
                       text
                       raw
                     }
+                    social_link_icon {
+                        fixed(height: 50, width: 50) {
+                            src
+                        }
+                    }
                   }
                 }
               }
@@ -110,19 +121,10 @@ const Footer = () => {
                 </FooterColumn>
                 <FooterColumn></FooterColumn>
                 <FooterColumn>
-                    <h3>About</h3>
-                    <ul>
-                        <li><Link to="/">Home</Link></li>
-                        <li><Link to="/">About Us</Link></li>
-                        <li><Link to="/">Gallery</Link></li>
-                        <li><Link to="/">Blog</Link></li>
-                    </ul>
-                </FooterColumn>
-                <FooterColumn>
                     <h3>Social</h3>
                     <ul>
                         {data.allPrismicSocialMediaLinks.edges[0].node.data.social_links.map((link, i) => (
-                            <li key={i}><a href={link.social_link_url.text}><span>{link.social_link_name.text}</span></a></li>
+                            <li key={i}><a href={link.social_link_url.text}><img src={link.social_link_icon.fixed.src} /><span>{link.social_link_name.text}</span></a></li>
                         ))}
                     </ul>
                 </FooterColumn>
