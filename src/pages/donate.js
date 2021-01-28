@@ -138,6 +138,10 @@ const Donate = ({ donates, meta, home }) => (
         <DonateBodySection>
           {RichText.render(donates.donate_body.raw)}
         </DonateBodySection>
+        <center>
+          <script src="https://donorbox.org/widget.js" type="text/javascript"></script>
+          <iframe src="https://donorbox.org/embed/tibetan-resettlement-stories-voices-of-boston" height="685px" width="100%" style={{maxWidth: '500px', minWidth: '310px', maxHeight: 'none!important'}} seamless="seamless" id="dbox-form-embed" name="donorbox" frameBorder="0" scrolling="no"></iframe>
+        </center>
       </DonateContainer>
     </Layout>
   </>
